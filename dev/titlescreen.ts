@@ -1,3 +1,4 @@
+//Create titlescreen with background, title & audio
 class Titlescreen {
     
     constructor(){
@@ -5,9 +6,11 @@ class Titlescreen {
         var title = titleAnimation();
         var music = new Music(1);
         
+        //Create title images with animations
         function titleAnimation(){
+            
+            //Create far range image with animation (white cell chase)
             var titleChaseFar = document.createElement('titleChaseFar');
-         
             titleChaseFar.style.backgroundImage = "url(\"../images/titlescreen/titleChaseFar.png\")";
             titleChaseFar.style.height = "100px";
             titleChaseFar.style.width = "200px";
@@ -18,6 +21,7 @@ class Titlescreen {
             titleChaseFar.style.animationTimingFunction = "linear";
             document.body.appendChild(titleChaseFar);
             
+            //Create mid range title image with animation
             var title1 = document.createElement("title1");
             title1.style.backgroundImage = "url(\"../images/titlescreen/title3.png\")";
             title1.style.width = "100%";
@@ -28,9 +32,9 @@ class Titlescreen {
             title1.style.animation = "title1Move 20s infinite";
             document.body.appendChild(title1);
             
-            var positionX = window.innerWidth;
+            //Create close range image with animation (white cell chase)
             var titleChaseClose = document.createElement('titleChaseClose');
-         
+            var positionX = window.innerWidth;
             titleChaseClose.style.backgroundImage = "url(\"../images/titlescreen/titleChaseClose.png\")";
             titleChaseClose.style.height = "200px";
             titleChaseClose.style.width = "400px";

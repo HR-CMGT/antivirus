@@ -1,9 +1,12 @@
+//Load music
 class Music {
+    
+    //Choose track by using the parameter
     constructor(musicNumber:number){
         
-        var music = loopMusic();
+        var music = musicLoop();
         
-        function loopMusic(){
+        function musicLoop(){
             var audio = document.createElement("audio");
         
             audio.src = "../audio/titlescreen/music" + musicNumber + ".mp3";

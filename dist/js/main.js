@@ -84,8 +84,8 @@ window.addEventListener("load", function () {
 });
 var Music = (function () {
     function Music(musicNumber) {
-        var music = loopMusic();
-        function loopMusic() {
+        var music = musicLoop();
+        function musicLoop() {
             var audio = document.createElement("audio");
             audio.src = "../audio/titlescreen/music" + musicNumber + ".mp3";
             audio.loop = true;
@@ -120,8 +120,8 @@ var Titlescreen = (function () {
             title1.style.position = "absolute";
             title1.style.animation = "title1Move 20s infinite";
             document.body.appendChild(title1);
-            var positionX = window.innerWidth;
             var titleChaseClose = document.createElement('titleChaseClose');
+            var positionX = window.innerWidth;
             titleChaseClose.style.backgroundImage = "url(\"../images/titlescreen/titleChaseClose.png\")";
             titleChaseClose.style.height = "200px";
             titleChaseClose.style.width = "400px";

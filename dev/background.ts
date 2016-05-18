@@ -1,11 +1,14 @@
+//Create a new background with 3 layers
 class Background {
     
+    //Use the parameters to choose background images (back & front layer)
     constructor(backLayerImage:number, frontLayerImage:number){
         
         var background1 = backLayer();
         var background2 = midLayer();
         var background3 = frontLayer();
         
+        //Create the back layer image (first background image)
         function backLayer(){
             var backLayer = document.createElement("backLayer");
             backLayer.style.backgroundImage = "url(\"../images/backgrounds/backLayer" + backLayerImage + ".png\")";
@@ -15,7 +18,10 @@ class Background {
             document.body.appendChild(backLayer);
         }
         
+        //Create the mid layer images (animated bloodcells)
         function midLayer(){
+            
+            //Create far range bloodcells (small size & low speed)
             for (var i = 26; i < 36; i++) {
             var randomImage = Math.floor(Math.random()*15 + 1);
             var positionX = window.innerWidth;
@@ -34,6 +40,7 @@ class Background {
             document.body.appendChild(backgroundCellSmall);       
             }
         
+        //Create mid range bloodcells (mid size & mid speed)
         for (var i = 16; i < 26; i++) {
             var randomImage = Math.floor(Math.random()*15 + 1);
             var positionX = window.innerWidth;
@@ -52,6 +59,7 @@ class Background {
             document.body.appendChild(backgroundCellMedium);       
             }
         
+        //Create close range bloodcells (big sized & fast speed)
         for (var i = 6; i < 16; i++) {
             var randomImage = Math.floor(Math.random()*15 + 1);
             var positionX = window.innerWidth;
@@ -71,6 +79,7 @@ class Background {
             }
         }
         
+        //Create front layer image (transparent second background image)
         function frontLayer(){
             var frontLayer = document.createElement("frontLayer");
             frontLayer.style.backgroundImage = "url(\"../images/backgrounds/frontLayer" + frontLayerImage + ".png\")";
