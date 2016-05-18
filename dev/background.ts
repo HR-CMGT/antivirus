@@ -4,25 +4,27 @@ class Background {
     //Use the parameters to choose background images (back & front layer)
     constructor(backLayerImage:number, frontLayerImage:number){
         
-        var background1 = backLayer();
-        var background2 = midLayer();
-        var background3 = frontLayer();
+        this.backLayer();
+        this.midLayer();
+        this.frontLayer();
         
-        //Create the back layer image (first background image)
-        function backLayer(){
-            var backLayer = document.createElement("backLayer");
-            backLayer.style.backgroundImage = "url(\"../images/backgrounds/backLayer" + backLayerImage + ".png\")";
-            backLayer.style.width = "100%";
-            backLayer.style.height = "100%";
-            backLayer.style.backgroundSize = "cover";
-            document.body.appendChild(backLayer);
-        }
+    }    
+    
+    //Create the back layer image (first background image)
+    backLayer(){
+        var backLayer = document.createElement("backLayer");
+        backLayer.style.backgroundImage = "url(\"../images/backgrounds/backLayer" + backLayerImage + ".png\")";
+        backLayer.style.width = "100%";
+        backLayer.style.height = "100%";
+        backLayer.style.backgroundSize = "cover";
+        document.body.appendChild(backLayer);
+    }
         
-        //Create the mid layer images (animated bloodcells)
-        function midLayer(){
+    //Create the mid layer images (animated bloodcells)
+    midLayer(){
             
-            //Create far range bloodcells (small size & low speed)
-            for (var i = 26; i < 36; i++) {
+        //Create far range bloodcells (small size & low speed)
+        for (var i = 26; i < 36; i++) {
             var randomImage = Math.floor(Math.random()*15 + 1);
             var positionX = window.innerWidth;
             var randomPositionY = Math.floor(Math.random()*window.innerHeight);
@@ -38,7 +40,7 @@ class Background {
             backgroundCellSmall.style.animation = "backgroundCellMove " + randomAnimationSpeed + "s infinite";
             backgroundCellSmall.style.animationTimingFunction = "linear";
             document.body.appendChild(backgroundCellSmall);       
-            }
+        }
         
         //Create mid range bloodcells (mid size & mid speed)
         for (var i = 16; i < 26; i++) {
@@ -57,7 +59,7 @@ class Background {
             backgroundCellMedium.style.animation = "backgroundCellMove " + randomAnimationSpeed + "s infinite";
             backgroundCellMedium.style.animationTimingFunction = "linear";
             document.body.appendChild(backgroundCellMedium);       
-            }
+        }
         
         //Create close range bloodcells (big sized & fast speed)
         for (var i = 6; i < 16; i++) {
@@ -76,19 +78,16 @@ class Background {
             backgroundCellLarge.style.animation = "backgroundCellMove " + randomAnimationSpeed + "s infinite";
             backgroundCellLarge.style.animationTimingFunction = "linear";
             document.body.appendChild(backgroundCellLarge);       
-            }
         }
+    }
         
-        //Create front layer image (transparent second background image)
-        function frontLayer(){
-            var frontLayer = document.createElement("frontLayer");
-            frontLayer.style.backgroundImage = "url(\"../images/backgrounds/frontLayer" + frontLayerImage + ".png\")";
-            frontLayer.style.width = "100%";
-            frontLayer.style.height = "100%";
-            frontLayer.style.backgroundSize = "cover";
-            document.body.appendChild(frontLayer);   
-        }
-        
-    }    
-    
+    //Create front layer image (transparent second background image)
+    frontLayer(){
+        var frontLayer = document.createElement("frontLayer");
+        frontLayer.style.backgroundImage = "url(\"../images/backgrounds/frontLayer" + frontLayerImage + ".png\")";
+        frontLayer.style.width = "100%";
+        frontLayer.style.height = "100%";
+        frontLayer.style.backgroundSize = "cover";
+        document.body.appendChild(frontLayer);   
+    }
 }

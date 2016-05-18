@@ -4,5 +4,4 @@ class Game {
     constructor(){
         new Titlescreen();
     }
-    
 }

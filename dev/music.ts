@@ -4,15 +4,15 @@ class Music {
     //Choose track by using the parameter
     constructor(musicNumber:number){
         
-        var music = musicLoop();
+        this.musicLoop();
+    }
+    
+    musicLoop(){
+        var audio = document.createElement("audio");
         
-        function musicLoop(){
-            var audio = document.createElement("audio");
-        
-            audio.src = "../audio/titlescreen/music" + musicNumber + ".mp3";
-            audio.loop = true;
-            audio.play();
-            document.body.appendChild(audio);
-        }
+        audio.src = "../audio/titlescreen/music" + musicNumber + ".mp3";
+        audio.loop = true;
+        audio.play();
+        document.body.appendChild(audio);
     }
 }

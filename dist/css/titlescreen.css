@@ -1,0 +1,53 @@
+@keyframes titleChaseCloseMove {
+    from {
+        left: 100%;
+    }
+    
+    20% {
+        left: 100%;
+    }
+    
+    40% {
+        left: -400px;
+    }
+    
+    to {
+        left: -400px;
+    }
+}
+
+@keyframes titleChaseFarMove {
+    from {
+        left: -200px;
+    }
+    
+    60% {
+        left: -200px;
+    }
+    
+    to {
+        left: 100%;
+    }
+}
+
+@keyframes title1Move {
+    0% {
+        margin-top: 54px;
+    }
+    
+    25% {
+        margin-top: 108px;
+    }
+    
+    50% {
+        margin-top: 54px;
+    }
+    
+    75% {
+        margin-top: 0px;
+    }
+    
+    100% {
+        margin-top: 54px;
+    }
+}

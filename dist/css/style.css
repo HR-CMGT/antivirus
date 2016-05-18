@@ -1,3 +1,7 @@
+@import url("background.css");
+@import url("titlescreen.css");
+
+
 body {
     background-color: #70CF51;
     font-family: Arial, Helvetica, sans-serif;
@@ -13,78 +17,3 @@ body * {
     background-repeat: no-repeat;
 }
 
-backgroundCellLarge {
-    animation-timing-function: linear;
-}
-
-backgroundCellMedium {
-    animation-timing-function: linear;
-}
-
-backgroundCellSmall {
-    animation-timing-function: linear;
-}
-
-@keyframes backgroundCellMove {
-    from {
-        left: 100%;
-    }
-    
-    to {
-        left: -75px;
-    }
-}
-
-@keyframes titleChaseCloseMove {
-    from {
-        left: 100%;
-    }
-    
-    20% {
-        left: 100%;
-    }
-    
-    40% {
-        left: -400px;
-    }
-    
-    to {
-        left: -400px;
-    }
-}
-
-@keyframes titleChaseFarMove {
-    from {
-        left: -200px;
-    }
-    
-    60% {
-        left: -200px;
-    }
-    
-    to {
-        left: 100%;
-    }
-}
-
-@keyframes title1Move {
-    0% {
-        margin-top: 54px;
-    }
-    
-    25% {
-        margin-top: 108px;
-    }
-    
-    50% {
-        margin-top: 54px;
-    }
-    
-    75% {
-        margin-top: 0px;
-    }
-    
-    100% {
-        margin-top: 54px;
-    }
-}

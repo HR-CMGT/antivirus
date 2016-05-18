@@ -1,0 +1,22 @@
+
+backgroundCellLarge {
+    animation-timing-function: linear;
+}
+
+backgroundCellMedium {
+    animation-timing-function: linear;
+}
+
+backgroundCellSmall {
+    animation-timing-function: linear;
+}
+
+@keyframes backgroundCellMove {
+    from {
+        left: 100%;
+    }
+    
+    to {
+        left: -75px;
+    }
+}
