@@ -4,14 +4,14 @@ class Background {
     //Use the parameters to choose background images (back & front layer)
     constructor(backLayerImage:number, frontLayerImage:number){
         
-        this.backLayer();
+        this.backLayer(backLayerImage);
         this.midLayer();
-        this.frontLayer();
+        this.frontLayer(frontLayerImage);
         
     }    
     
     //Create the back layer image (first background image)
-    backLayer(){
+    backLayer(backLayerImage){
         var backLayer = document.createElement("backLayer");
         backLayer.style.backgroundImage = "url(\"../images/backgrounds/backLayer" + backLayerImage + ".png\")";
         backLayer.style.width = "100%";
@@ -82,7 +82,7 @@ class Background {
     }
         
     //Create front layer image (transparent second background image)
-    frontLayer(){
+    frontLayer(frontLayerImage){
         var frontLayer = document.createElement("frontLayer");
         frontLayer.style.backgroundImage = "url(\"../images/backgrounds/frontLayer" + frontLayerImage + ".png\")";
         frontLayer.style.width = "100%";

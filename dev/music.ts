@@ -4,10 +4,10 @@ class Music {
     //Choose track by using the parameter
     constructor(musicNumber:number){
         
-        this.musicLoop();
+        this.musicLoop(musicNumber);
     }
     
-    musicLoop(){
+    musicLoop(musicNumber){
         var audio = document.createElement("audio");
         
         audio.src = "../audio/titlescreen/music" + musicNumber + ".mp3";
