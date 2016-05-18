@@ -74,7 +74,6 @@ var Background = (function () {
 }());
 var Game = (function () {
     function Game() {
-        new Background(1, 1);
         new Titlescreen();
     }
     return Game;
