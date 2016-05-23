@@ -75,15 +75,7 @@ var Background = (function () {
 var Game = (function () {
     function Game() {
         new Titlescreen();
-        new Levelload();
-        this.char1 = new WhiteBloodCell(37, 39, 38, 40);
-        this.utils = new Utils();
-        requestAnimationFrame(this.gameLoop.bind(this));
     }
-    Game.prototype.gameLoop = function () {
-        this.char1.move();
-        requestAnimationFrame(this.gameLoop.bind(this));
-    };
     return Game;
 }());
 window.addEventListener("load", function () {
@@ -93,24 +85,15 @@ var Level1 = (function () {
     function Level1() {
         var background = new Background(1, 1);
         var music = new Music(1);
+        this.char1 = new WhiteBloodCell(37, 39, 38, 40);
+        this.utils = new Utils();
+        requestAnimationFrame(this.gameLoop.bind(this));
     }
+    Level1.prototype.gameLoop = function () {
+        this.char1.move();
+        requestAnimationFrame(this.gameLoop.bind(this));
+    };
     return Level1;
-}());
-var Levelload = (function () {
-    function Levelload() {
-        this.levelloaded();
-        this.spacebarPress();
-    }
-    Levelload.prototype.levelloaded = function () {
-        console.log("level loaded");
-    };
-    Levelload.prototype.spacebarPress = function (e) {
-        if (e.keyCode == 32) {
-            console.log("spacebar pressed");
-            new Level1;
-        }
-    };
-    return Levelload;
 }());
 window.addEventListener("load", function () {
     new Game();
@@ -223,9 +206,16 @@ var Titlescreen = (function () {
         var background = new Background(1, 1);
         this.titleAnimation();
         var music = new Music(1);
+        document.addEventListener("click", this.levelload);
     }
+    Titlescreen.prototype.levelload = function () {
+        var element = document.getElementById("titleChaseFar");
+        element.parentNode.removeChild(element);
+        new Level1();
+    };
     Titlescreen.prototype.titleAnimation = function () {
         var titleChaseFar = document.createElement('titleChaseFar');
+        titleChaseFar.setAttribute("id", "titleChaseFar");
         titleChaseFar.style.backgroundImage = "url(\"../images/titlescreen/titleChaseFar.png\")";
         titleChaseFar.style.height = "100px";
         titleChaseFar.style.width = "200px";

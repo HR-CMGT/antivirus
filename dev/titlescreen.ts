@@ -5,13 +5,21 @@ class Titlescreen {
         var background = new Background(1,1);
         this.titleAnimation();
         var music = new Music(1); 
+        document.addEventListener("click", this.levelload);
         
     }
     
-    titleAnimation(){
-            
+    levelload(){
+        var element = document.getElementById("titleChaseFar");
+        element.parentNode.removeChild(element);
+        new Level1();
+    }
+    
+    titleAnimation(){    
+        
         //Create far range image with animation (white cell chase)
         var titleChaseFar = document.createElement('titleChaseFar');
+        titleChaseFar.setAttribute("id", "titleChaseFar");
         titleChaseFar.style.backgroundImage = "url(\"../images/titlescreen/titleChaseFar.png\")";
         titleChaseFar.style.height = "100px";
         titleChaseFar.style.width = "200px";
