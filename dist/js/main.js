@@ -88,11 +88,17 @@ var Level1 = (function () {
 }());
 var Levelload = (function () {
     function Levelload() {
-        console.log("Hello");
         this.levelloaded();
+        this.spacebarPress();
     }
     Levelload.prototype.levelloaded = function () {
         console.log("level loaded");
+    };
+    Levelload.prototype.spacebarPress = function (e) {
+        if (e.keyCode == 32) {
+            console.log("spacebar pressed");
+            new Level1;
+        }
     };
     return Levelload;
 }());
