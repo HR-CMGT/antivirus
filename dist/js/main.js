@@ -1,16 +1,24 @@
 var Background = (function () {
     function Background(backLayerImage, frontLayerImage) {
+        this.createBackground();
         this.backLayer(backLayerImage);
         this.midLayer();
         this.frontLayer(frontLayerImage);
     }
+    Background.prototype.createBackground = function () {
+        var background = document.createElement("background");
+        background.setAttribute("id", "background");
+        document.body.appendChild(background);
+        background.style.width = "100%";
+        background.style.height = "100%";
+    };
     Background.prototype.backLayer = function (backLayerImage) {
         var backLayer = document.createElement("backLayer");
         backLayer.style.backgroundImage = "url(\"../images/backgrounds/backLayer" + backLayerImage + ".png\")";
         backLayer.style.width = "100%";
         backLayer.style.height = "100%";
         backLayer.style.backgroundSize = "cover";
-        document.body.appendChild(backLayer);
+        document.getElementById("background").appendChild(backLayer);
     };
     Background.prototype.midLayer = function () {
         for (var i = 26; i < 36; i++) {
@@ -27,7 +35,7 @@ var Background = (function () {
             backgroundCellSmall.style.position = "absolute";
             backgroundCellSmall.style.animation = "backgroundCellMove " + randomAnimationSpeed + "s infinite";
             backgroundCellSmall.style.animationTimingFunction = "linear";
-            document.body.appendChild(backgroundCellSmall);
+            document.getElementById("background").appendChild(backgroundCellSmall);
         }
         for (var i = 16; i < 26; i++) {
             var randomImage = Math.floor(Math.random() * 15 + 1);
@@ -43,7 +51,7 @@ var Background = (function () {
             backgroundCellMedium.style.position = "absolute";
             backgroundCellMedium.style.animation = "backgroundCellMove " + randomAnimationSpeed + "s infinite";
             backgroundCellMedium.style.animationTimingFunction = "linear";
-            document.body.appendChild(backgroundCellMedium);
+            document.getElementById("background").appendChild(backgroundCellMedium);
         }
         for (var i = 6; i < 16; i++) {
             var randomImage = Math.floor(Math.random() * 15 + 1);
@@ -59,7 +67,7 @@ var Background = (function () {
             backgroundCellLarge.style.position = "absolute";
             backgroundCellLarge.style.animation = "backgroundCellMove " + randomAnimationSpeed + "s infinite";
             backgroundCellLarge.style.animationTimingFunction = "linear";
-            document.body.appendChild(backgroundCellLarge);
+            document.getElementById("background").appendChild(backgroundCellLarge);
         }
     };
     Background.prototype.frontLayer = function (frontLayerImage) {
@@ -68,7 +76,7 @@ var Background = (function () {
         frontLayer.style.width = "100%";
         frontLayer.style.height = "100%";
         frontLayer.style.backgroundSize = "cover";
-        document.body.appendChild(frontLayer);
+        document.getElementById("background").appendChild(frontLayer);
     };
     return Background;
 }());
@@ -78,17 +86,20 @@ var Game = (function () {
     }
     return Game;
 }());
-window.addEventListener("load", function () {
-    new WhiteBloodCell(65, 68, 87, 83);
-});
 var Level1 = (function () {
     function Level1() {
+        this.removePreviousBackground();
         var background = new Background(1, 1);
-        var music = new Music(1);
         this.char1 = new WhiteBloodCell(37, 39, 38, 40);
         this.utils = new Utils();
         requestAnimationFrame(this.gameLoop.bind(this));
     }
+    Level1.prototype.removePreviousBackground = function () {
+        var bg = document.getElementById("background");
+        while (bg.hasChildNodes()) {
+            bg.removeChild(bg.firstChild);
+        }
+    };
     Level1.prototype.gameLoop = function () {
         this.char1.move();
         requestAnimationFrame(this.gameLoop.bind(this));
@@ -234,7 +245,7 @@ var Titlescreen = (function () {
         titleChaseFar.style.position = "absolute";
         titleChaseFar.style.animation = "titleChaseFarMove 15s infinite";
         titleChaseFar.style.animationTimingFunction = "linear";
-        document.body.appendChild(titleChaseFar);
+        document.getElementById("background").appendChild(titleChaseFar);
         var title1 = document.createElement("title1");
         title1.style.backgroundImage = "url(\"../images/titlescreen/title3.png\")";
         title1.style.width = "100%";
@@ -243,7 +254,7 @@ var Titlescreen = (function () {
         title1.style.marginLeft = "-533px";
         title1.style.position = "absolute";
         title1.style.animation = "title1Move 20s infinite";
-        document.body.appendChild(title1);
+        document.getElementById("background").appendChild(title1);
         var titleChaseClose = document.createElement('titleChaseClose');
         var positionX = window.innerWidth;
         titleChaseClose.style.backgroundImage = "url(\"../images/titlescreen/titleChaseClose.png\")";
@@ -254,7 +265,7 @@ var Titlescreen = (function () {
         titleChaseClose.style.position = "absolute";
         titleChaseClose.style.animation = "titleChaseCloseMove 15s infinite";
         titleChaseClose.style.animationTimingFunction = "linear";
-        document.body.appendChild(titleChaseClose);
+        document.getElementById("background").appendChild(titleChaseClose);
     };
     return Titlescreen;
 }());

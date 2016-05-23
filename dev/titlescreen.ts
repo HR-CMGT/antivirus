@@ -28,7 +28,7 @@ class Titlescreen {
         titleChaseFar.style.position = "absolute";
         titleChaseFar.style.animation = "titleChaseFarMove 15s infinite";
         titleChaseFar.style.animationTimingFunction = "linear";
-        document.body.appendChild(titleChaseFar);
+        document.getElementById("background").appendChild(titleChaseFar);
             
         //Create mid range title image with animation
         var title1 = document.createElement("title1");
@@ -39,7 +39,7 @@ class Titlescreen {
         title1.style.marginLeft = "-533px";
         title1.style.position = "absolute";
         title1.style.animation = "title1Move 20s infinite";
-        document.body.appendChild(title1);
+        document.getElementById("background").appendChild(title1);
             
         //Create close range image with animation (white cell chase)
         var titleChaseClose = document.createElement('titleChaseClose');
@@ -52,6 +52,6 @@ class Titlescreen {
         titleChaseClose.style.position = "absolute";
         titleChaseClose.style.animation = "titleChaseCloseMove 15s infinite";
         titleChaseClose.style.animationTimingFunction = "linear";
-        document.body.appendChild(titleChaseClose);
+        document.getElementById("background").appendChild(titleChaseClose);
     } 
 }
