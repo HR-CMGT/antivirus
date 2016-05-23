@@ -76,9 +76,19 @@ var Game = (function () {
     function Game() {
         new Titlescreen();
         new Levelload();
+        this.char1 = new WhiteBloodCell(37, 39, 38, 40);
+        this.utils = new Utils();
+        requestAnimationFrame(this.gameLoop.bind(this));
     }
+    Game.prototype.gameLoop = function () {
+        this.char1.move();
+        requestAnimationFrame(this.gameLoop.bind(this));
+    };
     return Game;
 }());
+window.addEventListener("load", function () {
+    new WhiteBloodCell(65, 68, 87, 83);
+});
 var Level1 = (function () {
     function Level1() {
         var background = new Background(1, 1);
@@ -117,6 +127,75 @@ var Music = (function () {
         document.body.appendChild(audio);
     };
     return Music;
+}());
+var WhiteBloodCell = (function () {
+    function WhiteBloodCell(left, right, up, down) {
+        this.leftSpeed = 0;
+        this.rightSpeed = 0;
+        this.downSpeed = 0;
+        this.upSpeed = 0;
+        this.div = document.createElement("whiteBloodCell");
+        document.body.appendChild(this.div);
+        this.upkey = up;
+        this.downkey = down;
+        this.leftkey = left;
+        this.rightkey = right;
+        this.x = Math.floor(200 + Math.random() * 200);
+        this.y = Math.floor(200 + Math.random() * 200);
+        this.width = 200;
+        this.height = 200;
+        window.addEventListener("keydown", this.onKeyDown.bind(this));
+        window.addEventListener("keyup", this.onKeyUp.bind(this));
+    }
+    WhiteBloodCell.prototype.onKeyDown = function (event) {
+        switch (event.keyCode) {
+            case this.upkey:
+                if (this.upkey <= 0)
+                    this.upSpeed = 5;
+                break;
+            case this.downkey:
+                this.downSpeed = 5;
+                break;
+            case this.leftkey:
+                this.leftSpeed = 5;
+                this.div.style.backgroundImage = "url('../images/player/player-look-right.png')";
+                break;
+            case this.rightkey:
+                this.rightSpeed = 5;
+                this.div.style.backgroundImage = "url('../images/player/player-look-left.png')";
+                break;
+        }
+    };
+    WhiteBloodCell.prototype.onKeyUp = function (event) {
+        switch (event.keyCode) {
+            case this.upkey:
+                this.upSpeed = 0;
+                break;
+            case this.downkey:
+                this.downSpeed = 0;
+                break;
+            case this.leftkey:
+                this.leftSpeed = 0;
+                break;
+            case this.rightkey:
+                this.rightSpeed = 0;
+                break;
+        }
+    };
+    WhiteBloodCell.prototype.move = function () {
+        this.x = this.x - this.leftSpeed + this.rightSpeed;
+        this.y = this.y - this.upSpeed + this.downSpeed;
+        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px) scaleX(-1)";
+    };
+    WhiteBloodCell.prototype.showHit = function (hit) {
+        if (hit) {
+            this.div.style.borderColor = "red";
+        }
+        else {
+            this.div.style.borderColor = "greenyellow";
+        }
+    };
+    return WhiteBloodCell;
 }());
 var Titlescreen = (function () {
     function Titlescreen() {
@@ -157,5 +236,13 @@ var Titlescreen = (function () {
         document.body.appendChild(titleChaseClose);
     };
     return Titlescreen;
+}());
+var Utils = (function () {
+    function Utils() {
+    }
+    Utils.prototype.isOverlap = function (c1, c2) {
+        return !(c2.x > c1.x + c1.width || c2.x + c2.width < c1.x || c2.y > c1.y + c1.height || c2.y + c2.height < c1.y);
+    };
+    return Utils;
 }());
 //# sourceMappingURL=main.js.map
