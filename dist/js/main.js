@@ -226,13 +226,44 @@ var Titlescreen = (function () {
     function Titlescreen() {
         var background = new Background(1, 1);
         this.titleAnimation();
+        this.createMenu();
         var music = new Music(1);
-        document.addEventListener("click", this.levelload);
     }
     Titlescreen.prototype.levelload = function () {
         var element = document.getElementById("titleChaseFar");
         element.parentNode.removeChild(element);
         new Level1();
+    };
+    Titlescreen.prototype.createMenu = function () {
+        var player1 = document.createElement("player1");
+        player1.style.backgroundImage = "url(\"../images/interface/icons/1player.png\")";
+        player1.style.width = "100%";
+        player1.style.height = "100%";
+        player1.style.left = "50%";
+        player1.style.top = "50%";
+        player1.style.marginLeft = "-259px";
+        player1.style.position = "absolute";
+        document.getElementById("background").appendChild(player1);
+        player1.setAttribute("id", "player1");
+        document.getElementById("player1").addEventListener("click", this.levelload);
+        var player2 = document.createElement("player2");
+        player2.style.backgroundImage = "url(\"../images/interface/icons/2players.png\")";
+        player2.style.width = "100%";
+        player2.style.height = "100%";
+        player2.style.left = "50%";
+        player2.style.top = "60%";
+        player2.style.marginLeft = "-259px";
+        player2.style.position = "absolute";
+        document.getElementById("background").appendChild(player2);
+        var achievements = document.createElement("achievement");
+        achievements.style.backgroundImage = "url(\"../images/interface/icons/prestaties.png\")";
+        achievements.style.width = "100%";
+        achievements.style.height = "100%";
+        achievements.style.left = "50%";
+        achievements.style.top = "70%";
+        achievements.style.marginLeft = "-259px";
+        achievements.style.position = "absolute";
+        document.getElementById("background").appendChild(achievements);
     };
     Titlescreen.prototype.titleAnimation = function () {
         var titleChaseFar = document.createElement('titleChaseFar');
