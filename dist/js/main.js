@@ -1,10 +1,10 @@
 var Background = (function () {
     function Background(backLayerImage, frontLayerImage) {
-        this.backLayer();
+        this.backLayer(backLayerImage);
         this.midLayer();
-        this.frontLayer();
+        this.frontLayer(frontLayerImage);
     }
-    Background.prototype.backLayer = function () {
+    Background.prototype.backLayer = function (backLayerImage) {
         var backLayer = document.createElement("backLayer");
         backLayer.style.backgroundImage = "url(\"../images/backgrounds/backLayer" + backLayerImage + ".png\")";
         backLayer.style.width = "100%";
@@ -62,7 +62,7 @@ var Background = (function () {
             document.body.appendChild(backgroundCellLarge);
         }
     };
-    Background.prototype.frontLayer = function () {
+    Background.prototype.frontLayer = function (frontLayerImage) {
         var frontLayer = document.createElement("frontLayer");
         frontLayer.style.backgroundImage = "url(\"../images/backgrounds/frontLayer" + frontLayerImage + ".png\")";
         frontLayer.style.width = "100%";
@@ -83,9 +83,9 @@ window.addEventListener("load", function () {
 });
 var Music = (function () {
     function Music(musicNumber) {
-        this.musicLoop();
+        this.musicLoop(musicNumber);
     }
-    Music.prototype.musicLoop = function () {
+    Music.prototype.musicLoop = function (musicNumber) {
         var audio = document.createElement("audio");
         audio.src = "../audio/titlescreen/music" + musicNumber + ".mp3";
         audio.loop = true;
