@@ -126,18 +126,21 @@ var WhiteBloodCell = (function () {
     WhiteBloodCell.prototype.onKeyDown = function (event) {
         switch (event.keyCode) {
             case this.upkey:
-                if (this.upkey <= 0)
-                    this.upSpeed = 5;
+                this.upSpeed = 5;
+                console.log(this.y);
                 break;
             case this.downkey:
                 this.downSpeed = 5;
+                console.log(this.y);
                 break;
             case this.leftkey:
                 this.leftSpeed = 5;
+                console.log(this.x);
                 this.div.style.backgroundImage = "url('../images/player/player-look-right.png')";
                 break;
             case this.rightkey:
                 this.rightSpeed = 5;
+                console.log(this.x);
                 this.div.style.backgroundImage = "url('../images/player/player-look-left.png')";
                 break;
         }
@@ -169,6 +172,24 @@ var WhiteBloodCell = (function () {
         }
         else {
             this.div.style.borderColor = "greenyellow";
+        }
+    };
+    WhiteBloodCell.prototype.checkCollision = function (keyCode) {
+        if (keyCode == "upkey") {
+            if (this.y <= window.innerHeight)
+                this.upSpeed = 0;
+        }
+        if (keyCode == "downkey") {
+            if (this.y >= window.innerHeight)
+                this.downSpeed = 0;
+        }
+        if (keyCode == "leftkey") {
+            if (this.x <= window.innerWidth)
+                this.leftSpeed = 0;
+        }
+        if (keyCode == "rightkey") {
+            if (this.x >= window.innerWidth)
+                this.rightSpeed = 0;
         }
     };
     return WhiteBloodCell;
