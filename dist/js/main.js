@@ -129,25 +129,31 @@ var WhiteBloodCell = (function () {
         this.height = 200;
         window.addEventListener("keydown", this.onKeyDown.bind(this));
         window.addEventListener("keyup", this.onKeyUp.bind(this));
+        console.log("De hoogte is " + window.innerHeight);
+        console.log("De breedte is " + window.innerWidth);
     }
     WhiteBloodCell.prototype.onKeyDown = function (event) {
         switch (event.keyCode) {
             case this.upkey:
-                this.upSpeed = 5;
-                console.log(this.y);
+                this.upSpeed = 15;
+                console.log("De Y is " + this.y);
+                this.checkCollision("upkey");
                 break;
             case this.downkey:
-                this.downSpeed = 5;
-                console.log(this.y);
+                this.downSpeed = 15;
+                console.log("De Y is " + this.y);
+                this.checkCollision("downkey");
                 break;
             case this.leftkey:
-                this.leftSpeed = 5;
-                console.log(this.x);
+                this.leftSpeed = 15;
+                console.log("De X is " + this.x);
+                this.checkCollision("leftkey");
                 this.div.style.backgroundImage = "url('../images/player/player-look-right.png')";
                 break;
             case this.rightkey:
-                this.rightSpeed = 5;
-                console.log(this.x);
+                this.rightSpeed = 15;
+                console.log("De X is " + this.x);
+                this.checkCollision("rightkey");
                 this.div.style.backgroundImage = "url('../images/player/player-look-left.png')";
                 break;
         }
@@ -183,20 +189,24 @@ var WhiteBloodCell = (function () {
     };
     WhiteBloodCell.prototype.checkCollision = function (keyCode) {
         if (keyCode == "upkey") {
-            if (this.y <= window.innerHeight)
+            if (this.y <= 0) {
                 this.upSpeed = 0;
+            }
         }
         if (keyCode == "downkey") {
-            if (this.y >= window.innerHeight)
+            if (this.y >= window.innerHeight - this.height) {
                 this.downSpeed = 0;
+            }
         }
         if (keyCode == "leftkey") {
-            if (this.x <= window.innerWidth)
+            if (this.x <= 0) {
                 this.leftSpeed = 0;
+            }
         }
         if (keyCode == "rightkey") {
-            if (this.x >= window.innerWidth)
+            if (this.x >= window.innerWidth - this.width) {
                 this.rightSpeed = 0;
+            }
         }
     };
     return WhiteBloodCell;
