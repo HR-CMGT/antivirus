@@ -4,11 +4,21 @@ class Background {
     //Use the parameters to choose background images (back & front layer)
     constructor(backLayerImage:number, frontLayerImage:number){
         
+        this.createBackground();
         this.backLayer(backLayerImage);
         this.midLayer();
         this.frontLayer(frontLayerImage);
+   
         
     }    
+   
+    createBackground(){
+        var background = document.createElement("background");
+        background.setAttribute("id", "background");
+        document.body.appendChild(background);
+        background.style.width = "100%";
+        background.style.height = "100%";
+    }
     
     //Create the back layer image (first background image)
     backLayer(backLayerImage){
@@ -17,7 +27,7 @@ class Background {
         backLayer.style.width = "100%";
         backLayer.style.height = "100%";
         backLayer.style.backgroundSize = "cover";
-        document.body.appendChild(backLayer);
+        document.getElementById("background").appendChild(backLayer);
     }
         
     //Create the mid layer images (animated bloodcells)
@@ -39,7 +49,7 @@ class Background {
             backgroundCellSmall.style.position = "absolute";
             backgroundCellSmall.style.animation = "backgroundCellMove " + randomAnimationSpeed + "s infinite";
             backgroundCellSmall.style.animationTimingFunction = "linear";
-            document.body.appendChild(backgroundCellSmall);       
+            document.getElementById("background").appendChild(backgroundCellSmall);       
         }
         
         //Create mid range bloodcells (mid size & mid speed)
@@ -58,7 +68,7 @@ class Background {
             backgroundCellMedium.style.position = "absolute";
             backgroundCellMedium.style.animation = "backgroundCellMove " + randomAnimationSpeed + "s infinite";
             backgroundCellMedium.style.animationTimingFunction = "linear";
-            document.body.appendChild(backgroundCellMedium);       
+            document.getElementById("background").appendChild(backgroundCellMedium);       
         }
         
         //Create close range bloodcells (big sized & fast speed)
@@ -77,7 +87,7 @@ class Background {
             backgroundCellLarge.style.position = "absolute";
             backgroundCellLarge.style.animation = "backgroundCellMove " + randomAnimationSpeed + "s infinite";
             backgroundCellLarge.style.animationTimingFunction = "linear";
-            document.body.appendChild(backgroundCellLarge);       
+            document.getElementById("background").appendChild(backgroundCellLarge);       
         }
     }
         
@@ -88,6 +98,6 @@ class Background {
         frontLayer.style.width = "100%";
         frontLayer.style.height = "100%";
         frontLayer.style.backgroundSize = "cover";
-        document.body.appendChild(frontLayer);   
+        document.getElementById("background").appendChild(frontLayer);   
     }
 }
