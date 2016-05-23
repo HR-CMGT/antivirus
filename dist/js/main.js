@@ -75,8 +75,26 @@ var Background = (function () {
 var Game = (function () {
     function Game() {
         new Titlescreen();
+        new Levelload();
     }
     return Game;
+}());
+var Level1 = (function () {
+    function Level1() {
+        var background = new Background(1, 1);
+        var music = new Music(1);
+    }
+    return Level1;
+}());
+var Levelload = (function () {
+    function Levelload() {
+        console.log("Hello");
+        this.levelloaded();
+    }
+    Levelload.prototype.levelloaded = function () {
+        console.log("level loaded");
+    };
+    return Levelload;
 }());
 window.addEventListener("load", function () {
     new Game();

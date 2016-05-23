@@ -3,5 +3,6 @@ class Game {
     
     constructor(){
         new Titlescreen();
+        new Levelload();
     }
 }
