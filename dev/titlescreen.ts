@@ -21,8 +21,8 @@ class Titlescreen {
         //Create 1 player button
         var player1 = document.createElement("player1");
         player1.style.backgroundImage = "url(\"../images/interface/icons/1player.png\")";
-        player1.style.width = "100%";
-        player1.style.height = "100%";
+        player1.style.width = "472px";
+        player1.style.height = "82px";
         player1.style.left = "50%";
         player1.style.top = "50%";
         player1.style.marginLeft = "-259px";
@@ -30,28 +30,49 @@ class Titlescreen {
         document.getElementById("background").appendChild(player1);
         player1.setAttribute("id", "player1");
         document.getElementById("player1").addEventListener("click", this.levelload);
+        player1.style.display = "inline-block";
+        player1.onmouseover=function(){
+            player1.style.backgroundImage = "url(\"../images/interface/icons/1player_hover.png\")"
+        }
+        player1.onmouseleave=function(){
+            player1.style.backgroundImage = "url(\"../images/interface/icons/1player.png\")";
+        }
         
         //Create 2 player button
         var player2 = document.createElement("player2");
         player2.style.backgroundImage = "url(\"../images/interface/icons/2players.png\")";
-        player2.style.width = "100%";
-        player2.style.height = "100%";
+        player2.style.width = "519px";
+        player2.style.height = "78px";
         player2.style.left = "50%";
         player2.style.top = "60%";
         player2.style.marginLeft = "-259px";
         player2.style.position = "absolute";
         document.getElementById("background").appendChild(player2);
+        player2.style.display = "inline-block";
+        player2.onmouseover=function(){
+            player2.style.backgroundImage = "url(\"../images/interface/icons/2players_hover.png\")"
+        }
+        player2.onmouseleave=function(){
+            player2.style.backgroundImage = "url(\"../images/interface/icons/2players.png\")";
+        }
         
         //Create achievements button
         var achievements = document.createElement("achievement");
         achievements.style.backgroundImage = "url(\"../images/interface/icons/prestaties.png\")";
-        achievements.style.width = "100%";
-        achievements.style.height = "100%";
+        achievements.style.width = "594px";
+        achievements.style.height = "78px";
         achievements.style.left = "50%";
         achievements.style.top = "70%";
         achievements.style.marginLeft = "-259px";
         achievements.style.position = "absolute";
         document.getElementById("background").appendChild(achievements);
+        achievements.style.display = "inline-block";
+        achievements.onmouseover=function(){
+            achievements.style.backgroundImage = "url(\"../images/interface/icons/prestaties_hover.png\")"
+        }
+        achievements.onmouseleave=function(){
+            achievements.style.backgroundImage = "url(\"../images/interface/icons/prestaties.png\")";
+        }
     }
     
     titleAnimation(){    
@@ -72,8 +93,8 @@ class Titlescreen {
         //Create mid range title image with animation
         var title1 = document.createElement("title1");
         title1.style.backgroundImage = "url(\"../images/titlescreen/title3.png\")";
-        title1.style.width = "100%";
-        title1.style.height = "100%";
+        title1.style.width = "1066px";
+        title1.style.height = "434px";
         title1.style.left = "50%";
         title1.style.marginLeft = "-533px";
         title1.style.position = "absolute";
