@@ -18,8 +18,8 @@ class Titlescreen {
         new Level1(2);
     }
     
-    public CharacterSelect(){
-        new CharacterSelect();
+    public CharacterSelect1(){
+        new CharacterSelect(1);
     }
     
     createMenu(){
@@ -35,7 +35,7 @@ class Titlescreen {
         player1.style.position = "absolute";
         document.getElementById("background").appendChild(player1);
         player1.setAttribute("id", "player1");
-        document.getElementById("player1").addEventListener("click", this.levelload1);
+        document.getElementById("player1").addEventListener("click", this.CharacterSelect1);
         player1.style.display = "inline-block";
         player1.onmouseover=function(){
             player1.style.backgroundImage = "url(\"../images/interface/icons/1player_hover.png\")"

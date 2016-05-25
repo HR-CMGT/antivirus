@@ -11,7 +11,9 @@ class Utils {
     public removePreviousBackground(){
         var bg = document.getElementById("background");
         while (bg.hasChildNodes()) {   
-            bg.removeChild(bg.firstChild);
+            //bg.firstChild.remove();
+             bg.removeChild(bg.firstChild);
         }
+        bg.remove();
     }   
 }
