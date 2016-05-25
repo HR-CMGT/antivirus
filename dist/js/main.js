@@ -87,21 +87,22 @@ var Game = (function () {
     return Game;
 }());
 var Level1 = (function () {
-    function Level1() {
-        this.removePreviousBackground();
-        var background = new Background(1, 1);
-        this.char1 = new WhiteBloodCell(37, 39, 38, 40);
+    function Level1(playerCount) {
         this.utils = new Utils();
+        this.utils.removePreviousBackground();
+        var background = new Background(1, 1);
+        if (playerCount == 1) {
+            this.char1 = new WhiteBloodCell(37, 39, 38, 40);
+        }
+        else {
+            this.char1 = new WhiteBloodCell(37, 39, 38, 40);
+            this.char2 = new WhiteBloodCell(65, 68, 87, 83);
+        }
         requestAnimationFrame(this.gameLoop.bind(this));
     }
-    Level1.prototype.removePreviousBackground = function () {
-        var bg = document.getElementById("background");
-        while (bg.hasChildNodes()) {
-            bg.removeChild(bg.firstChild);
-        }
-    };
     Level1.prototype.gameLoop = function () {
         this.char1.move();
+        this.char2.move();
         requestAnimationFrame(this.gameLoop.bind(this));
     };
     return Level1;
@@ -229,10 +230,11 @@ var Titlescreen = (function () {
         this.createMenu();
         var music = new Music(1);
     }
-    Titlescreen.prototype.levelload = function () {
-        var element = document.getElementById("titleChaseFar");
-        element.parentNode.removeChild(element);
-        new Level1();
+    Titlescreen.prototype.levelload1 = function () {
+        new Level1(1);
+    };
+    Titlescreen.prototype.levelload2 = function () {
+        new Level1(2);
     };
     Titlescreen.prototype.createMenu = function () {
         var player1 = document.createElement("player1");
@@ -245,7 +247,7 @@ var Titlescreen = (function () {
         player1.style.position = "absolute";
         document.getElementById("background").appendChild(player1);
         player1.setAttribute("id", "player1");
-        document.getElementById("player1").addEventListener("click", this.levelload);
+        document.getElementById("player1").addEventListener("click", this.levelload1);
         player1.style.display = "inline-block";
         player1.onmouseover = function () {
             player1.style.backgroundImage = "url(\"../images/interface/icons/1player_hover.png\")";
@@ -263,6 +265,8 @@ var Titlescreen = (function () {
         player2.style.marginLeft = "-259px";
         player2.style.position = "absolute";
         document.getElementById("background").appendChild(player2);
+        player2.setAttribute("id", "player2");
+        document.getElementById("player2").addEventListener("click", this.levelload2);
         player2.style.display = "inline-block";
         player2.onmouseover = function () {
             player2.style.backgroundImage = "url(\"../images/interface/icons/2players_hover.png\")";
@@ -329,6 +333,12 @@ var Utils = (function () {
     }
     Utils.prototype.isOverlap = function (c1, c2) {
         return !(c2.x > c1.x + c1.width || c2.x + c2.width < c1.x || c2.y > c1.y + c1.height || c2.y + c2.height < c1.y);
+    };
+    Utils.prototype.removePreviousBackground = function () {
+        var bg = document.getElementById("background");
+        while (bg.hasChildNodes()) {
+            bg.removeChild(bg.firstChild);
+        }
     };
     return Utils;
 }());

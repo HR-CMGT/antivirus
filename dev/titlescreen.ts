@@ -11,11 +11,11 @@ class Titlescreen {
     }
     
     public levelload1(){
-        new Levelload(1);
+        new Level1(1);
     }
     
-    public levelload(){
-        new Levelload(2);
+    public levelload2(){
+        new Level1(2);
     }
     createMenu(){
         
@@ -50,6 +50,8 @@ class Titlescreen {
         player2.style.marginLeft = "-259px";
         player2.style.position = "absolute";
         document.getElementById("background").appendChild(player2);
+        player2.setAttribute("id", "player2");
+        document.getElementById("player2").addEventListener("click", this.levelload2);
         player2.style.display = "inline-block";
         player2.onmouseover=function(){
             player2.style.backgroundImage = "url(\"../images/interface/icons/2players_hover.png\")"
