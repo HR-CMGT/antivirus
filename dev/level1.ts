@@ -6,6 +6,7 @@ class Level1 {
     public playerCount;
     private utils:Utils;
     public life:Life;
+    public virus:Virus;
        
     
     constructor(playerCount:number){
@@ -16,16 +17,22 @@ class Level1 {
         var background = new Background(1,1);
         // var music = new Music(1);
         if(playerCount == 1){
-            this.char1 = new WhiteBloodCell(37,39,38,40);
+            
             this.life = new Life();
             this.life.spawnLife(10);
+            this.virus = new Virus();
+            this.virus.spawnVirus(10);
+            this.char1 = new WhiteBloodCell(37,39,38,40);
 
             
         } else {
-            this.char1 = new WhiteBloodCell(37,39,38,40);
-            this.char2 = new WhiteBloodCell(65,68,87,83);
+
             this.life = new Life();
             this.life.spawnLife(5);
+            this.virus = new Virus();
+            this.virus.spawnVirus(25);
+            this.char1 = new WhiteBloodCell(37,39,38,40);
+            this.char2 = new WhiteBloodCell(65,68,87,83);
         }
         
        
