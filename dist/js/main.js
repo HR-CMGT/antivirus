@@ -106,15 +106,18 @@ var Level1 = (function () {
         var background = new Background(1, 1);
         if (playerCount == 1) {
             this.char1 = new WhiteBloodCell(37, 39, 38, 40);
+            this.life = new Life();
+            this.life.spawnLife(10);
         }
         else {
             this.char1 = new WhiteBloodCell(37, 39, 38, 40);
             this.char2 = new WhiteBloodCell(65, 68, 87, 83);
+            this.life = new Life();
+            this.life.spawnLife(5);
         }
         requestAnimationFrame(this.gameLoop.bind(this));
     }
     Level1.prototype.gameLoop = function () {
-        console.log(this.playerCount);
         if (this.playerCount == 1) {
             this.char1.move();
         }
@@ -125,6 +128,29 @@ var Level1 = (function () {
         requestAnimationFrame(this.gameLoop.bind(this));
     };
     return Level1;
+}());
+var Life = (function () {
+    function Life() {
+        this.div = document.createElement("redBloodCell");
+        document.body.appendChild(this.div);
+        this.randomPosition();
+        this.width = 75;
+        this.height = 75;
+    }
+    Life.prototype.spawnLife = function (amount) {
+        for (var i = 1; i < amount; i++) {
+            new Life;
+        }
+    };
+    Life.prototype.randomPosition = function () {
+        var randomX = Math.floor(Math.random() * 500) + (screen.width / 2);
+        var randomY = Math.floor(Math.random() * 500) + (screen.height / 2);
+        this.div.style.transform = "translate(" + randomX + "%, " + randomY + "%)";
+        if (this.x < (screen.width / 2)) {
+            this.div.style.backgroundImage = "url(\"../images/characters/red2.png\")";
+        }
+    };
+    return Life;
 }());
 window.addEventListener("load", function () {
     new Game();

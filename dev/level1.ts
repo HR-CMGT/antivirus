@@ -5,19 +5,27 @@ class Level1 {
     private char2:WhiteBloodCell;
     public playerCount;
     private utils:Utils;
+    public life:Life;
        
     
     constructor(playerCount:number){
         this.playerCount = playerCount;
         this.utils = new Utils();
+        
         this.utils.removePreviousBackground();
         var background = new Background(1,1);
         // var music = new Music(1);
         if(playerCount == 1){
             this.char1 = new WhiteBloodCell(37,39,38,40);
+            this.life = new Life();
+            this.life.spawnLife(10);
+
+            
         } else {
             this.char1 = new WhiteBloodCell(37,39,38,40);
             this.char2 = new WhiteBloodCell(65,68,87,83);
+            this.life = new Life();
+            this.life.spawnLife(5);
         }
         
        
@@ -30,7 +38,6 @@ class Level1 {
     
         
     private gameLoop(){
-        console.log(this.playerCount);
         if(this.playerCount == 1){
             this.char1.move();
         } else {
