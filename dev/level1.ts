@@ -3,10 +3,12 @@ class Level1 {
     
     private char1:WhiteBloodCell;
     private char2:WhiteBloodCell;
+    public playerCount;
     private utils:Utils;
        
     
     constructor(playerCount:number){
+        this.playerCount = playerCount;
         this.utils = new Utils();
         this.utils.removePreviousBackground();
         var background = new Background(1,1);
@@ -28,8 +30,13 @@ class Level1 {
     
         
     private gameLoop(){
-        this.char1.move();
-        this.char2.move();
+        console.log(this.playerCount);
+        if(this.playerCount == 1){
+            this.char1.move();
+        } else {
+            this.char1.move();
+            this.char2.move();
+        }
         requestAnimationFrame(this.gameLoop.bind(this));
     }
     

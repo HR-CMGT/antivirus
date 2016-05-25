@@ -99,15 +99,29 @@ var Game = (function () {
     return Game;
 }());
 var Level1 = (function () {
-    function Level1() {
+    function Level1(playerCount) {
+        this.playerCount = playerCount;
+        this.utils = new Utils();
         this.utils.removePreviousBackground();
         var background = new Background(1, 1);
-        this.char1 = new WhiteBloodCell(37, 39, 38, 40);
-        this.utils = new Utils();
+        if (playerCount == 1) {
+            this.char1 = new WhiteBloodCell(37, 39, 38, 40);
+        }
+        else {
+            this.char1 = new WhiteBloodCell(37, 39, 38, 40);
+            this.char2 = new WhiteBloodCell(65, 68, 87, 83);
+        }
         requestAnimationFrame(this.gameLoop.bind(this));
     }
     Level1.prototype.gameLoop = function () {
-        this.char1.move();
+        console.log(this.playerCount);
+        if (this.playerCount == 1) {
+            this.char1.move();
+        }
+        else {
+            this.char1.move();
+            this.char2.move();
+        }
         requestAnimationFrame(this.gameLoop.bind(this));
     };
     return Level1;
@@ -236,10 +250,10 @@ var Titlescreen = (function () {
         var music = new Music(1);
     }
     Titlescreen.prototype.levelload1 = function () {
-        new Levelload(1);
+        new Level1(1);
     };
-    Titlescreen.prototype.levelload = function () {
-        new Levelload(2);
+    Titlescreen.prototype.levelload2 = function () {
+        new Level1(2);
     };
     Titlescreen.prototype.CharacterSelect = function () {
         new CharacterSelect();
@@ -273,6 +287,8 @@ var Titlescreen = (function () {
         player2.style.marginLeft = "-259px";
         player2.style.position = "absolute";
         document.getElementById("background").appendChild(player2);
+        player2.setAttribute("id", "player2");
+        document.getElementById("player2").addEventListener("click", this.levelload2);
         player2.style.display = "inline-block";
         player2.onmouseover = function () {
             player2.style.backgroundImage = "url(\"../images/interface/icons/2players_hover.png\")";
