@@ -80,6 +80,18 @@ var Background = (function () {
     };
     return Background;
 }());
+var CharacterSelect = (function () {
+    function CharacterSelect() {
+        this.utils = new Utils();
+        this.utils.removePreviousBackground();
+        var background = new Background(1, 1);
+    }
+    CharacterSelect.prototype.singleplayer = function () {
+    };
+    CharacterSelect.prototype.multiplayer = function () {
+    };
+    return CharacterSelect;
+}());
 var Game = (function () {
     function Game() {
         new Titlescreen();
@@ -88,18 +100,12 @@ var Game = (function () {
 }());
 var Level1 = (function () {
     function Level1() {
-        this.removePreviousBackground();
+        this.utils.removePreviousBackground();
         var background = new Background(1, 1);
         this.char1 = new WhiteBloodCell(37, 39, 38, 40);
         this.utils = new Utils();
         requestAnimationFrame(this.gameLoop.bind(this));
     }
-    Level1.prototype.removePreviousBackground = function () {
-        var bg = document.getElementById("background");
-        while (bg.hasChildNodes()) {
-            bg.removeChild(bg.firstChild);
-        }
-    };
     Level1.prototype.gameLoop = function () {
         this.char1.move();
         requestAnimationFrame(this.gameLoop.bind(this));
@@ -229,10 +235,14 @@ var Titlescreen = (function () {
         this.createMenu();
         var music = new Music(1);
     }
+    Titlescreen.prototype.levelload1 = function () {
+        new Levelload(1);
+    };
     Titlescreen.prototype.levelload = function () {
-        var element = document.getElementById("titleChaseFar");
-        element.parentNode.removeChild(element);
-        new Level1();
+        new Levelload(2);
+    };
+    Titlescreen.prototype.CharacterSelect = function () {
+        new CharacterSelect();
     };
     Titlescreen.prototype.createMenu = function () {
         var player1 = document.createElement("player1");
@@ -245,7 +255,7 @@ var Titlescreen = (function () {
         player1.style.position = "absolute";
         document.getElementById("background").appendChild(player1);
         player1.setAttribute("id", "player1");
-        document.getElementById("player1").addEventListener("click", this.levelload);
+        document.getElementById("player1").addEventListener("click", this.levelload1);
         player1.style.display = "inline-block";
         player1.onmouseover = function () {
             player1.style.backgroundImage = "url(\"../images/interface/icons/1player_hover.png\")";
@@ -329,6 +339,12 @@ var Utils = (function () {
     }
     Utils.prototype.isOverlap = function (c1, c2) {
         return !(c2.x > c1.x + c1.width || c2.x + c2.width < c1.x || c2.y > c1.y + c1.height || c2.y + c2.height < c1.y);
+    };
+    Utils.prototype.removePreviousBackground = function () {
+        var bg = document.getElementById("background");
+        while (bg.hasChildNodes()) {
+            bg.removeChild(bg.firstChild);
+        }
     };
     return Utils;
 }());

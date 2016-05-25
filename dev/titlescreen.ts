@@ -17,6 +17,11 @@ class Titlescreen {
     public levelload(){
         new Levelload(2);
     }
+    
+    public CharacterSelect(){
+        new CharacterSelect();
+    }
+    
     createMenu(){
         
         //Create 1 player button
