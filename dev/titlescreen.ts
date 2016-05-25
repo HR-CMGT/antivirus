@@ -37,6 +37,7 @@ class Titlescreen {
         player1.onmouseleave=function(){
             player1.style.backgroundImage = "url(\"../images/interface/icons/1player.png\")";
         }
+        player1.style.animation = "menuMove1 20s infinite";
         
         //Create 2 player button
         var player2 = document.createElement("player2");
@@ -55,6 +56,7 @@ class Titlescreen {
         player2.onmouseleave=function(){
             player2.style.backgroundImage = "url(\"../images/interface/icons/2players.png\")";
         }
+        player2.style.animation = "menuMove2 20s infinite";
         
         //Create achievements button
         var achievements = document.createElement("achievement");
@@ -73,6 +75,7 @@ class Titlescreen {
         achievements.onmouseleave=function(){
             achievements.style.backgroundImage = "url(\"../images/interface/icons/prestaties.png\")";
         }
+        achievements.style.animation = "menuMove3 20s infinite";
     }
     
     titleAnimation(){    

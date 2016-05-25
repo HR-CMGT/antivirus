@@ -253,6 +253,7 @@ var Titlescreen = (function () {
         player1.onmouseleave = function () {
             player1.style.backgroundImage = "url(\"../images/interface/icons/1player.png\")";
         };
+        player1.style.animation = "menuMove1 20s infinite";
         var player2 = document.createElement("player2");
         player2.style.backgroundImage = "url(\"../images/interface/icons/2players.png\")";
         player2.style.width = "519px";
@@ -269,6 +270,7 @@ var Titlescreen = (function () {
         player2.onmouseleave = function () {
             player2.style.backgroundImage = "url(\"../images/interface/icons/2players.png\")";
         };
+        player2.style.animation = "menuMove2 20s infinite";
         var achievements = document.createElement("achievement");
         achievements.style.backgroundImage = "url(\"../images/interface/icons/prestaties.png\")";
         achievements.style.width = "594px";
@@ -285,6 +287,7 @@ var Titlescreen = (function () {
         achievements.onmouseleave = function () {
             achievements.style.backgroundImage = "url(\"../images/interface/icons/prestaties.png\")";
         };
+        achievements.style.animation = "menuMove3 20s infinite";
     };
     Titlescreen.prototype.titleAnimation = function () {
         var titleChaseFar = document.createElement('titleChaseFar');
