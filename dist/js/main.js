@@ -105,15 +105,19 @@ var Level1 = (function () {
         this.utils.removePreviousBackground();
         var background = new Background(1, 1);
         if (playerCount == 1) {
-            this.char1 = new WhiteBloodCell(37, 39, 38, 40);
             this.life = new Life();
             this.life.spawnLife(10);
+            this.virus = new Virus();
+            this.virus.spawnVirus(10);
+            this.char1 = new WhiteBloodCell(37, 39, 38, 40);
         }
         else {
-            this.char1 = new WhiteBloodCell(37, 39, 38, 40);
-            this.char2 = new WhiteBloodCell(65, 68, 87, 83);
             this.life = new Life();
             this.life.spawnLife(5);
+            this.virus = new Virus();
+            this.virus.spawnVirus(25);
+            this.char1 = new WhiteBloodCell(37, 39, 38, 40);
+            this.char2 = new WhiteBloodCell(65, 68, 87, 83);
         }
         requestAnimationFrame(this.gameLoop.bind(this));
     }
@@ -389,5 +393,36 @@ var Utils = (function () {
         }
     };
     return Utils;
+}());
+var Virus = (function () {
+    function Virus() {
+        this.div = document.createElement("virus");
+        document.body.appendChild(this.div);
+        this.randomPosition();
+        this.width = 150;
+        this.height = 150;
+    }
+    Virus.prototype.spawnVirus = function (amount) {
+        for (var i = 1; i < amount; i++) {
+            new Virus;
+        }
+    };
+    Virus.prototype.randomPosition = function () {
+        var random = Math.floor(Math.random() * 3) + 1;
+        if (random == 1) {
+            var x = 0;
+            var y = Math.floor(Math.random() * window.innerHeight + 125);
+        }
+        else if (random == 2) {
+            var x = window.innerWidth - 125;
+            var y = Math.floor(Math.random() * window.innerHeight + 125);
+        }
+        else if (random == 3) {
+            var x = Math.floor(Math.random() * window.innerWidth - 125);
+            var y = 0;
+        }
+        this.div.style.transform = "translate(" + x + "px, " + y + "px)";
+    };
+    return Virus;
 }());
 //# sourceMappingURL=main.js.map
