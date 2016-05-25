@@ -10,12 +10,13 @@ class Titlescreen {
         
     }
     
-    levelload(){
-        var element = document.getElementById("titleChaseFar");
-        element.parentNode.removeChild(element);
-        new Level1();
+    public levelload1(){
+        new Levelload(1);
     }
     
+    public levelload(){
+        new Levelload(2);
+    }
     createMenu(){
         
         //Create 1 player button
@@ -29,7 +30,7 @@ class Titlescreen {
         player1.style.position = "absolute";
         document.getElementById("background").appendChild(player1);
         player1.setAttribute("id", "player1");
-        document.getElementById("player1").addEventListener("click", this.levelload);
+        document.getElementById("player1").addEventListener("click", this.levelload1);
         player1.style.display = "inline-block";
         player1.onmouseover=function(){
             player1.style.backgroundImage = "url(\"../images/interface/icons/1player_hover.png\")"
