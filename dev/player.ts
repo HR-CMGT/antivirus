@@ -15,8 +15,14 @@ class WhiteBloodCell {
     // om te zien of objecten elkaar raken moeten ze een public x,y,width,height hebben
     public x : number;
     public y : number;
+    public targetX : number;
+    public targetY : number;
     public width: number;
     public height: number;
+    
+    public getBounds():Rectangle{
+        return new Rectangle(this.x,this.y,this.width, this.height);
+    };
     
     constructor(left:number, right:number, up:number, down:number) {
         // maak een divje waar de gif in komt te staan
@@ -35,6 +41,8 @@ class WhiteBloodCell {
         this.width = 200;
         this.height = 200;
         
+        console.log(this.x);
+        console.log(this.y);
         // keyboard listener
         window.addEventListener("keydown", this.onKeyDown.bind(this));
         window.addEventListener("keyup", this.onKeyUp.bind(this));
@@ -43,38 +51,28 @@ class WhiteBloodCell {
         console.log("De breedte is " + window.innerWidth);
     }
     
-    
     // keyboard input zorgt dat de snelheid wordt aangepast
     private onKeyDown(event:KeyboardEvent):void {
         
         switch(event.keyCode){
         case this.upkey:
             this.upSpeed = 15;
-            console.log("De Y is "+this.y);
-            this.checkCollision("upkey");
             break;
         case this.downkey:
             this.downSpeed = 15;
-            console.log("De Y is "+this.y);
-            this.checkCollision("downkey");
             break;
         case this.leftkey:
             this.leftSpeed = 15;
-            console.log("De X is "+this.x);
-            this.checkCollision("leftkey");
-                this.div.style.backgroundImage = "url('../images/player/player-look-right.png')";
-            
+            this.div.style.backgroundImage = "url('../images/player/player-look-right.png')";
             break;
         case this.rightkey:
             this.rightSpeed = 15;
-            console.log("De X is "+this.x);
-            
-            this.checkCollision("rightkey");
-                this.div.style.backgroundImage = "url('../images/player/player-look-left.png')";
+            this.div.style.backgroundImage = "url('../images/player/player-look-left.png')";
             break;
         }
+        
     }
-    
+        
     // speed op 0 alleen als de eigen keys zijn losgelaten
     private onKeyUp(event:KeyboardEvent):void {
         switch(event.keyCode){
@@ -93,46 +91,21 @@ class WhiteBloodCell {
         }
     }
 
-    
+
     // bewegen - let op, de move functie wordt door game aangeroepen - animatie is niet smooth als de keydown listener een beweging triggered
-    public move() : void {
-        
-        this.x = this.x - this.leftSpeed + this.rightSpeed;
+    public move(): void {
+        this.x = this.x + this.rightSpeed - this.leftSpeed;
         this.y = this.y - this.upSpeed + this.downSpeed;
-                        
         // de div positie aanpassen met transform - tip: scaleX kan je gebruiken om de andere kant op te kijken
-        this.div.style.transform = "translate("+this.x+"px, "+this.y+"px) scaleX(-1)";
+        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
+        //this.div.style.transform = "translate(100px, 100px)";
+
+        //clamp van x en y op breedte en hoogte van het scherm
+        this.x = this.clamp(this.x, 0, window.innerWidth - this.width);
+        this.y = this.clamp(this.y, 0, window.innerHeight - this.height);
     }
 
-    // deze functie toont of we geraakt worden of niet
-    public showHit(hit:boolean) : void {
-        if(hit){
-            this.div.style.borderColor = "red";
-        } else {
-            this.div.style.borderColor = "greenyellow";
-        }
-    }
-    
-    private checkCollision(keyCode:string){
-        if(keyCode == "upkey"){
-            if(this.y <= 0){
-                this.upSpeed = 0;  
-            } 
-        }
-        if(keyCode == "downkey"){
-            if(this.y >= window.innerHeight-this.height){
-                this.downSpeed = 0;  
-            } 
-        }
-        if(keyCode == "leftkey"){
-            if(this.x <= 0){
-                this.leftSpeed = 0;
-            } 
-        }
-        if(keyCode == "rightkey"){
-            if(this.x >= window.innerWidth-this.width){
-                this.rightSpeed = 0;
-            }
-        }
+    private clamp(val:number, min:number, max:number) : number{
+        return Math.max(min, Math.min(max, val))
     }
 }
