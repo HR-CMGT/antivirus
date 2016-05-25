@@ -1,11 +1,9 @@
 @import url("background.css");
 @import url("titlescreen.css");
-<<<<<<< HEAD
 @import url("characterselect.css");
-=======
 @import url("whitebloodcell.css");
 @import url("life.css");
->>>>>>> origin/master
+@import url("virus.css");
 
 
 body {
