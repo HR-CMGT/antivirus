@@ -1,14 +1,31 @@
-
-backgroundCellLarge {
-    animation-timing-function: linear;
+background{
+    width:100%;
+    height: 100%;
 }
 
-backgroundCellMedium {
-    animation-timing-function: linear;
+backLayer, frontLayer{
+    width:100%;
+    height:100%;
+    background-size: cover;
 }
 
-backgroundCellSmall {
-    animation-timing-function: linear;
+backgroundCellLarge, backgroundCellMedium, backgroundCellSmall {   
+    position:absolute;   
+}
+
+backgroundCellLarge{
+    width:75px;
+    height:75px;   
+}
+
+backgroundCellMedium {   
+    width: 50px;
+    height: 50px;
+}
+
+backgroundCellSmall {    
+    width:25px;
+    height:25px;
 }
 
 @keyframes backgroundCellMove {
@@ -20,3 +37,4 @@ backgroundCellSmall {
         left: -75px;
     }
 }
+

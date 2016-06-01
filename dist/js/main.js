@@ -9,76 +9,43 @@ var Background = (function () {
         var background = document.createElement("background");
         background.setAttribute("id", "background");
         document.body.appendChild(background);
-        background.style.width = "100%";
-        background.style.height = "100%";
     };
     Background.prototype.backLayer = function (backLayerImage) {
         var backLayer = document.createElement("backLayer");
         backLayer.style.backgroundImage = "url(\"../images/backgrounds/backLayer" + backLayerImage + ".png\")";
-        backLayer.style.width = "100%";
-        backLayer.style.height = "100%";
-        backLayer.style.backgroundSize = "cover";
         document.getElementById("background").appendChild(backLayer);
     };
     Background.prototype.midLayer = function () {
-        for (var i = 26; i < 36; i++) {
-            var randomImage = Math.floor(Math.random() * 15 + 1);
-            var positionX = window.innerWidth;
-            var randomPositionY = Math.floor(Math.random() * window.innerHeight);
-            var randomAnimationSpeed = i;
-            var backgroundCellSmall = document.createElement('backgroundCellSmall');
-            backgroundCellSmall.style.backgroundImage = "url(\"../images/backgrounds/cell" + randomImage + "small.png\")";
-            backgroundCellSmall.style.height = "25px";
-            backgroundCellSmall.style.width = "25px";
-            backgroundCellSmall.style.left = positionX + "px";
-            backgroundCellSmall.style.top = randomPositionY + "px";
-            backgroundCellSmall.style.position = "absolute";
-            backgroundCellSmall.style.animation = "backgroundCellMove " + randomAnimationSpeed + "s infinite";
-            backgroundCellSmall.style.animationTimingFunction = "linear";
-            document.getElementById("background").appendChild(backgroundCellSmall);
-        }
-        for (var i = 16; i < 26; i++) {
-            var randomImage = Math.floor(Math.random() * 15 + 1);
-            var positionX = window.innerWidth;
-            var randomPositionY = Math.floor(Math.random() * window.innerHeight);
-            var randomAnimationSpeed = i;
-            var backgroundCellMedium = document.createElement('backgroundCellMedium');
-            backgroundCellMedium.style.backgroundImage = "url(\"../images/backgrounds/cell" + randomImage + "medium.png\")";
-            backgroundCellMedium.style.height = "50px";
-            backgroundCellMedium.style.width = "50px";
-            backgroundCellMedium.style.left = positionX + "px";
-            backgroundCellMedium.style.top = randomPositionY + "px";
-            backgroundCellMedium.style.position = "absolute";
-            backgroundCellMedium.style.animation = "backgroundCellMove " + randomAnimationSpeed + "s infinite";
-            backgroundCellMedium.style.animationTimingFunction = "linear";
-            document.getElementById("background").appendChild(backgroundCellMedium);
-        }
-        for (var i = 6; i < 16; i++) {
-            var randomImage = Math.floor(Math.random() * 15 + 1);
-            var positionX = window.innerWidth;
-            var randomPositionY = Math.floor(Math.random() * window.innerHeight);
-            var randomAnimationSpeed = i;
-            var backgroundCellLarge = document.createElement('backgroundCellLarge');
-            backgroundCellLarge.style.backgroundImage = "url(\"../images/backgrounds/cell" + randomImage + "large.png\")";
-            backgroundCellLarge.style.height = "75px";
-            backgroundCellLarge.style.width = "75px";
-            backgroundCellLarge.style.left = positionX + "px";
-            backgroundCellLarge.style.top = randomPositionY + "px";
-            backgroundCellLarge.style.position = "absolute";
-            backgroundCellLarge.style.animation = "backgroundCellMove " + randomAnimationSpeed + "s infinite";
-            backgroundCellLarge.style.animationTimingFunction = "linear";
-            document.getElementById("background").appendChild(backgroundCellLarge);
-        }
+        this.backgroundCells = new backgroundCells(26, 36, "backgroundCellSmall", "small");
+        this.backgroundCells = new backgroundCells(16, 26, "backgroundCellMedium", "medium");
+        this.backgroundCells = new backgroundCells(6, 16, "backgroundCellLarge", "large");
     };
     Background.prototype.frontLayer = function (frontLayerImage) {
         var frontLayer = document.createElement("frontLayer");
         frontLayer.style.backgroundImage = "url(\"../images/backgrounds/frontLayer" + frontLayerImage + ".png\")";
-        frontLayer.style.width = "100%";
-        frontLayer.style.height = "100%";
-        frontLayer.style.backgroundSize = "cover";
         document.getElementById("background").appendChild(frontLayer);
     };
     return Background;
+}());
+var backgroundCells = (function () {
+    function backgroundCells(start, end, div, size) {
+        this.start = start;
+        this.end = end;
+        this.size = size;
+        for (var i = this.start; i < this.end; i++) {
+            var backgroundCell = document.createElement(div);
+            var randomImage = Math.floor(Math.random() * 15 + 1);
+            var positionX = window.innerWidth;
+            var randomPositionY = Math.floor(Math.random() * window.innerHeight);
+            var randomAnimationSpeed = i;
+            backgroundCell.style.backgroundImage = "url(\"../images/backgrounds/cell" + randomImage + this.size + ".png\")";
+            backgroundCell.style.left = positionX + "px";
+            backgroundCell.style.top = randomPositionY + "px";
+            backgroundCell.style.animation = "backgroundCellMove " + randomAnimationSpeed + "s linear infinite";
+            document.getElementById("background").appendChild(backgroundCell);
+        }
+    }
+    return backgroundCells;
 }());
 var CharacterSelect = (function () {
     function CharacterSelect(playerCount) {
@@ -270,33 +237,31 @@ var WhiteBloodCell = (function () {
         this.y = Math.floor(200 + Math.random() * 200);
         this.width = 200;
         this.height = 200;
+        console.log(this.x);
+        console.log(this.y);
         window.addEventListener("keydown", this.onKeyDown.bind(this));
         window.addEventListener("keyup", this.onKeyUp.bind(this));
         console.log("De hoogte is " + window.innerHeight);
         console.log("De breedte is " + window.innerWidth);
     }
+    WhiteBloodCell.prototype.getBounds = function () {
+        return new Rectangle(this.x, this.y, this.width, this.height);
+    };
+    ;
     WhiteBloodCell.prototype.onKeyDown = function (event) {
         switch (event.keyCode) {
             case this.upkey:
                 this.upSpeed = 15;
-                console.log("De Y is " + this.y);
-                this.checkCollision("upkey");
                 break;
             case this.downkey:
                 this.downSpeed = 15;
-                console.log("De Y is " + this.y);
-                this.checkCollision("downkey");
                 break;
             case this.leftkey:
                 this.leftSpeed = 15;
-                console.log("De X is " + this.x);
-                this.checkCollision("leftkey");
                 this.div.style.backgroundImage = "url('../images/player/player-look-right.png')";
                 break;
             case this.rightkey:
                 this.rightSpeed = 15;
-                console.log("De X is " + this.x);
-                this.checkCollision("rightkey");
                 this.div.style.backgroundImage = "url('../images/player/player-look-left.png')";
                 break;
         }
@@ -318,41 +283,43 @@ var WhiteBloodCell = (function () {
         }
     };
     WhiteBloodCell.prototype.move = function () {
-        this.x = this.x - this.leftSpeed + this.rightSpeed;
+        this.x = this.x + this.rightSpeed - this.leftSpeed;
         this.y = this.y - this.upSpeed + this.downSpeed;
-        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px) scaleX(-1)";
+        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
+        this.x = this.clamp(this.x, 0, window.innerWidth - this.width);
+        this.y = this.clamp(this.y, 0, window.innerHeight - this.height);
     };
-    WhiteBloodCell.prototype.showHit = function (hit) {
-        if (hit) {
-            this.div.style.borderColor = "red";
-        }
-        else {
-            this.div.style.borderColor = "greenyellow";
-        }
-    };
-    WhiteBloodCell.prototype.checkCollision = function (keyCode) {
-        if (keyCode == "upkey") {
-            if (this.y <= 0) {
-                this.upSpeed = 0;
-            }
-        }
-        if (keyCode == "downkey") {
-            if (this.y >= window.innerHeight - this.height) {
-                this.downSpeed = 0;
-            }
-        }
-        if (keyCode == "leftkey") {
-            if (this.x <= 0) {
-                this.leftSpeed = 0;
-            }
-        }
-        if (keyCode == "rightkey") {
-            if (this.x >= window.innerWidth - this.width) {
-                this.rightSpeed = 0;
-            }
-        }
+    WhiteBloodCell.prototype.clamp = function (val, min, max) {
+        return Math.max(min, Math.min(max, val));
     };
     return WhiteBloodCell;
+}());
+var Rectangle = (function () {
+    function Rectangle(x, y, w, h) {
+        this.x = x;
+        this.y = y;
+        this.width = w;
+        this.height = h;
+    }
+    Rectangle.prototype.hitsPoint = function (posx, posy) {
+        var differencex = this.x - posx;
+        var differencey = this.y - posy;
+        return Math.abs(differencex) < this.width / 2 && Math.abs(differencey) < this.height / 2;
+    };
+    Rectangle.prototype.hitsOtherRectangle = function (rec) {
+        var differencex = this.x - rec.x;
+        var differencey = this.y - rec.y;
+        return Math.abs(differencex) < this.width / 2 + rec.width / 2 && Math.abs(differencey) < this.height / 2 + rec.height / 2;
+    };
+    Rectangle.prototype.isInsideRectangle = function (rec) {
+        var rx = this.x - rec.x;
+        var ry = this.y - rec.y;
+        return (rx > 0 &&
+            rx + this.width < window.innerWidth &&
+            ry > 0 &&
+            ry + this.height < window.innerHeight);
+    };
+    return Rectangle;
 }());
 var Titlescreen = (function () {
     function Titlescreen() {
