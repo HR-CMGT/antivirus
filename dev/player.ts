@@ -1,4 +1,4 @@
-class WhiteBloodCell {
+class WhiteBloodCell extends GameObject {
     
     private div:HTMLElement;
     
@@ -19,36 +19,33 @@ class WhiteBloodCell {
     public targetY : number;
     public width: number;
     public height: number;
+    //     public getBounds():Rectangle{
+    //     return new Rectangle(this.x,this.y,this.width, this.height);
+    // };
     
-    public getBounds():Rectangle{
-        return new Rectangle(this.x,this.y,this.width, this.height);
-    };
-    
-    constructor(left:number, right:number, up:number, down:number) {
+    constructor(left:number, right:number, up:number, down:number, pos:Vector) {
+        super(pos);
         // maak een divje waar de gif in komt te staan
         this.div = document.createElement("whiteBloodCell");
         document.body.appendChild(this.div);
         
-        // keys kunnen verschillend zijn voor elke instance van charmeleon
         this.upkey = up;
         this.downkey = down;
         this.leftkey = left;
         this.rightkey = right;
         
         // positie
-        this.x = Math.floor(200 + Math.random()*200);
-        this.y = Math.floor(200 + Math.random()*200);
+        // this.x = Math.floor(200 + Math.random()*200);
+        // this.y = Math.floor(200 + Math.random()*200);
         this.width = 200;
         this.height = 200;
         
-        console.log(this.x);
-        console.log(this.y);
+        console.log(this.position.x);
+        console.log(this.position.y);
         // keyboard listener
         window.addEventListener("keydown", this.onKeyDown.bind(this));
         window.addEventListener("keyup", this.onKeyUp.bind(this));
-        
-        console.log("De hoogte is " + window.innerHeight);
-        console.log("De breedte is " + window.innerWidth);
+
     }
     
     // keyboard input zorgt dat de snelheid wordt aangepast
@@ -97,7 +94,7 @@ class WhiteBloodCell {
         this.x = this.x + this.rightSpeed - this.leftSpeed;
         this.y = this.y - this.upSpeed + this.downSpeed;
         // de div positie aanpassen met transform - tip: scaleX kan je gebruiken om de andere kant op te kijken
-        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
+        this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
         //this.div.style.transform = "translate(100px, 100px)";
 
         //clamp van x en y op breedte en hoogte van het scherm

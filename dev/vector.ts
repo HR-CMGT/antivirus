@@ -1,4 +1,4 @@
-class Vector2 {
+class Vector {
     
     public x : number;
     public y : number;
@@ -8,16 +8,16 @@ class Vector2 {
         this.y = y;
     }
     
-    public add(v: Vector2): Vector2 {
-        return new Vector2(this.x + v.x, this.y + v.y);
+    public add(v: Vector): Vector {
+        return new Vector(this.x + v.x, this.y + v.y);
     }
 
-    public difference(v: Vector2): Vector2 {
-        return new Vector2(this.x - v.x, this.y - v.y);
+    public difference(v: Vector): Vector {
+        return new Vector(this.x - v.x, this.y - v.y);
     }
 
-    public scale(n: number): Vector2 {
-        return new Vector2(this.x * n, this.y * n);
+    public scale(n: number): Vector {
+        return new Vector(this.x * n, this.y * n);
     }
 
     public magnitude(): number {
@@ -25,16 +25,16 @@ class Vector2 {
     }
     
     // x en y delen door de lengte (magnitude) geeft normalized
-    public normalize():Vector2 {
+    public normalize():Vector {
         let mag = this.magnitude();
-        return new Vector2(this.x/mag, this.y/mag);
+        return new Vector(this.x/mag, this.y/mag);
     }
 
-    public static reflectX(point: Vector2, x: number) {
-        return new Vector2(2 * x - point.x, point.y);
+    public static reflectX(point: Vector, x: number) {
+        return new Vector(2 * x - point.x, point.y);
     }
 
-    public static reflectY(point: Vector2, y: number) {
-        return new Vector2(point.x, 2 * y - point.y);
+    public static reflectY(point: Vector, y: number) {
+        return new Vector(point.x, 2 * y - point.y);
     }
 }

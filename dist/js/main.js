@@ -1,3 +1,8 @@
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var Background = (function () {
     function Background(backLayerImage, frontLayerImage) {
         this.createBackground();
@@ -75,6 +80,7 @@ var CharacterSelect = (function () {
             this.utils = new Utils();
             this.utils.removePreviousBackground();
             var background_1 = new Background(1, 1);
+            var music = new Music(2);
             var player1 = document.createElement("choosePlayer1");
             player1.setAttribute("id", "choosePlayer1");
             player1.style.backgroundImage = "url('../images/player/player.png')";
@@ -147,6 +153,13 @@ var Game = (function () {
     }
     return Game;
 }());
+var GameObject = (function () {
+    function GameObject(pos) {
+        this.position = pos;
+        console.log(this.position);
+    }
+    return GameObject;
+}());
 var Level1 = (function () {
     function Level1(playerCount) {
         this.playerCount = playerCount;
@@ -158,15 +171,15 @@ var Level1 = (function () {
             this.life.spawnLife(10);
             this.virus = new Virus();
             this.virus.spawnVirus(10);
-            this.char1 = new WhiteBloodCell(37, 39, 38, 40);
+            this.char1 = new WhiteBloodCell(37, 39, 38, 40, new Vector(500, 500));
         }
         else {
             this.life = new Life();
             this.life.spawnLife(5);
             this.virus = new Virus();
             this.virus.spawnVirus(25);
-            this.char1 = new WhiteBloodCell(37, 39, 38, 40);
-            this.char2 = new WhiteBloodCell(65, 68, 87, 83);
+            this.char1 = new WhiteBloodCell(37, 39, 38, 40, new Vector(1500, 1500));
+            this.char2 = new WhiteBloodCell(65, 68, 87, 83, new Vector(1500, 1500));
         }
         requestAnimationFrame(this.gameLoop.bind(this));
     }
@@ -214,15 +227,17 @@ var Music = (function () {
     }
     Music.prototype.musicLoop = function (musicNumber) {
         var audio = document.createElement("audio");
-        audio.src = "../audio/titlescreen/music" + musicNumber + ".mp3";
+        audio.src = "../audio/music" + musicNumber + ".mp3";
         audio.loop = true;
         audio.play();
-        document.body.appendChild(audio);
+        document.getElementById("background").appendChild(audio);
     };
     return Music;
 }());
-var WhiteBloodCell = (function () {
-    function WhiteBloodCell(left, right, up, down) {
+var WhiteBloodCell = (function (_super) {
+    __extends(WhiteBloodCell, _super);
+    function WhiteBloodCell(left, right, up, down, pos) {
+        _super.call(this, pos);
         this.leftSpeed = 0;
         this.rightSpeed = 0;
         this.downSpeed = 0;
@@ -233,21 +248,13 @@ var WhiteBloodCell = (function () {
         this.downkey = down;
         this.leftkey = left;
         this.rightkey = right;
-        this.x = Math.floor(200 + Math.random() * 200);
-        this.y = Math.floor(200 + Math.random() * 200);
         this.width = 200;
         this.height = 200;
-        console.log(this.x);
-        console.log(this.y);
+        console.log(this.position.x);
+        console.log(this.position.y);
         window.addEventListener("keydown", this.onKeyDown.bind(this));
         window.addEventListener("keyup", this.onKeyUp.bind(this));
-        console.log("De hoogte is " + window.innerHeight);
-        console.log("De breedte is " + window.innerWidth);
     }
-    WhiteBloodCell.prototype.getBounds = function () {
-        return new Rectangle(this.x, this.y, this.width, this.height);
-    };
-    ;
     WhiteBloodCell.prototype.onKeyDown = function (event) {
         switch (event.keyCode) {
             case this.upkey:
@@ -285,7 +292,7 @@ var WhiteBloodCell = (function () {
     WhiteBloodCell.prototype.move = function () {
         this.x = this.x + this.rightSpeed - this.leftSpeed;
         this.y = this.y - this.upSpeed + this.downSpeed;
-        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
+        this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
         this.x = this.clamp(this.x, 0, window.innerWidth - this.width);
         this.y = this.clamp(this.y, 0, window.innerHeight - this.height);
     };
@@ -293,7 +300,7 @@ var WhiteBloodCell = (function () {
         return Math.max(min, Math.min(max, val));
     };
     return WhiteBloodCell;
-}());
+}(GameObject));
 var Rectangle = (function () {
     function Rectangle(x, y, w, h) {
         this.x = x;
@@ -443,6 +450,35 @@ var Utils = (function () {
         bg.remove();
     };
     return Utils;
+}());
+var Vector = (function () {
+    function Vector(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    Vector.prototype.add = function (v) {
+        return new Vector(this.x + v.x, this.y + v.y);
+    };
+    Vector.prototype.difference = function (v) {
+        return new Vector(this.x - v.x, this.y - v.y);
+    };
+    Vector.prototype.scale = function (n) {
+        return new Vector(this.x * n, this.y * n);
+    };
+    Vector.prototype.magnitude = function () {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    };
+    Vector.prototype.normalize = function () {
+        var mag = this.magnitude();
+        return new Vector(this.x / mag, this.y / mag);
+    };
+    Vector.reflectX = function (point, x) {
+        return new Vector(2 * x - point.x, point.y);
+    };
+    Vector.reflectY = function (point, y) {
+        return new Vector(point.x, 2 * y - point.y);
+    };
+    return Vector;
 }());
 var Virus = (function () {
     function Virus() {
