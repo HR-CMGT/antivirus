@@ -238,63 +238,67 @@ var WhiteBloodCell = (function (_super) {
     __extends(WhiteBloodCell, _super);
     function WhiteBloodCell(left, right, up, down, pos) {
         _super.call(this, pos);
-        this.leftSpeed = 0;
-        this.rightSpeed = 0;
-        this.downSpeed = 0;
-        this.upSpeed = 0;
         this.div = document.createElement("whiteBloodCell");
         document.body.appendChild(this.div);
         this.upkey = up;
         this.downkey = down;
         this.leftkey = left;
         this.rightkey = right;
+        this.speed = new Vector(0, 0);
+        this.rightSpeed = new Vector(0, 0);
+        this.leftSpeed = new Vector(0, 0);
+        this.upSpeed = new Vector(0, 0);
+        this.downSpeed = new Vector(0, 0);
         this.width = 200;
         this.height = 200;
-        console.log(this.position.x);
-        console.log(this.position.y);
         window.addEventListener("keydown", this.onKeyDown.bind(this));
         window.addEventListener("keyup", this.onKeyUp.bind(this));
     }
+    WhiteBloodCell.prototype.getBounds = function () {
+        return new Rectangle(this.position, this.width, this.height);
+    };
+    ;
     WhiteBloodCell.prototype.onKeyDown = function (event) {
         switch (event.keyCode) {
             case this.upkey:
-                this.upSpeed = 15;
+                this.upSpeed = new Vector(0, -15);
                 break;
             case this.downkey:
-                this.downSpeed = 15;
+                this.downSpeed = new Vector(0, 15);
                 break;
             case this.leftkey:
-                this.leftSpeed = 15;
-                this.div.style.backgroundImage = "url('../images/player/player-look-right.png')";
+                this.leftSpeed = new Vector(-15, 0);
+                this.div.style.backgroundImage = "url('../images/player/player-look-left.png')";
                 break;
             case this.rightkey:
-                this.rightSpeed = 15;
-                this.div.style.backgroundImage = "url('../images/player/player-look-left.png')";
+                this.rightSpeed = new Vector(15, 0);
+                this.div.style.backgroundImage = "url('../images/player/player-look-right.png')";
                 break;
         }
     };
     WhiteBloodCell.prototype.onKeyUp = function (event) {
         switch (event.keyCode) {
             case this.upkey:
-                this.upSpeed = 0;
+                this.upSpeed = new Vector(0, 0);
                 break;
             case this.downkey:
-                this.downSpeed = 0;
+                this.downSpeed = new Vector(0, 0);
                 break;
             case this.leftkey:
-                this.leftSpeed = 0;
+                this.leftSpeed = new Vector(0, 0);
                 break;
             case this.rightkey:
-                this.rightSpeed = 0;
+                this.rightSpeed = new Vector(0, 0);
                 break;
         }
     };
     WhiteBloodCell.prototype.move = function () {
-        this.x = this.x + this.rightSpeed - this.leftSpeed;
-        this.y = this.y - this.upSpeed + this.downSpeed;
+        this.position = this.position.add(this.leftSpeed.add(this.rightSpeed));
+        ;
+        this.position = this.position.add(this.upSpeed.add(this.downSpeed));
         this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
-        this.x = this.clamp(this.x, 0, window.innerWidth - this.width);
-        this.y = this.clamp(this.y, 0, window.innerHeight - this.height);
+        this.position.x = this.clamp(this.position.x, 0, window.innerWidth - this.width);
+        this.position.y = this.clamp(this.position.y, 0, window.innerHeight - this.height);
     };
     WhiteBloodCell.prototype.clamp = function (val, min, max) {
         return Math.max(min, Math.min(max, val));
@@ -302,25 +306,24 @@ var WhiteBloodCell = (function (_super) {
     return WhiteBloodCell;
 }(GameObject));
 var Rectangle = (function () {
-    function Rectangle(x, y, w, h) {
-        this.x = x;
-        this.y = y;
+    function Rectangle(pos, w, h) {
+        this.position = pos;
         this.width = w;
         this.height = h;
     }
     Rectangle.prototype.hitsPoint = function (posx, posy) {
-        var differencex = this.x - posx;
-        var differencey = this.y - posy;
+        var differencex = this.position.x - posx;
+        var differencey = this.position.y - posy;
         return Math.abs(differencex) < this.width / 2 && Math.abs(differencey) < this.height / 2;
     };
     Rectangle.prototype.hitsOtherRectangle = function (rec) {
-        var differencex = this.x - rec.x;
-        var differencey = this.y - rec.y;
+        var differencex = this.position.x - rec.position.x;
+        var differencey = this.position.y - rec.position.y;
         return Math.abs(differencex) < this.width / 2 + rec.width / 2 && Math.abs(differencey) < this.height / 2 + rec.height / 2;
     };
     Rectangle.prototype.isInsideRectangle = function (rec) {
-        var rx = this.x - rec.x;
-        var ry = this.y - rec.y;
+        var rx = this.position.x - rec.position.x;
+        var ry = this.position.y - rec.position.y;
         return (rx > 0 &&
             rx + this.width < window.innerWidth &&
             ry > 0 &&
