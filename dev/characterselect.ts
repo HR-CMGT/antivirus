@@ -20,7 +20,7 @@ class CharacterSelect {
             this.utils = new Utils();
             this.utils.removePreviousBackground();
             let background = new Background(1,1);
-            // var music = new Music(1);
+            var music = new Music(2);
             
             
             // Create image for player 1

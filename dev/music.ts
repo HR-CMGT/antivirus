@@ -10,9 +10,9 @@ class Music {
     musicLoop(musicNumber){
         var audio = document.createElement("audio");
         
-        audio.src = "../audio/titlescreen/music" + musicNumber + ".mp3";
+        audio.src = "../audio/music" + musicNumber + ".mp3";
         audio.loop = true;
         audio.play();
-        document.body.appendChild(audio);
+        document.getElementById("background").appendChild(audio);
     }
 }
