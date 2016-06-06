@@ -20,7 +20,6 @@ class Level1 {
         // var music = new Music(1);
         if(playerCount == 1){
             
-<<<<<<< HEAD
             for (var i = 0; i < 5; i++) {
                 this.lifes.push(new Life());
             }
@@ -28,33 +27,18 @@ class Level1 {
             for (var i = 0; i < 10; i++) {
                 this.viruses.push(new Virus());
             }
-            this.char1 = new WhiteBloodCell(37,39,38,40, new Vector(500,500));
-=======
-            this.life = new Life();
-            this.life.spawnLife(10);
-            this.virus = new Virus();
-            this.virus.spawnVirus(10);
             this.char1 = new Character(37,39,38,40, new Vector(500,500), 1);
->>>>>>> origin/master
 
             
         } else {
 
-<<<<<<< HEAD
             for (var i = 0; i < 5; i++) {
                 this.lifes.push(new Life());
             }
         
-            this.char1 = new WhiteBloodCell(37,39,38,40, new Vector(1500,1500));
-            this.char2 = new WhiteBloodCell(65,68,87,83, new Vector(1500,1500));
-=======
-            this.life = new Life();
-            this.life.spawnLife(5);
-            this.virus = new Virus();
-            this.virus.spawnVirus(25);
-            this.char1 = new Character(37,39,38,40, new Vector(500,500), 1);
-            this.char2 = new Character(65,68,87,83, new Vector(800,800), 2);
->>>>>>> origin/master
+            this.char1 = new Character(37,39,38,40, new Vector(1500,1500), 2);
+            this.char2 = new Character(65,68,87,83, new Vector(1500,1500), 2);
+
         }
         
        
