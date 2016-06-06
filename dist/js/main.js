@@ -52,6 +52,91 @@ var backgroundCells = (function () {
     }
     return backgroundCells;
 }());
+var GameObject = (function () {
+    function GameObject(pos) {
+        this.position = pos;
+        console.log(this.position);
+    }
+    return GameObject;
+}());
+var Player = (function (_super) {
+    __extends(Player, _super);
+    function Player(left, right, up, down, pos) {
+        _super.call(this, pos);
+        this.div = document.createElement("player");
+        document.body.appendChild(this.div);
+        this.upkey = up;
+        this.downkey = down;
+        this.leftkey = left;
+        this.rightkey = right;
+        this.speed = new Vector(0, 0);
+        this.rightSpeed = new Vector(0, 0);
+        this.leftSpeed = new Vector(0, 0);
+        this.upSpeed = new Vector(0, 0);
+        this.downSpeed = new Vector(0, 0);
+        this.width = 200;
+        this.height = 200;
+        window.addEventListener("keydown", this.onKeyDown.bind(this));
+        window.addEventListener("keyup", this.onKeyUp.bind(this));
+    }
+    Player.prototype.getBounds = function () {
+        return new Rectangle(this.position, this.width, this.height);
+    };
+    ;
+    Player.prototype.onKeyDown = function (event) {
+        switch (event.keyCode) {
+            case this.upkey:
+                this.upSpeed = new Vector(0, -15);
+                break;
+            case this.downkey:
+                this.downSpeed = new Vector(0, 15);
+                break;
+            case this.leftkey:
+                this.leftSpeed = new Vector(-15, 0);
+                this.div.style.backgroundImage = "url('../images/player/player-look-left.png')";
+                break;
+            case this.rightkey:
+                this.rightSpeed = new Vector(15, 0);
+                this.div.style.backgroundImage = "url('../images/player/player-look-right.png')";
+                break;
+        }
+    };
+    Player.prototype.onKeyUp = function (event) {
+        switch (event.keyCode) {
+            case this.upkey:
+                this.upSpeed = new Vector(0, 0);
+                break;
+            case this.downkey:
+                this.downSpeed = new Vector(0, 0);
+                break;
+            case this.leftkey:
+                this.leftSpeed = new Vector(0, 0);
+                break;
+            case this.rightkey:
+                this.rightSpeed = new Vector(0, 0);
+                break;
+        }
+    };
+    Player.prototype.move = function () {
+        this.position = this.position.add(this.leftSpeed.add(this.rightSpeed));
+        ;
+        this.position = this.position.add(this.upSpeed.add(this.downSpeed));
+        this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
+        this.position.x = this.clamp(this.position.x, 0, window.innerWidth - this.width);
+        this.position.y = this.clamp(this.position.y, 0, window.innerHeight - this.height);
+    };
+    Player.prototype.clamp = function (val, min, max) {
+        return Math.max(min, Math.min(max, val));
+    };
+    return Player;
+}(GameObject));
+var Character = (function (_super) {
+    __extends(Character, _super);
+    function Character(left, right, up, down, pos) {
+        _super.call(this, left, right, up, down, pos);
+    }
+    return Character;
+}(Player));
 var CharacterSelect = (function () {
     function CharacterSelect(playerCount) {
         var _this = this;
@@ -153,13 +238,6 @@ var Game = (function () {
     }
     return Game;
 }());
-var GameObject = (function () {
-    function GameObject(pos) {
-        this.position = pos;
-        console.log(this.position);
-    }
-    return GameObject;
-}());
 var Level1 = (function () {
     function Level1(playerCount) {
         this.playerCount = playerCount;
@@ -171,15 +249,15 @@ var Level1 = (function () {
             this.life.spawnLife(10);
             this.virus = new Virus();
             this.virus.spawnVirus(10);
-            this.char1 = new WhiteBloodCell(37, 39, 38, 40, new Vector(500, 500));
+            this.char1 = new Character(37, 39, 38, 40, new Vector(500, 500));
         }
         else {
             this.life = new Life();
             this.life.spawnLife(5);
             this.virus = new Virus();
             this.virus.spawnVirus(25);
-            this.char1 = new WhiteBloodCell(37, 39, 38, 40, new Vector(1500, 1500));
-            this.char2 = new WhiteBloodCell(65, 68, 87, 83, new Vector(1500, 1500));
+            this.char1 = new Player(37, 39, 38, 40, new Vector(1500, 1500));
+            this.char2 = new Player(65, 68, 87, 83, new Vector(1500, 1500));
         }
         requestAnimationFrame(this.gameLoop.bind(this));
     }
@@ -234,77 +312,6 @@ var Music = (function () {
     };
     return Music;
 }());
-var WhiteBloodCell = (function (_super) {
-    __extends(WhiteBloodCell, _super);
-    function WhiteBloodCell(left, right, up, down, pos) {
-        _super.call(this, pos);
-        this.div = document.createElement("whiteBloodCell");
-        document.body.appendChild(this.div);
-        this.upkey = up;
-        this.downkey = down;
-        this.leftkey = left;
-        this.rightkey = right;
-        this.speed = new Vector(0, 0);
-        this.rightSpeed = new Vector(0, 0);
-        this.leftSpeed = new Vector(0, 0);
-        this.upSpeed = new Vector(0, 0);
-        this.downSpeed = new Vector(0, 0);
-        this.width = 200;
-        this.height = 200;
-        window.addEventListener("keydown", this.onKeyDown.bind(this));
-        window.addEventListener("keyup", this.onKeyUp.bind(this));
-    }
-    WhiteBloodCell.prototype.getBounds = function () {
-        return new Rectangle(this.position, this.width, this.height);
-    };
-    ;
-    WhiteBloodCell.prototype.onKeyDown = function (event) {
-        switch (event.keyCode) {
-            case this.upkey:
-                this.upSpeed = new Vector(0, -15);
-                break;
-            case this.downkey:
-                this.downSpeed = new Vector(0, 15);
-                break;
-            case this.leftkey:
-                this.leftSpeed = new Vector(-15, 0);
-                this.div.style.backgroundImage = "url('../images/player/player-look-left.png')";
-                break;
-            case this.rightkey:
-                this.rightSpeed = new Vector(15, 0);
-                this.div.style.backgroundImage = "url('../images/player/player-look-right.png')";
-                break;
-        }
-    };
-    WhiteBloodCell.prototype.onKeyUp = function (event) {
-        switch (event.keyCode) {
-            case this.upkey:
-                this.upSpeed = new Vector(0, 0);
-                break;
-            case this.downkey:
-                this.downSpeed = new Vector(0, 0);
-                break;
-            case this.leftkey:
-                this.leftSpeed = new Vector(0, 0);
-                break;
-            case this.rightkey:
-                this.rightSpeed = new Vector(0, 0);
-                break;
-        }
-    };
-    WhiteBloodCell.prototype.move = function () {
-        this.position = this.position.add(this.leftSpeed.add(this.rightSpeed));
-        ;
-        this.position = this.position.add(this.upSpeed.add(this.downSpeed));
-        this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
-        this.position.x = this.clamp(this.position.x, 0, window.innerWidth - this.width);
-        this.position.y = this.clamp(this.position.y, 0, window.innerHeight - this.height);
-    };
-    WhiteBloodCell.prototype.clamp = function (val, min, max) {
-        return Math.max(min, Math.min(max, val));
-    };
-    return WhiteBloodCell;
-}(GameObject));
 var Rectangle = (function () {
     function Rectangle(pos, w, h) {
         this.position = pos;

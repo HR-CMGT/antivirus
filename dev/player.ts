@@ -1,4 +1,7 @@
-class WhiteBloodCell extends GameObject {
+/// <reference path="gameobject.ts" />
+
+
+class Player extends GameObject {
 
     private div: HTMLElement;
 
@@ -27,7 +30,7 @@ class WhiteBloodCell extends GameObject {
     constructor(left: number, right: number, up: number, down: number, pos: Vector) {
         super(pos);
         // maak een divje waar de gif in komt te staan
-        this.div = document.createElement("whiteBloodCell");
+        this.div = document.createElement("player");
         document.body.appendChild(this.div);
 
         this.upkey = up;
