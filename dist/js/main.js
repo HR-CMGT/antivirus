@@ -383,7 +383,10 @@ var Level1 = (function () {
             for (var i = 0; i < 5; i++) {
                 this.lifes.push(new Life());
             }
-            this.char1 = new Character(37, 39, 38, 40, new Vector(1500, 1500), 2);
+            for (var i = 0; i < 10; i++) {
+                this.viruses.push(new Virus());
+            }
+            this.char1 = new Character(37, 39, 38, 40, new Vector(1500, 1500), 1);
             this.char2 = new Character(65, 68, 87, 83, new Vector(1500, 1500), 2);
         }
         requestAnimationFrame(this.gameLoop.bind(this));
