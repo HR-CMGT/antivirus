@@ -10,6 +10,5 @@ class GameObject {
     
     constructor(pos:Vector) {
         this.position = pos;
-        console.log(this.position);
     }
 }

@@ -156,28 +156,30 @@ var Game = (function () {
 var GameObject = (function () {
     function GameObject(pos) {
         this.position = pos;
-        console.log(this.position);
     }
     return GameObject;
 }());
 var Level1 = (function () {
     function Level1(playerCount) {
+        this.lifes = new Array();
+        this.viruses = new Array();
         this.playerCount = playerCount;
         this.utils = new Utils();
         this.utils.removePreviousBackground();
         var background = new Background(1, 1);
         if (playerCount == 1) {
-            this.life = new Life();
-            this.life.spawnLife(10);
-            this.virus = new Virus();
-            this.virus.spawnVirus(10);
+            for (var i = 0; i < 5; i++) {
+                this.lifes.push(new Life());
+            }
+            for (var i = 0; i < 10; i++) {
+                this.viruses.push(new Virus());
+            }
             this.char1 = new WhiteBloodCell(37, 39, 38, 40, new Vector(500, 500));
         }
         else {
-            this.life = new Life();
-            this.life.spawnLife(5);
-            this.virus = new Virus();
-            this.virus.spawnVirus(25);
+            for (var i = 0; i < 5; i++) {
+                this.lifes.push(new Life());
+            }
             this.char1 = new WhiteBloodCell(37, 39, 38, 40, new Vector(1500, 1500));
             this.char2 = new WhiteBloodCell(65, 68, 87, 83, new Vector(1500, 1500));
         }
@@ -191,6 +193,15 @@ var Level1 = (function () {
             this.char1.move();
             this.char2.move();
         }
+        for (var _i = 0, _a = this.lifes; _i < _a.length; _i++) {
+            var life = _a[_i];
+            life.draw();
+        }
+        for (var _b = 0, _c = this.viruses; _b < _c.length; _b++) {
+            var virus = _c[_b];
+            var random = Math.floor(Math.random() * this.lifes.length);
+            virus.move(this.lifes[random]);
+        }
         requestAnimationFrame(this.gameLoop.bind(this));
     };
     return Level1;
@@ -199,22 +210,19 @@ var Life = (function () {
     function Life() {
         this.div = document.createElement("redBloodCell");
         document.body.appendChild(this.div);
-        this.randomPosition();
+        this.position = this.randomPosition();
         this.width = 75;
         this.height = 75;
     }
-    Life.prototype.spawnLife = function (amount) {
-        for (var i = 1; i < amount; i++) {
-            new Life;
-        }
-    };
     Life.prototype.randomPosition = function () {
-        var randomX = Math.floor(Math.random() * 500) + (screen.width / 2);
-        var randomY = Math.floor(Math.random() * 500) + (screen.height / 2);
-        this.div.style.transform = "translate(" + randomX + "%, " + randomY + "%)";
-        if (this.x < (screen.width / 2)) {
-            this.div.style.backgroundImage = "url(\"../images/characters/red2.png\")";
-        }
+        var x = Math.floor(Math.random() * 1280) + 640;
+        var y = Math.floor(Math.random() * 897) + 449;
+        return new Vector(x, y);
+    };
+    Life.prototype.move = function () {
+    };
+    Life.prototype.draw = function () {
+        this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
     };
     return Life;
 }());
@@ -294,7 +302,6 @@ var WhiteBloodCell = (function (_super) {
     };
     WhiteBloodCell.prototype.move = function () {
         this.position = this.position.add(this.leftSpeed.add(this.rightSpeed));
-        ;
         this.position = this.position.add(this.upSpeed.add(this.downSpeed));
         this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
         this.position.x = this.clamp(this.position.x, 0, window.innerWidth - this.width);
@@ -487,30 +494,36 @@ var Virus = (function () {
     function Virus() {
         this.div = document.createElement("virus");
         document.body.appendChild(this.div);
-        this.randomPosition();
+        this.position = this.randomPosition();
+        this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
+        this.speed = new Vector(1, 1);
         this.width = 150;
         this.height = 150;
     }
-    Virus.prototype.spawnVirus = function (amount) {
-        for (var i = 1; i < amount; i++) {
-            new Virus;
-        }
+    Virus.prototype.move = function (life) {
+        var direction = life.position.difference(this.position);
+        direction = direction.normalize();
+        direction = direction.scale(2);
+        this.position = this.position.add(direction);
+        this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
     };
     Virus.prototype.randomPosition = function () {
         var random = Math.floor(Math.random() * 3) + 1;
         if (random == 1) {
             var x = 0;
             var y = Math.floor(Math.random() * window.innerHeight + 125);
+            return new Vector(x, y);
         }
         else if (random == 2) {
             var x = window.innerWidth - 125;
             var y = Math.floor(Math.random() * window.innerHeight + 125);
+            return new Vector(x, y);
         }
         else if (random == 3) {
             var x = Math.floor(Math.random() * window.innerWidth - 125);
             var y = 0;
+            return new Vector(x, y);
         }
-        this.div.style.transform = "translate(" + x + "px, " + y + "px)";
     };
     return Virus;
 }());
