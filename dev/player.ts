@@ -1,6 +1,9 @@
-class WhiteBloodCell extends GameObject {
+/// <reference path="gameobject.ts" />
 
-    private div: HTMLElement;
+
+class Player extends GameObject {
+
+    public playerNumber: number;
 
     private downkey: number;
     private upkey: number;
@@ -24,11 +27,12 @@ class WhiteBloodCell extends GameObject {
         return new Rectangle(this.position,this.width, this.height);
     };
 
-    constructor(left: number, right: number, up: number, down: number, pos: Vector) {
+    constructor(left: number, right: number, up: number, down: number, pos: Vector, playerNumber: number) {
         super(pos);
-        // maak een divje waar de gif in komt te staan
-        this.div = document.createElement("whiteBloodCell");
-        document.body.appendChild(this.div);
+        
+        this.playerNumber = playerNumber;
+        
+        console.log(left);
 
         this.upkey = up;
         this.downkey = down;
@@ -57,17 +61,41 @@ class WhiteBloodCell extends GameObject {
         switch (event.keyCode) {
             case this.upkey:
                 this.upSpeed = new Vector(0, -15);
+                
                 break;
             case this.downkey:
                 this.downSpeed = new Vector(0, 15);
                 break;
             case this.leftkey:
                 this.leftSpeed = new Vector(-15, 0);
-                this.div.style.backgroundImage = "url('../images/player/player-look-left.png')";
+                switch(this.playerNumber){
+                    case 1:
+                        document.getElementById("character1Body").style.transform = "scaleX(-1)";
+                        document.getElementById("character1Mouth").style.transform = "scaleX(-1)";
+                        document.getElementById("character1Glasses").style.transform = "scaleX(-1)";
+                        break;
+                    case 2:
+                        document.getElementById("character2Body").style.transform = "scaleX(-1)";
+                        document.getElementById("character2Mouth").style.transform = "scaleX(-1)";
+                        document.getElementById("character2Glasses").style.transform = "scaleX(-1)";
+                        break;   
+                }
+                
                 break;
             case this.rightkey:
                 this.rightSpeed = new Vector(15, 0);
-                this.div.style.backgroundImage = "url('../images/player/player-look-right.png')";
+                switch(this.playerNumber){
+                    case 1:
+                        document.getElementById("character1Body").style.transform = "scaleX(1)";
+                        document.getElementById("character1Mouth").style.transform = "scaleX(1)";
+                        document.getElementById("character1Glasses").style.transform = "scaleX(1)";
+                        break;
+                    case 2:
+                        document.getElementById("character2Body").style.transform = "scaleX(1)";
+                        document.getElementById("character2Mouth").style.transform = "scaleX(1)";
+                        document.getElementById("character2Glasses").style.transform = "scaleX(1)";
+                        break;   
+                }
                 break;
         }
 
@@ -95,12 +123,23 @@ class WhiteBloodCell extends GameObject {
     // bewegen - let op, de move functie wordt door game aangeroepen - animatie is niet smooth als de keydown listener een beweging triggered
     public move(): void {
 
+        
+        
         this.position = this.position.add(this.leftSpeed.add(this.rightSpeed));
         this.position = this.position.add(this.upSpeed.add(this.downSpeed));
 
         // de div positie aanpassen met transform - tip: scaleX kan je gebruiken om de andere kant op te kijken
-        this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
-
+        
+        switch(this.playerNumber){
+            
+            case 1:
+                document.getElementById("character1").style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
+                break;
+                
+            case 2:
+                document.getElementById("character2").style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
+                break;
+        }
         //clamp van x en y op breedte en hoogte van het scherm
         this.position.x = this.clamp(this.position.x, 0, window.innerWidth - this.width);
         this.position.y = this.clamp(this.position.y, 0, window.innerHeight - this.height);
