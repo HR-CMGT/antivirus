@@ -141,7 +141,6 @@ var Player = (function (_super) {
     };
     Player.prototype.move = function () {
         this.position = this.position.add(this.leftSpeed.add(this.rightSpeed));
-        ;
         this.position = this.position.add(this.upSpeed.add(this.downSpeed));
         switch (this.playerNumber) {
             case 1:

@@ -126,7 +126,6 @@ class Player extends GameObject {
         
         
         this.position = this.position.add(this.leftSpeed.add(this.rightSpeed));
-        ;
         this.position = this.position.add(this.upSpeed.add(this.downSpeed));
 
         // de div positie aanpassen met transform - tip: scaleX kan je gebruiken om de andere kant op te kijken
