@@ -22,7 +22,7 @@ class Level1 {
             this.life.spawnLife(10);
             this.virus = new Virus();
             this.virus.spawnVirus(10);
-            this.char1 = new Character(37,39,38,40, new Vector(500,500));
+            this.char1 = new Character(37,39,38,40, new Vector(500,500), 1);
 
             
         } else {
@@ -31,8 +31,8 @@ class Level1 {
             this.life.spawnLife(5);
             this.virus = new Virus();
             this.virus.spawnVirus(25);
-            this.char1 = new Player(37,39,38,40, new Vector(1500,1500));
-            this.char2 = new Player(65,68,87,83, new Vector(1500,1500));
+            this.char1 = new Character(37,39,38,40, new Vector(500,500), 1);
+            this.char2 = new Character(65,68,87,83, new Vector(800,800), 2);
         }
         
        

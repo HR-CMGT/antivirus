@@ -3,8 +3,6 @@
 
 class Player extends GameObject {
 
-    private div: HTMLElement;
-
     private downkey: number;
     private upkey: number;
     private leftkey: number;
@@ -29,9 +27,8 @@ class Player extends GameObject {
 
     constructor(left: number, right: number, up: number, down: number, pos: Vector) {
         super(pos);
-        // maak een divje waar de gif in komt te staan
-        this.div = document.createElement("player");
-        document.body.appendChild(this.div);
+        
+        console.log(left);
 
         this.upkey = up;
         this.downkey = down;
@@ -60,17 +57,24 @@ class Player extends GameObject {
         switch (event.keyCode) {
             case this.upkey:
                 this.upSpeed = new Vector(0, -15);
+                
                 break;
             case this.downkey:
                 this.downSpeed = new Vector(0, 15);
                 break;
             case this.leftkey:
                 this.leftSpeed = new Vector(-15, 0);
-                this.div.style.backgroundImage = "url('../images/player/player-look-left.png')";
+                document.getElementById("character1Body").style.transform = "scaleX(-1)";
+                document.getElementById("character1Mouth").style.transform = "scaleX(-1)";
+                document.getElementById("character1Glasses").style.transform = "scaleX(-1)";
+                //this.div.style.backgroundImage = "url('../images/player/player-look-left.png')";
                 break;
             case this.rightkey:
                 this.rightSpeed = new Vector(15, 0);
-                this.div.style.backgroundImage = "url('../images/player/player-look-right.png')";
+                document.getElementById("character1Body").style.transform = "scaleX(1)";
+                document.getElementById("character1Mouth").style.transform = "scaleX(1)";
+                document.getElementById("character1Glasses").style.transform = "scaleX(1)";
+                //this.div.style.backgroundImage = "url('../images/player/player-look-right.png')";
                 break;
         }
 
@@ -103,7 +107,8 @@ class Player extends GameObject {
         this.position = this.position.add(this.upSpeed.add(this.downSpeed));
 
         // de div positie aanpassen met transform - tip: scaleX kan je gebruiken om de andere kant op te kijken
-        this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
+        document.getElementById("character1").style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
+        document.getElementById("character2").style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
 
         //clamp van x en y op breedte en hoogte van het scherm
         this.position.x = this.clamp(this.position.x, 0, window.innerWidth - this.width);
