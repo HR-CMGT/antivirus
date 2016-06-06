@@ -61,8 +61,9 @@ var GameObject = (function () {
 }());
 var Player = (function (_super) {
     __extends(Player, _super);
-    function Player(left, right, up, down, pos) {
+    function Player(left, right, up, down, pos, playerNumber) {
         _super.call(this, pos);
+        this.playerNumber = playerNumber;
         console.log(left);
         this.upkey = up;
         this.downkey = down;
@@ -92,15 +93,33 @@ var Player = (function (_super) {
                 break;
             case this.leftkey:
                 this.leftSpeed = new Vector(-15, 0);
-                document.getElementById("character1Body").style.transform = "scaleX(-1)";
-                document.getElementById("character1Mouth").style.transform = "scaleX(-1)";
-                document.getElementById("character1Glasses").style.transform = "scaleX(-1)";
+                switch (this.playerNumber) {
+                    case 1:
+                        document.getElementById("character1Body").style.transform = "scaleX(-1)";
+                        document.getElementById("character1Mouth").style.transform = "scaleX(-1)";
+                        document.getElementById("character1Glasses").style.transform = "scaleX(-1)";
+                        break;
+                    case 2:
+                        document.getElementById("character2Body").style.transform = "scaleX(-1)";
+                        document.getElementById("character2Mouth").style.transform = "scaleX(-1)";
+                        document.getElementById("character2Glasses").style.transform = "scaleX(-1)";
+                        break;
+                }
                 break;
             case this.rightkey:
                 this.rightSpeed = new Vector(15, 0);
-                document.getElementById("character1Body").style.transform = "scaleX(1)";
-                document.getElementById("character1Mouth").style.transform = "scaleX(1)";
-                document.getElementById("character1Glasses").style.transform = "scaleX(1)";
+                switch (this.playerNumber) {
+                    case 1:
+                        document.getElementById("character1Body").style.transform = "scaleX(1)";
+                        document.getElementById("character1Mouth").style.transform = "scaleX(1)";
+                        document.getElementById("character1Glasses").style.transform = "scaleX(1)";
+                        break;
+                    case 2:
+                        document.getElementById("character2Body").style.transform = "scaleX(1)";
+                        document.getElementById("character2Mouth").style.transform = "scaleX(1)";
+                        document.getElementById("character2Glasses").style.transform = "scaleX(1)";
+                        break;
+                }
                 break;
         }
     };
@@ -124,8 +143,14 @@ var Player = (function (_super) {
         this.position = this.position.add(this.leftSpeed.add(this.rightSpeed));
         ;
         this.position = this.position.add(this.upSpeed.add(this.downSpeed));
-        document.getElementById("character1").style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
-        document.getElementById("character2").style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
+        switch (this.playerNumber) {
+            case 1:
+                document.getElementById("character1").style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
+                break;
+            case 2:
+                document.getElementById("character2").style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
+                break;
+        }
         this.position.x = this.clamp(this.position.x, 0, window.innerWidth - this.width);
         this.position.y = this.clamp(this.position.y, 0, window.innerHeight - this.height);
     };
@@ -138,9 +163,9 @@ var glassesNumber1 = 1;
 var glassesNumber2 = 1;
 var Character = (function (_super) {
     __extends(Character, _super);
-    function Character(left, right, up, down, pos, characterNumber) {
-        _super.call(this, left, right, up, down, pos);
-        this.characterNumber = characterNumber;
+    function Character(left, right, up, down, pos, playerNumber) {
+        _super.call(this, left, right, up, down, pos, playerNumber);
+        this.characterNumber = playerNumber;
         this.character = document.createElement("character");
         this.character.setAttribute("id", "character" + this.characterNumber);
         document.getElementById("background").appendChild(this.character);
@@ -152,7 +177,7 @@ var Character = (function (_super) {
         document.getElementById("character" + this.characterNumber).appendChild(this.mouth);
         this.glasses = document.createElement("characterGlasses");
         this.glasses.setAttribute("id", "character" + this.characterNumber + "Glasses");
-        switch (characterNumber) {
+        switch (this.characterNumber) {
             case 1:
                 this.glasses.style.backgroundImage = "url('../images/player/glasses" + glassesNumber1 + ".png')";
                 document.getElementById("character" + this.characterNumber).appendChild(this.glasses);

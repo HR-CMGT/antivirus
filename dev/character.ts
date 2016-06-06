@@ -11,10 +11,10 @@ class Character extends Player{
     public mouth;
     public glasses;
     
-    constructor(left:number, right:number, up:number, down:number, pos:Vector, characterNumber:number){
-        super(left, right, up, down, pos);
+    constructor(left:number, right:number, up:number, down:number, pos:Vector, playerNumber: number){
+        super(left, right, up, down, pos, playerNumber);
         
-        this.characterNumber = characterNumber;
+        this.characterNumber = playerNumber;
         
         this.character = document.createElement("character");
         this.character.setAttribute("id", "character" + this.characterNumber);
@@ -31,7 +31,7 @@ class Character extends Player{
         this.glasses = document.createElement("characterGlasses");
         this.glasses.setAttribute("id", "character"+ this.characterNumber +"Glasses");
         
-        switch(characterNumber){
+        switch(this.characterNumber){
             case 1:
                 this.glasses.style.backgroundImage = "url('../images/player/glasses"+glassesNumber1+".png')"
                 document.getElementById("character" + this.characterNumber).appendChild(this.glasses);
@@ -40,10 +40,6 @@ class Character extends Player{
                 this.glasses.style.backgroundImage = "url('../images/player/glasses"+glassesNumber2+".png')"
                 document.getElementById("character" + this.characterNumber).appendChild(this.glasses);
                 break;
-        }
-        
-        
-        
-        
+        } 
     }
 }
