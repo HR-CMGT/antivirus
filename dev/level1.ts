@@ -38,7 +38,7 @@ class Level1 {
         
             this.char1 = new Character(37,39,38,40, new Vector(1500,1500), 2);
             this.char2 = new Character(65,68,87,83, new Vector(1500,1500), 2);
-
+                        
         }
         
        
