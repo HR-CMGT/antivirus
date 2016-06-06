@@ -4,38 +4,37 @@
 class Life {
     
     private div:HTMLElement;
-    // public x: number;
-    // public y: number;
+    public x: number;
+    public y: number;
     public width: number;
     public height: number;
     public life: Life;
-    public position: Vector;
+    
     
     constructor() {
         this.div = document.createElement("redBloodCell");
         document.body.appendChild(this.div);
-        this.position = this.randomPosition();
         
+        this.randomPosition();
 
         this.width = 75;
         this.height = 75;
     }
     
-    randomPosition(): Vector{
+    public spawnLife(amount:number){
+        for(let i = 1; i < amount; i++){
+            new Life;
+        }
+    }
+    
+    randomPosition(){
                         
-        let x = Math.floor(Math.random() * 1280) + 640;//	1920
-        let y = Math.floor(Math.random() * 897) + 449; //897 
-        // let x = 500;
-        // let y = 500;
+        let randomX = Math.floor(Math.random() * 500) + (screen.width/2);
+        let randomY = Math.floor(Math.random() * 500) + (screen.height/2);  
         
-        return new Vector(x,y);
-    }
-    
-    move() : void{
-
-    }
-    
-    draw() : void {
-        this.div.style.transform = "translate("+this.position.x+"px, "+this.position.y+"px)";
+        this.div.style.transform = "translate("+randomX+"%, "+randomY+"%)"
+        if(this.x < (screen.width/2)){
+            this.div.style.backgroundImage = "url(\"../images/characters/red2.png\")";
+        }
     }
 }
