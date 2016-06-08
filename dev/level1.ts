@@ -111,6 +111,13 @@ class Level1 {
                     this.lifes.splice(random, 1);
                 }
             }
+            
+            if (this.viruses[i].hitbox.hitsOtherRectangle(this.char1.rectangle)){
+                console.log("hitbox detected");
+                this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
+            } else {
+                this.viruses[i].changeImage("url(\"../images/characters/virus1.png\")");
+            }
 
             if(this.playerCount == 1){
                 if (this.viruses[i].rectangle.hitsOtherRectangle(this.char1.rectangle)){
@@ -127,7 +134,7 @@ class Level1 {
                 this.viruses.splice(i, 1);
                 this.scoreCount++;
                 this.score.innerHTML = ""+this.scoreCount;
-            }
+                }
             }
 
         }

@@ -3,7 +3,7 @@
  */
 class Virus{
     
-    private div:HTMLElement;
+    public div:HTMLElement;
     public x: number;
     public y: number;
     public width: number;
@@ -13,6 +13,8 @@ class Virus{
     public rectangle: Rectangle;
     public level: Level1;
     public id: number;
+    public hitbox: Rectangle;
+    public hitboxPosition: Vector;
     
     constructor(id:number) {
         this.id = id;
@@ -27,8 +29,8 @@ class Virus{
         
         this.speed = new Vector(1,1);
         //this.life = new Life();
-        this.width = 150;
-        this.height = 150;
+        this.width = 125;
+        this.height = 125;
     }
     
     
@@ -41,7 +43,12 @@ class Virus{
         direction = direction.scale(random);
         this.position = this.position.add(direction);
         this.div.style.transform = "translate("+this.position.x+"px, "+this.position.y+"px)";
-        this.rectangle = new Rectangle(this.position, 100, 100);
+        this.rectangle = new Rectangle(this.position, 75, 75);
+        
+        this.hitboxPosition = new Vector(this.position.x - 50, this.position.y - 50);
+        this.hitbox = new Rectangle(this.hitboxPosition, 300,300);
+        console.log(this.hitboxPosition);
+        console.log(this.position);
         
     }
     
@@ -54,11 +61,15 @@ class Virus{
     }
     
     public remove(){
-        this.div.remove();
+        this.div.remove();    
+    }
+    
+    public changeImage(image: string){
+        this.div.style.backgroundImage = (image);
         
     }
     
-    randomPosition(){
+    public randomPosition(){
         
         let random = Math.floor(Math.random() * 3) + 1;
         if(random == 1){

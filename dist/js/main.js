@@ -144,7 +144,8 @@ var Player = (function (_super) {
         }
     };
     Player.prototype.move = function () {
-        this.rectangle = new Rectangle(this.position, 150, 150);
+        this.hitboxPosition = new Vector(this.position.x + 25, this.position.y + 25);
+        this.rectangle = new Rectangle(this.hitboxPosition, 100, 100);
         this.position = this.position.add(this.leftSpeed.add(this.rightSpeed));
         this.position = this.position.add(this.upSpeed.add(this.downSpeed));
         switch (this.playerNumber) {
@@ -170,9 +171,9 @@ var Character = (function (_super) {
     function Character(left, right, up, down, pos, playerNumber) {
         _super.call(this, left, right, up, down, pos, playerNumber);
         this.characterNumber = playerNumber;
-        this.character = document.createElement("character");
-        this.character.setAttribute("id", "character" + this.characterNumber);
-        document.getElementById("background").appendChild(this.character);
+        this.div = document.createElement("character");
+        this.div.setAttribute("id", "character" + this.characterNumber);
+        document.getElementById("background").appendChild(this.div);
         this.body = document.createElement("characterBody");
         this.body.setAttribute("id", "character" + this.characterNumber + "Body");
         document.getElementById("character" + this.characterNumber).appendChild(this.body);
@@ -447,6 +448,13 @@ var Level1 = (function () {
                     this.lifes.splice(random, 1);
                 }
             }
+            if (this.viruses[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
+                console.log("hitbox detected");
+                this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
+            }
+            else {
+                this.viruses[i].changeImage("url(\"../images/characters/virus1.png\")");
+            }
             if (this.playerCount == 1) {
                 if (this.viruses[i].rectangle.hitsOtherRectangle(this.char1.rectangle)) {
                     this.viruses[i].remove();
@@ -697,8 +705,8 @@ var Virus = (function () {
         this.position = this.randomPosition();
         this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
         this.speed = new Vector(1, 1);
-        this.width = 150;
-        this.height = 150;
+        this.width = 125;
+        this.height = 125;
     }
     Virus.prototype.move = function (life) {
         var random = Math.floor((Math.random() * 3) + 1);
@@ -707,7 +715,11 @@ var Virus = (function () {
         direction = direction.scale(random);
         this.position = this.position.add(direction);
         this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
-        this.rectangle = new Rectangle(this.position, 100, 100);
+        this.rectangle = new Rectangle(this.position, 75, 75);
+        this.hitboxPosition = new Vector(this.position.x - 50, this.position.y - 50);
+        this.hitbox = new Rectangle(this.hitboxPosition, 300, 300);
+        console.log(this.hitboxPosition);
+        console.log(this.position);
     };
     Virus.prototype.hitsLife = function (life) {
         if (this.rectangle.hitsOtherRectangle(life.rectangle)) {
@@ -716,6 +728,9 @@ var Virus = (function () {
     };
     Virus.prototype.remove = function () {
         this.div.remove();
+    };
+    Virus.prototype.changeImage = function (image) {
+        this.div.style.backgroundImage = (image);
     };
     Virus.prototype.randomPosition = function () {
         var random = Math.floor(Math.random() * 3) + 1;

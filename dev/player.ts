@@ -23,6 +23,7 @@ class Player extends GameObject {
     public width: number;
     public height: number;
     public rectangle: Rectangle;
+    public hitboxPosition: Vector;
 
     constructor(left: number, right: number, up: number, down: number, pos: Vector, playerNumber: number) {
         super(pos);
@@ -61,6 +62,8 @@ class Player extends GameObject {
     public getBounds():Rectangle{
         return new Rectangle(this.position,this.width, this.height);
     };
+
+
 
     // keyboard input zorgt dat de snelheid wordt aangepast
     private onKeyDown(event: KeyboardEvent): void {
@@ -130,7 +133,9 @@ class Player extends GameObject {
     // bewegen - let op, de move functie wordt door game aangeroepen - animatie is niet smooth als de keydown listener een beweging triggered
     public move(): void {
         
-        this.rectangle = new Rectangle(this.position,150,150);
+        this.hitboxPosition = new Vector(this.position.x + 25, this.position.y + 25);
+        
+        this.rectangle = new Rectangle(this.hitboxPosition,100,100);
         
         
         this.position = this.position.add(this.leftSpeed.add(this.rightSpeed));

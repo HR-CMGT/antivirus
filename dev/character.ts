@@ -6,7 +6,7 @@ class Character extends Player{
     
     public characterNumber:number;
     
-    public character;
+    public div:HTMLElement;
     public body;
     public mouth;
     public glasses;
@@ -16,9 +16,9 @@ class Character extends Player{
         
         this.characterNumber = playerNumber;
         
-        this.character = document.createElement("character");
-        this.character.setAttribute("id", "character" + this.characterNumber);
-        document.getElementById("background").appendChild(this.character);
+        this.div = document.createElement("character");
+        this.div.setAttribute("id", "character" + this.characterNumber);
+        document.getElementById("background").appendChild(this.div);
         
         this.body = document.createElement("characterBody");
         this.body.setAttribute("id", "character"+ this.characterNumber +"Body");
@@ -42,4 +42,6 @@ class Character extends Player{
                 break;
         } 
     }
+    
+    
 }
