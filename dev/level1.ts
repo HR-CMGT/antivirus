@@ -5,55 +5,73 @@ class Level1 {
     private char2:Player;
     public playerCount;
     private utils:Utils;
-    private lifes: Array<Life> = new Array<Life>();
-    private viruses: Array<Virus> = new Array<Virus>();
-    
-       
+    public lifes: Array<Life> = new Array<Life>();
+    public viruses: Array<Virus> = new Array<Virus>();
+    public timer: number;
+    public virusCount: number = 0;
+    public scoreCount: number = 0;
+    private score: HTMLElement;
     
     constructor(playerCount:number){
-        this.playerCount = playerCount;
         
+        this.playerCount = playerCount;
         this.utils = new Utils();
         this.utils.removePreviousBackground();
         
         var background = new Background(1,1);
-        // var music = new Music(1);
+        
+        this.score = document.createElement("score");
+        this.score.innerHTML = ""+this.scoreCount;
+        this.score.style.marginLeft = "50%";
+        this.score.style.width = "100px";
+        this.score.style.height = "50px";
+        this.score.style.fontSize = "70px";
+        this.score.style.color = "white";
+        document.body.appendChild(this.score);
+        
+        
+
         if(playerCount == 1){
             
             for (var i = 0; i < 5; i++) {
-                this.lifes.push(new Life());
+                this.lifes.push(new Life(i));
             }
             
-            for (var i = 0; i < 10; i++) {
-                this.viruses.push(new Virus());
-            }
+
+            this.timer = setInterval(this.spawnVirus.bind(this), 1000);
+            
+            // setInterval(function(){ this.viruses.push(new Virus()); },500);           
+            // for (var i = 0; i < 10; i++) {
+            //     this.viruses.push(new Virus());
+            // }
+            
             this.char1 = new Character(37,39,38,40, new Vector(500,500), 1);
 
             
         } else {
 
             for (var i = 0; i < 5; i++) {
-                this.lifes.push(new Life());
+                this.lifes.push(new Life(i));
             }
         
-            for (var i = 0; i < 10; i++) {
-                this.viruses.push(new Virus());
-            }
+            this.timer = setInterval(this.spawnVirus.bind(this), 750);
+            
             this.char1 = new Character(37,39,38,40, new Vector(1500,1500), 1);
-            this.char2 = new Character(65,68,87,83, new Vector(1500,1500), 2);
-                        
+            this.char2 = new Character(65,68,87,83, new Vector(1500,1500), 2);                        
         }
-        
-       
-        
-        
         requestAnimationFrame(this.gameLoop.bind(this));
-        
     }
     
-    
+    private spawnVirus(){
+        this.viruses.push(new Virus(this.virusCount));
+        this.virusCount++;
+        console.log(this.virusCount);
+    }
         
     private gameLoop(){
+        
+        
+        
         if(this.playerCount == 1){
             this.char1.move();
         } else {
@@ -63,19 +81,45 @@ class Level1 {
         
         for(let life of this.lifes){
             life.draw();
+            life.move();
         }
         
-        for(let virus of this.viruses) {
-            let random = Math.floor(Math.random()*this.lifes.length); 
-            virus.move(this.lifes[random]);
-            
-            
-            // virus.move(this.lifes[0]);
-            
-            
+        for (let i = 0; i < this.viruses.length; i++) {
+            let random = Math.floor(Math.random() * this.lifes.length);
+            if (this.lifes.length == 0) {
+                this.viruses.splice(0, this.viruses.length);
+                clearInterval(this.timer);
+                this.utils.removePreviousBackground();
+                new Titlescreen();
+            } else {
+                this.viruses[i].move(this.lifes[random]);
+                if (this.viruses[i].hitsLife(this.lifes[random]) == true) {
+                    var life = document.getElementById("" + this.lifes[random].id);
+                    life.remove();
+                    this.lifes.splice(random, 1);
+                }
+            }
+
+            if(this.playerCount == 1){
+                if (this.viruses[i].rectangle.hitsOtherRectangle(this.char1.rectangle)){
+                    this.viruses[i].remove();
+                    this.viruses.splice(i, 1);
+                    this.scoreCount++;
+                    this.score.innerHTML = ""+this.scoreCount;  
+                }
+            } else {
+
+            if (this.viruses[i].rectangle.hitsOtherRectangle(this.char1.rectangle) || this.viruses[i].rectangle.hitsOtherRectangle(this.char2.rectangle)) {
+                // var enemy  = document.getElementById("virus"+virus.id);
+                this.viruses[i].remove();
+                this.viruses.splice(i, 1);
+                this.scoreCount++;
+                this.score.innerHTML = ""+this.scoreCount;
+            }
+            }
+
         }
-        
-        
+
         requestAnimationFrame(this.gameLoop.bind(this));
     }
     

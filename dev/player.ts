@@ -22,17 +22,12 @@ class Player extends GameObject {
     public targetY: number;
     public width: number;
     public height: number;
-    
-    public getBounds():Rectangle{
-        return new Rectangle(this.position,this.width, this.height);
-    };
+    public rectangle: Rectangle;
 
     constructor(left: number, right: number, up: number, down: number, pos: Vector, playerNumber: number) {
         super(pos);
         
         this.playerNumber = playerNumber;
-        
-        console.log(left);
 
         this.upkey = up;
         this.downkey = down;
@@ -54,20 +49,32 @@ class Player extends GameObject {
         window.addEventListener("keyup", this.onKeyUp.bind(this));
 
     }
+    
+    public hitsVirus(virus: Virus){
+        if(this.rectangle.hitsOtherRectangle(virus.rectangle)){
+                        console.log("raakt virus");
+            return true;
+            
+        }
+    }
+    
+    public getBounds():Rectangle{
+        return new Rectangle(this.position,this.width, this.height);
+    };
 
     // keyboard input zorgt dat de snelheid wordt aangepast
     private onKeyDown(event: KeyboardEvent): void {
 
         switch (event.keyCode) {
             case this.upkey:
-                this.upSpeed = new Vector(0, -15);
+                this.upSpeed = new Vector(0, -10);
                 
                 break;
             case this.downkey:
-                this.downSpeed = new Vector(0, 15);
+                this.downSpeed = new Vector(0, 10);
                 break;
             case this.leftkey:
-                this.leftSpeed = new Vector(-15, 0);
+                this.leftSpeed = new Vector(-10, 0);
                 switch(this.playerNumber){
                     case 1:
                         document.getElementById("character1Body").style.transform = "scaleX(-1)";
@@ -83,7 +90,7 @@ class Player extends GameObject {
                 
                 break;
             case this.rightkey:
-                this.rightSpeed = new Vector(15, 0);
+                this.rightSpeed = new Vector(10, 0);
                 switch(this.playerNumber){
                     case 1:
                         document.getElementById("character1Body").style.transform = "scaleX(1)";
@@ -122,11 +129,13 @@ class Player extends GameObject {
 
     // bewegen - let op, de move functie wordt door game aangeroepen - animatie is niet smooth als de keydown listener een beweging triggered
     public move(): void {
-
+        
+        this.rectangle = new Rectangle(this.position,150,150);
         
         
         this.position = this.position.add(this.leftSpeed.add(this.rightSpeed));
         this.position = this.position.add(this.upSpeed.add(this.downSpeed));
+        // this.rectangle = new Rectangle(this.position, 150,150);
 
         // de div positie aanpassen met transform - tip: scaleX kan je gebruiken om de andere kant op te kijken
         

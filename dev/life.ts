@@ -3,17 +3,21 @@
  */
 class Life {
     
-    private div:HTMLElement;
+    public div:HTMLElement;
     // public x: number;
     // public y: number;
     public width: number;
     public height: number;
     public life: Life;
     public position: Vector;
+    public rectangle: Rectangle;
+    public id: number;
     
-    constructor() {
+    constructor(id:number) {
+        this.id = id;
         this.div = document.createElement("redBloodCell");
-        document.body.appendChild(this.div);
+        this.div.setAttribute("id", ""+this.id);
+        document.getElementById("background").appendChild(this.div);
         this.position = this.randomPosition();
         
 
@@ -32,7 +36,8 @@ class Life {
     }
     
     move() : void{
-
+        this.rectangle = new Rectangle(this.position, 75, 75);
+        
     }
     
     draw() : void {
