@@ -12,9 +12,11 @@ class Level1 {
     public scoreCount: number = 0;
     private score: HTMLElement;
     public spawnTime: number;
+    public enemy:Enemy;
     
     constructor(playerCount:number){
         
+        this.enemy = new Enemy(new Vector(0,0));
         this.playerCount = playerCount;
         this.utils = new Utils();
         this.utils.removePreviousBackground();
@@ -65,7 +67,7 @@ class Level1 {
     }
     
     private spawnVirus(){
-        this.viruses.push(new Virus(this.virusCount));
+        this.viruses.push(new Virus(this.virusCount, this.enemy.randomPosition()));
         this.virusCount++;
         if(this.spawnTime > 200){  
             this.spawnTime = this.spawnTime -10;

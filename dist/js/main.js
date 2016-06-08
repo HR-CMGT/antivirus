@@ -56,6 +56,9 @@ var GameObject = (function () {
     function GameObject(pos) {
         this.position = pos;
     }
+    GameObject.prototype.changeImage = function (image) {
+        this.div.style.backgroundImage = (image);
+    };
     return GameObject;
 }());
 var Player = (function (_super) {
@@ -363,6 +366,36 @@ var CharacterSelect = (function () {
     };
     return CharacterSelect;
 }());
+var Enemy = (function (_super) {
+    __extends(Enemy, _super);
+    function Enemy(pos) {
+        _super.call(this, pos);
+    }
+    Enemy.prototype.randomPosition = function () {
+        var random = Math.floor(Math.random() * 3) + 1;
+        if (random == 1) {
+            var x = 0;
+            var y = Math.floor(Math.random() * window.innerHeight + 125);
+            return new Vector(x, y);
+        }
+        else if (random == 2) {
+            var x = window.innerWidth - 125;
+            var y = Math.floor(Math.random() * window.innerHeight + 125);
+            return new Vector(x, y);
+        }
+        else if (random == 3) {
+            var x = Math.floor(Math.random() * window.innerWidth - 125);
+            var y = 0;
+            return new Vector(x, y);
+        }
+    };
+    Enemy.prototype.hitsLife = function (life) {
+        if (this.rectangle.hitsOtherRectangle(life.rectangle)) {
+            return true;
+        }
+    };
+    return Enemy;
+}(GameObject));
 var Game = (function () {
     function Game() {
         new Titlescreen();
@@ -375,6 +408,7 @@ var Level1 = (function () {
         this.viruses = new Array();
         this.virusCount = 0;
         this.scoreCount = 0;
+        this.enemy = new Enemy(new Vector(0, 0));
         this.playerCount = playerCount;
         this.utils = new Utils();
         this.utils.removePreviousBackground();
@@ -406,7 +440,7 @@ var Level1 = (function () {
         requestAnimationFrame(this.gameLoop.bind(this));
     }
     Level1.prototype.spawnVirus = function () {
-        this.viruses.push(new Virus(this.virusCount));
+        this.viruses.push(new Virus(this.virusCount, this.enemy.randomPosition()));
         this.virusCount++;
         if (this.spawnTime > 200) {
             this.spawnTime = this.spawnTime - 10;
@@ -696,17 +730,16 @@ var Vector = (function () {
     };
     return Vector;
 }());
-var Virus = (function () {
-    function Virus(id) {
+var Virus = (function (_super) {
+    __extends(Virus, _super);
+    function Virus(id, pos) {
+        _super.call(this, pos);
         this.id = id;
         this.div = document.createElement("virus");
         this.div.setAttribute("id", "virus" + this.id);
         document.getElementById("background").appendChild(this.div);
         this.position = this.randomPosition();
         this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
-        this.speed = new Vector(1, 1);
-        this.width = 125;
-        this.height = 125;
     }
     Virus.prototype.move = function (life) {
         var random = Math.floor((Math.random() * 3) + 1);
@@ -718,38 +751,10 @@ var Virus = (function () {
         this.rectangle = new Rectangle(this.position, 75, 75);
         this.hitboxPosition = new Vector(this.position.x - 50, this.position.y - 50);
         this.hitbox = new Rectangle(this.hitboxPosition, 300, 300);
-        console.log(this.hitboxPosition);
-        console.log(this.position);
-    };
-    Virus.prototype.hitsLife = function (life) {
-        if (this.rectangle.hitsOtherRectangle(life.rectangle)) {
-            return true;
-        }
     };
     Virus.prototype.remove = function () {
         this.div.remove();
     };
-    Virus.prototype.changeImage = function (image) {
-        this.div.style.backgroundImage = (image);
-    };
-    Virus.prototype.randomPosition = function () {
-        var random = Math.floor(Math.random() * 3) + 1;
-        if (random == 1) {
-            var x = 0;
-            var y = Math.floor(Math.random() * window.innerHeight + 125);
-            return new Vector(x, y);
-        }
-        else if (random == 2) {
-            var x = window.innerWidth - 125;
-            var y = Math.floor(Math.random() * window.innerHeight + 125);
-            return new Vector(x, y);
-        }
-        else if (random == 3) {
-            var x = Math.floor(Math.random() * window.innerWidth - 125);
-            var y = 0;
-            return new Vector(x, y);
-        }
-    };
     return Virus;
-}());
+}(Enemy));
 //# sourceMappingURL=main.js.map

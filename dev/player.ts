@@ -16,13 +16,12 @@ class Player extends GameObject {
     private upSpeed : Vector;
 
     // om te zien of objecten elkaar raken moeten ze een public x,y,width,height hebben
-    public x: number;
-    public y: number;
     public targetX: number;
     public targetY: number;
     public width: number;
     public height: number;
-    public rectangle: Rectangle;
+    public x: number;
+    public y: number;
     public hitboxPosition: Vector;
 
     constructor(left: number, right: number, up: number, down: number, pos: Vector, playerNumber: number) {
