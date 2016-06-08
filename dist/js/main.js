@@ -386,11 +386,12 @@ var Level1 = (function () {
         this.score.style.fontSize = "70px";
         this.score.style.color = "white";
         document.body.appendChild(this.score);
+        this.spawnTime = 2000;
         if (playerCount == 1) {
             for (var i = 0; i < 5; i++) {
                 this.lifes.push(new Life(i));
             }
-            this.timer = setInterval(this.spawnVirus.bind(this), 1000);
+            this.spawnTimer(this.spawnVirus, this.spawnTime);
             this.char1 = new Character(37, 39, 38, 40, new Vector(500, 500), 1);
         }
         else {
@@ -406,7 +407,16 @@ var Level1 = (function () {
     Level1.prototype.spawnVirus = function () {
         this.viruses.push(new Virus(this.virusCount));
         this.virusCount++;
+        if (this.spawnTime > 200) {
+            this.spawnTime = this.spawnTime - 10;
+        }
+        console.log("dit is de spawntime " + this.spawnTime);
         console.log(this.virusCount);
+        clearInterval(this.timer);
+        this.spawnTimer(this.spawnVirus, this.spawnTime);
+    };
+    Level1.prototype.spawnTimer = function (spawnVirus, time) {
+        this.timer = setInterval(this.spawnVirus.bind(this), this.spawnTime);
     };
     Level1.prototype.gameLoop = function () {
         if (this.playerCount == 1) {

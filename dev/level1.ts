@@ -11,6 +11,7 @@ class Level1 {
     public virusCount: number = 0;
     public scoreCount: number = 0;
     private score: HTMLElement;
+    public spawnTime: number;
     
     constructor(playerCount:number){
         
@@ -29,6 +30,7 @@ class Level1 {
         this.score.style.color = "white";
         document.body.appendChild(this.score);
         
+        this.spawnTime = 2000;
         
 
         if(playerCount == 1){
@@ -38,7 +40,7 @@ class Level1 {
             }
             
 
-            this.timer = setInterval(this.spawnVirus.bind(this), 1000);
+            this.spawnTimer(this.spawnVirus, this.spawnTime);
             
             // setInterval(function(){ this.viruses.push(new Virus()); },500);           
             // for (var i = 0; i < 10; i++) {
@@ -65,7 +67,17 @@ class Level1 {
     private spawnVirus(){
         this.viruses.push(new Virus(this.virusCount));
         this.virusCount++;
+        if(this.spawnTime > 200){  
+            this.spawnTime = this.spawnTime -10;
+        }
+        console.log("dit is de spawntime "+this.spawnTime);
         console.log(this.virusCount);
+        clearInterval(this.timer);
+        this.spawnTimer(this.spawnVirus, this.spawnTime);
+    }
+    
+    private spawnTimer(spawnVirus, time:number){
+        this.timer = setInterval(this.spawnVirus.bind(this), this.spawnTime);
     }
         
     private gameLoop(){
