@@ -31,6 +31,7 @@ class Titlescreen {
         //Create 1 player button
         var player1 = document.createElement("player1");
         player1.style.backgroundImage = "url(\"../images/interface/icons/1player.png\")";
+        player1.style.cursor = "pointer";
         player1.style.width = "472px";
         player1.style.height = "82px";
         player1.style.left = "50%";
@@ -52,6 +53,7 @@ class Titlescreen {
         //Create 2 player button
         var player2 = document.createElement("player2");
         player2.style.backgroundImage = "url(\"../images/interface/icons/2players.png\")";
+        player2.style.cursor = "pointer";
         player2.style.width = "519px";
         player2.style.height = "78px";
         player2.style.left = "50%";
@@ -73,6 +75,7 @@ class Titlescreen {
         //Create achievements button
         var achievements = document.createElement("achievement");
         achievements.style.backgroundImage = "url(\"../images/interface/icons/prestaties.png\")";
+        achievements.style.cursor = "pointer";
         achievements.style.width = "594px";
         achievements.style.height = "78px";
         achievements.style.left = "50%";
