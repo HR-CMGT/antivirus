@@ -114,7 +114,7 @@ class Level1 {
                 }
             }
             
-            if (this.viruses[i].hitbox.hitsOtherRectangle(this.char1.rectangle)){
+            if (this.viruses[i].hitbox.hitsOtherRectangle(this.char1.rectangle) || this.viruses[i].hitbox.hitsOtherRectangle(this.char2.rectangle)){
                 console.log("hitbox detected");
                 this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
             } else {
