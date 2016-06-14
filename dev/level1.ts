@@ -22,7 +22,7 @@ class Level1 {
         this.utils.removePreviousBackground();
         
         var background = new Background(1,1);
-        
+        document.getElementById("background").style.cursor = "none";
         this.score = document.createElement("score");
         this.score.innerHTML = ""+this.scoreCount;
         this.score.style.marginLeft = "50%";
@@ -37,7 +37,7 @@ class Level1 {
 
         if(playerCount == 1){
             
-            for (var i = 0; i < 5; i++) {
+            for (var i = 0; i < 1; i++) {
                 this.lifes.push(new Life(i));
             }
             
@@ -104,7 +104,7 @@ class Level1 {
                 this.viruses.splice(0, this.viruses.length);
                 clearInterval(this.timer);
                 this.utils.removePreviousBackground();
-                new Titlescreen();
+                new GameOver(this.scoreCount);
             } else {
                 this.viruses[i].move(this.lifes[random]);
                 if (this.viruses[i].hitsLife(this.lifes[random]) == true) {

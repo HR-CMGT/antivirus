@@ -1,0 +1,46 @@
+@font-face {
+    font-family: foo;
+    src: url("../../fonts/foo.ttf");
+}
+
+#popUp{
+    height: 500px;
+    width: 1000px;
+    left: 36%;
+    top: 31%;
+    text-align: center;
+}
+
+#popUp h1{
+    font-size: 150px;
+    left: 17%;
+    top: 2%;
+}
+
+#popUp p{
+    top: 38%;
+    left: 14%;
+}
+
+#popUp p, #popUp h1, #resetGame, #stopGame{
+    color: #b6ff00;
+    font-family: foo;
+    text-shadow: 0px 0px 60px black;
+}
+
+#resetGame, #stopGame, #popUp p{
+    font-size: 70px;
+}
+
+#resetGame, #stopGame{
+    top: 90%
+}
+
+
+#resetGame{
+    left:25%
+}
+
+#stopGame{
+    left: 50%
+}

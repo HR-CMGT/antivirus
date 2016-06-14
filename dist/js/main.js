@@ -628,6 +628,42 @@ var Game = (function () {
     }
     return Game;
 }());
+var GameOver = (function () {
+    function GameOver(score) {
+        var background = new Background(1, 1);
+        this.finalScore = score;
+        document.getElementById("background").style.cursor = "auto";
+        this.createFinalScore();
+    }
+    GameOver.prototype.levelload1 = function () {
+        new Level1(1);
+    };
+    GameOver.prototype.titleScreeen = function () {
+        new Titlescreen();
+    };
+    GameOver.prototype.createFinalScore = function () {
+        this.popUp = document.createElement("popUp");
+        this.popUp.setAttribute("id", "popUp");
+        document.getElementById("background").appendChild(this.popUp);
+        this.scoreDiv = document.createElement("h1");
+        this.scoreDiv.innerHTML = "Score: " + this.finalScore;
+        document.getElementById("popUp").appendChild(this.scoreDiv);
+        this.tryAgainDiv = document.createElement("p");
+        document.getElementById("popUp").appendChild(this.tryAgainDiv);
+        this.tryAgainDiv.innerHTML = "Opnieuw proberen?";
+        this.buttonYes = document.createElement("h2");
+        this.buttonYes.setAttribute("id", "resetGame");
+        this.buttonYes.innerHTML = "Ja";
+        document.getElementById("popUp").appendChild(this.buttonYes);
+        this.buttonYes.addEventListener("click", this.levelload1);
+        this.buttonNo = document.createElement("h2");
+        this.buttonNo.setAttribute("id", "stopGame");
+        this.buttonNo.innerHTML = "Nee";
+        document.getElementById("popUp").appendChild(this.buttonNo);
+        this.buttonNo.addEventListener("click", this.titleScreeen);
+    };
+    return GameOver;
+}());
 var Level1 = (function () {
     function Level1(playerCount) {
         this.lifes = new Array();
@@ -639,6 +675,7 @@ var Level1 = (function () {
         this.utils = new Utils();
         this.utils.removePreviousBackground();
         var background = new Background(1, 1);
+        document.getElementById("background").style.cursor = "none";
         this.score = document.createElement("score");
         this.score.innerHTML = "" + this.scoreCount;
         this.score.style.marginLeft = "50%";
@@ -649,7 +686,7 @@ var Level1 = (function () {
         document.body.appendChild(this.score);
         this.spawnTime = 2000;
         if (playerCount == 1) {
-            for (var i = 0; i < 5; i++) {
+            for (var i = 0; i < 1; i++) {
                 this.lifes.push(new Life(i));
             }
             this.spawnTimer(this.spawnVirus, this.spawnTime);
@@ -698,7 +735,7 @@ var Level1 = (function () {
                 this.viruses.splice(0, this.viruses.length);
                 clearInterval(this.timer);
                 this.utils.removePreviousBackground();
-                new Titlescreen();
+                new GameOver(this.scoreCount);
             }
             else {
                 this.viruses[i].move(this.lifes[random]);

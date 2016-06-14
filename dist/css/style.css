@@ -4,6 +4,7 @@
 @import url("character.css");
 @import url("life.css");
 @import url("virus.css");
+@import url("gameover.css");
 
 
 body {
