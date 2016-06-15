@@ -14,6 +14,7 @@ class Life {
     public rectangle: Rectangle;
     public newRectangle: Rectangle;
     public id: number;
+    private direction: Vector;
     
     constructor(id:number) {
         this.id = id;
@@ -44,12 +45,17 @@ class Life {
         }
         
         else{
-            let direction = this.newPosition.difference(this.position);
-            direction = direction.normalize();
+            this.direction = this.newPosition.difference(this.position);
+            this.direction = this.direction.normalize();
             let randomSpeed = Math.floor((Math.random() * 3) + 1);
-            direction = direction.scale(randomSpeed);
-            this.position = this.position.add(direction);
-            this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
+            this.direction = this.direction.scale(randomSpeed);
+            this.position = this.position.add(this.direction);
+            if(this.direction.x >= 0){
+                  this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px) scaleX(1)";
+            } else {
+                  this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px) scaleX(-1)";
+            }
+
 
         }
     }
