@@ -3,44 +3,51 @@
     src: url("../../fonts/foo.ttf");
 }
 
-#popUp{
-    height: 500px;
-    width: 1000px;
-    left: 36%;
-    top: 31%;
-    text-align: center;
-}
-
-#popUp h1{
+h1{
     font-size: 150px;
-    left: 17%;
-    top: 2%;
+    top: 14%;
+    margin-left: -284px!important;
 }
 
-#popUp p{
+h3{
+    top:10%;
+    font-size: 50px;
+    margin-left: -142.96px!important;
+}
+
+p{
     top: 38%;
-    left: 14%;
+    margin-left: -301.64px!important;
 }
 
-#popUp p, #popUp h1, #resetGame, #stopGame{
+h1, h3, p{
+    left:50%;
+}
+
+p, h1, h3, #resetGame, #stopGame{
     color: #b6ff00;
     font-family: foo;
     text-shadow: 0px 0px 60px black;
 }
 
-#resetGame, #stopGame, #popUp p{
+#resetGame, #stopGame, p{
     font-size: 70px;
 }
 
 #resetGame, #stopGame{
-    top: 90%
+    top: 50%;
 }
 
+#resetGame:hover, #stopGame:hover{
+    cursor: pointer;
+}
 
 #resetGame{
-    left:25%
+    margin-left: -36.2px!important;
+    left: 45%;
 }
 
 #stopGame{
-    left: 50%
+    margin-left: -53.7px!important;
+    left: 55%;
 }
