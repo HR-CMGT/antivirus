@@ -58,15 +58,17 @@ class CharacterSelect {
             controllers.style.backgroundImage = "url('../images/interface/icons/controllers.png')";
             controllers.style.width = "300px";
             controllers.style.height = "123px";
+            controllers.style.marginLeft = "-150px";
             document.getElementById("background").appendChild(controllers);
             controllers.style.top = "45%";
-            controllers.style.left = "46%";
+            controllers.style.left = "50%";
 
             let arrowUpButton = document.createElement('arrowUpButton');
             arrowUpButton.style.height = "115px";
             arrowUpButton.style.width = "115px";
+            arrowUpButton.style.marginLeft = "-57.5px";
             arrowUpButton.style.top = "54.3%";
-            arrowUpButton.style.left = "48.6%";
+            arrowUpButton.style.left = "50%";
             arrowUpButton.style.backgroundImage = "url('../images/interface/icons/up-arrow.png')";
             document.getElementById('background').appendChild(arrowUpButton);
             arrowUpButton.setAttribute("id","arrowUpButton");
@@ -74,8 +76,9 @@ class CharacterSelect {
             let arrowRightButton = document.createElement('arrowRightButton');
             arrowRightButton.style.height = "115px";
             arrowRightButton.style.width = "115px";
-            arrowRightButton.style.top = "60.1%";
-            arrowRightButton.style.left = "51.5%";
+            arrowRightButton.style.marginLeft = "-57.5px";
+            arrowRightButton.style.top = "64%";
+            arrowRightButton.style.left = "55.2%";
             arrowRightButton.style.backgroundImage = "url('../images/interface/icons/right-arrow.png')";
             document.getElementById('background').appendChild(arrowRightButton);
             arrowRightButton.setAttribute("id","arrowUpButton");
@@ -84,8 +87,9 @@ class CharacterSelect {
             let arrowDownButton = document.createElement('arrowDownButton');
             arrowDownButton.style.height = "115px";
             arrowDownButton.style.width = "115px";
-            arrowDownButton.style.top = "60.1%";
-            arrowDownButton.style.left = "48.5%";
+            arrowDownButton.style.marginLeft = "-57.5px";
+            arrowDownButton.style.top = "64%";
+            arrowDownButton.style.left = "50%";
             arrowDownButton.style.backgroundImage = "url('../images/interface/icons/down-arrow.png')";
             document.getElementById('background').appendChild(arrowDownButton);
             arrowDownButton.setAttribute("id","arrowDownButton");
@@ -93,8 +97,9 @@ class CharacterSelect {
             let arrowLeftButton = document.createElement('arrowLeftButton');
             arrowLeftButton.style.height = "115px";
             arrowLeftButton.style.width = "115px";
-            arrowLeftButton.style.top = "60%";
-            arrowLeftButton.style.left = "45.6%";
+            arrowLeftButton.style.marginLeft = "-57.5px";
+            arrowLeftButton.style.top = "64%";
+            arrowLeftButton.style.left = "45%";
             arrowLeftButton.style.backgroundImage = "url('../images/interface/icons/left-arrow.png')";
             document.getElementById('background').appendChild(arrowLeftButton);
             arrowUpButton.setAttribute("id","arrowUpButton");
@@ -143,8 +148,8 @@ class CharacterSelect {
             startButton.style.width = "285px";
             startButton.style.height = "123px";
             startButton.style.top = "80%";
-            startButton.style.left = "47.5%";
-            startButton.style.marginLeft = "-41px";
+            startButton.style.left = "50%";
+            startButton.style.marginLeft = "-142.5px";
             document.getElementById("background").appendChild(startButton);
             startButton.setAttribute("id", "startButton");
             document.getElementById("startButton").addEventListener("click", this.singleplayer);
@@ -260,7 +265,7 @@ class CharacterSelect {
             controllers.style.height = "123px";
             document.getElementById("background").appendChild(controllers);
             controllers.style.top = "45%";
-            controllers.style.left = "71%";
+            controllers.style.left = "68%";
 
             let controllers2 = document.createElement('controllers2');
             controllers2.style.backgroundImage = "url('../images/interface/icons/controllers.png')";
@@ -268,13 +273,13 @@ class CharacterSelect {
             controllers2.style.height = "123px";
             document.getElementById("background").appendChild(controllers2);
             controllers2.style.top = "45%";
-            controllers2.style.left = "21%";
+            controllers2.style.left = "18%";
 
             let arrowUpButton = document.createElement('arrowUpButton');
             arrowUpButton.style.height = "115px";
             arrowUpButton.style.width = "115px";
             arrowUpButton.style.top = "54.3%";
-            arrowUpButton.style.left = "73.6%";
+            arrowUpButton.style.left = "72.6%";
             arrowUpButton.style.backgroundImage = "url('../images/interface/icons/up-arrow.png')";
             document.getElementById('background').appendChild(arrowUpButton);
             arrowUpButton.setAttribute("id","arrowUpButton");
@@ -282,8 +287,8 @@ class CharacterSelect {
             let arrowRightButton = document.createElement('arrowRightButton');
             arrowRightButton.style.height = "115px";
             arrowRightButton.style.width = "115px";
-            arrowRightButton.style.top = "60.1%";
-            arrowRightButton.style.left = "76.5%";
+            arrowRightButton.style.top = "64.1%";
+            arrowRightButton.style.left = "77.5%";
             arrowRightButton.style.backgroundImage = "url('../images/interface/icons/right-arrow.png')";
             document.getElementById('background').appendChild(arrowRightButton);
             arrowRightButton.setAttribute("id","arrowUpButton");
@@ -292,8 +297,8 @@ class CharacterSelect {
             let arrowDownButton = document.createElement('arrowDownButton');
             arrowDownButton.style.height = "115px";
             arrowDownButton.style.width = "115px";
-            arrowDownButton.style.top = "60.1%";
-            arrowDownButton.style.left = "73.5%";
+            arrowDownButton.style.top = "64.1%";
+            arrowDownButton.style.left = "72.5%";
             arrowDownButton.style.backgroundImage = "url('../images/interface/icons/down-arrow.png')";
             document.getElementById('background').appendChild(arrowDownButton);
             arrowDownButton.setAttribute("id","arrowDownButton");
@@ -301,8 +306,8 @@ class CharacterSelect {
             let arrowLeftButton = document.createElement('arrowLeftButton');
             arrowLeftButton.style.height = "115px";
             arrowLeftButton.style.width = "115px";
-            arrowLeftButton.style.top = "60%";
-            arrowLeftButton.style.left = "70.6%";
+            arrowLeftButton.style.top = "64.1%";
+            arrowLeftButton.style.left = "67.7%";
             arrowLeftButton.style.backgroundImage = "url('../images/interface/icons/left-arrow.png')";
             document.getElementById('background').appendChild(arrowLeftButton);
             arrowUpButton.setAttribute("id","arrowUpButton");
@@ -311,7 +316,7 @@ class CharacterSelect {
             wButton.style.height = "115px";
             wButton.style.width = "115px";
             wButton.style.top = "54.3%";
-            wButton.style.left = "23.6%";
+            wButton.style.left = "22.1%";
             wButton.style.backgroundImage = "url('../images/interface/icons/w-button.png')";
             document.getElementById('background').appendChild(wButton);
             wButton.setAttribute("id","wButton");
@@ -319,8 +324,8 @@ class CharacterSelect {
             let dButton = document.createElement('dButton');
             dButton.style.height = "115px";
             dButton.style.width = "115px";
-            dButton.style.top = "60.1%";
-            dButton.style.left = "26.5%";
+            dButton.style.top = "64.1%";
+            dButton.style.left = "27%";
             dButton.style.backgroundImage = "url('../images/interface/icons/d-button.png')";
             document.getElementById('background').appendChild(dButton);
             dButton.setAttribute("id","dButton");
@@ -328,8 +333,8 @@ class CharacterSelect {
             let sButton = document.createElement('sButton');
             sButton.style.height = "115px";
             sButton.style.width = "115px";
-            sButton.style.top = "60.1%";
-            sButton.style.left = "23.5%";
+            sButton.style.top = "64.1%";
+            sButton.style.left = "22.1%";
             sButton.style.backgroundImage = "url('../images/interface/icons/s-button.png')";
             document.getElementById('background').appendChild(sButton);
             sButton.setAttribute("id","sButton");
@@ -337,8 +342,8 @@ class CharacterSelect {
             let aButton = document.createElement('aButton');
             aButton.style.height = "115px";
             aButton.style.width = "115px";
-            aButton.style.top = "60%";
-            aButton.style.left = "20.6%";
+            aButton.style.top = "64.1%";
+            aButton.style.left = "17.2%";
             aButton.style.backgroundImage = "url('../images/interface/icons/a-button.png')";
             document.getElementById('background').appendChild(aButton);
             aButton.setAttribute("id","aButton");
