@@ -13,6 +13,7 @@ class Level1 {
     private score: HTMLElement;
     public spawnTime: number;
     public enemy: Enemy;
+    public randomNomNumber: number;
 
     constructor(playerCount: number) {
 
@@ -141,6 +142,9 @@ class Level1 {
                     this.viruses.splice(i, 1);
                     this.scoreCount++;
                     this.score.innerHTML = "" + this.scoreCount;
+                    
+                    this.randomNomNumber = Math.floor(Math.random()*5 + 1);
+                    var nomSound = new NomSound(this.randomNomNumber);
                 }
             }
             else {
@@ -168,13 +172,24 @@ class Level1 {
                     this.viruses[i].changeImage("url(\"../images/characters/virus1.png\")");
                 }
 
-                if (this.viruses[i].rectangle.hitsOtherRectangle(this.char1.rectangle) || this.viruses[i].rectangle.hitsOtherRectangle(this.char2.rectangle)) {
-                    // var enemy  = document.getElementById("virus"+virus.id);
+                if (this.viruses[i].rectangle.hitsOtherRectangle(this.char1.rectangle)) {
                     this.viruses[i].remove();
                     this.viruses.splice(i, 1);
                     this.scoreCount++;
                     this.score.innerHTML = "" + this.scoreCount;
+                    this.randomNomNumber = Math.floor(Math.random()*5 + 6);
+                    var nomSound = new NomSound(this.randomNomNumber);
                 }
+                else if(this.viruses[i].rectangle.hitsOtherRectangle(this.char2.rectangle)){
+                    this.viruses[i].remove();
+                    this.viruses.splice(i, 1);
+                    this.scoreCount++;
+                    this.score.innerHTML = "" + this.scoreCount;
+                    this.randomNomNumber = Math.floor(Math.random()*5 + 11);
+                    var nomSound = new NomSound(this.randomNomNumber);
+                }
+                
+                
 
             }
 
