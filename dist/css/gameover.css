@@ -14,23 +14,20 @@
 #score{
     top: 20%;
     background-image: url("../../images/interface/icons/score.png");
-    width: 964px;
     background-position: left bottom;
     height: 197px;
     font-size: 180px;
-    margin-left: -350px!important;
-    text-align: right;
 }
 
 #tryAgain{
-    top: 38%;
+    top: 50%;
     background-image: url("../../images/interface/icons/try-again.png");
     margin-left: -301.64px!important;
     width: 603px;
     height: 84px;
 }
 
-#feedback, #score, #tryAgain{
+#feedback, #tryAgain{
     left:50%;
 }
 
@@ -41,7 +38,7 @@
 }
 
 #resetGame, #stopGame{
-    top: 50%;
+    top: 59%;
 }
 
 #resetGame{
@@ -73,25 +70,20 @@
 }
 
 #score-container {
-    width: 900px;
     height: 250px;
     top: 15%;
-    left: 50%;
-    margin-left: -450px;
 }
 
-span#score {
+#score {
     width: 570px;
-    left: 39%;
 }
 
-span#total {
+#total {
     top: 32%;
     font-size: 180px;
 }
 
-span#total-container {
-    width: 330px;
+#total-container {
     height: 180px;
-    right: 0;
+    left: 584px;
 }
