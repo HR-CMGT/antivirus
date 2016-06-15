@@ -3,51 +3,95 @@
     src: url("../../fonts/foo.ttf");
 }
 
-h1{
-    font-size: 150px;
+#feedback{
+    background-image: url("../../images/interface/icons/good-job.png");
     top: 14%;
-    margin-left: -284px!important;
+    margin-left: -145px!important;
+    width: 290px;
+    height:60px;
 }
 
-h3{
-    top:10%;
-    font-size: 50px;
-    margin-left: -142.96px!important;
+#score{
+    top: 20%;
+    background-image: url("../../images/interface/icons/score.png");
+    width: 964px;
+    background-position: left bottom;
+    height: 197px;
+    font-size: 180px;
+    margin-left: -350px!important;
+    text-align: right;
 }
 
-p{
+#tryAgain{
     top: 38%;
+    background-image: url("../../images/interface/icons/try-again.png");
     margin-left: -301.64px!important;
+    width: 603px;
+    height: 84px;
 }
 
-h1, h3, p{
+#feedback, #score, #tryAgain{
     left:50%;
 }
 
-p, h1, h3, #resetGame, #stopGame{
+#total, #resetGame, #stopGame{
     color: #b6ff00;
     font-family: foo;
     text-shadow: 0px 0px 60px black;
-}
-
-#resetGame, #stopGame, p{
-    font-size: 70px;
 }
 
 #resetGame, #stopGame{
     top: 50%;
 }
 
-#resetGame:hover, #stopGame:hover{
-    cursor: pointer;
-}
-
 #resetGame{
     margin-left: -36.2px!important;
     left: 45%;
+    width: 82px;
+    height: 66px;
+    background-image: url("../../images/interface/icons/yes-button.png");
 }
 
 #stopGame{
     margin-left: -53.7px!important;
+    background-image: url("../../images/interface/icons/no-button.png");
     left: 55%;
+    width: 107px;
+    height: 69px;
+}
+
+#resetGame:hover, #stopGame:hover{
+    cursor: pointer;
+}
+
+#resetGame:hover{
+    background-image: url("../../images/interface/icons/yes-button-hover.png");
+}
+
+#stopGame:hover{
+    background-image: url("../../images/interface/icons/no-button-hover.png");
+}
+
+#score-container {
+    width: 900px;
+    height: 250px;
+    top: 15%;
+    left: 50%;
+    margin-left: -450px;
+}
+
+span#score {
+    width: 570px;
+    left: 39%;
+}
+
+span#total {
+    top: 32%;
+    font-size: 180px;
+}
+
+span#total-container {
+    width: 330px;
+    height: 180px;
+    right: 0;
 }
