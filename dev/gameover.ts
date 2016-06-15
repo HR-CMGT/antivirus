@@ -5,9 +5,10 @@ class GameOver {
     private scoreDiv:HTMLElement;
     private tryAgainDiv: HTMLElement;
     private finalScore: number;
-    private popUp:HTMLElement;
+    private feedbackDiv:HTMLElement;
     private buttonYes:HTMLElement;
     private buttonNo:HTMLElement;
+    public utils:Utils;
 
     constructor(score) {
         var background = new Background(1,1);
@@ -20,34 +21,37 @@ class GameOver {
         new Level1(1);
     }
 
-    public titleScreeen(){
+    public goBack(){
+        this.utils = new Utils();
+        this.utils.removePreviousBackground();
         new Titlescreen();
     }
 
     public createFinalScore(){
-        this.popUp = document.createElement("popUp");
-        this.popUp.setAttribute("id", "popUp");
-        document.getElementById("background").appendChild(this.popUp);
+        this.feedbackDiv = document.createElement("h3");
+        this.feedbackDiv.setAttribute("id", "feedback");
+        document.getElementById("background").appendChild(this.feedbackDiv);
+        this.feedbackDiv.innerHTML = "Goed gedaan!";
         
         this.scoreDiv = document.createElement("h1");
         this.scoreDiv.innerHTML = "Score: "+ this.finalScore;
-        document.getElementById("popUp").appendChild(this.scoreDiv);
+        document.getElementById("background").appendChild(this.scoreDiv);
         
         this.tryAgainDiv = document.createElement("p");
-        document.getElementById("popUp").appendChild(this.tryAgainDiv);
+        document.getElementById("background").appendChild(this.tryAgainDiv);
         this.tryAgainDiv.innerHTML = "Opnieuw proberen?";
 
         this.buttonYes = document.createElement("h2");
         this.buttonYes.setAttribute("id","resetGame");
         this.buttonYes.innerHTML = "Ja";
-        document.getElementById("popUp").appendChild(this.buttonYes);
+        document.getElementById("background").appendChild(this.buttonYes);
         this.buttonYes.addEventListener("click", this.levelload1);
 
         this.buttonNo = document.createElement("h2");
         this.buttonNo.setAttribute("id","stopGame");
         this.buttonNo.innerHTML = "Nee";
-        document.getElementById("popUp").appendChild(this.buttonNo);
-        this.buttonNo.addEventListener("click", this.titleScreeen);
+        document.getElementById("background").appendChild(this.buttonNo);
+        this.buttonNo.addEventListener("click", this.goBack);
 
     }
 
