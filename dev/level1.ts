@@ -215,9 +215,9 @@ class Level1 {
                 this.utils.removePreviousBackground();
                 new GameOver(this.scoreCount);
             } else {
-                this.bacteria[i].move(this.lifes[random]);
+                this.bacteria[i].move(this.lifes[0]);
                 
-                let angle = Math.atan2(this.lifes[random].position.y - this.bacteria[i].position.y, this.lifes[random].position.x - this.bacteria[i].position.x);
+                let angle = Math.atan2(this.lifes[0].position.y - this.bacteria[i].position.y, this.lifes[0].position.x - this.bacteria[i].position.x);
                 angle = angle * (180/Math.PI);
                 
                 if(angle <0){
