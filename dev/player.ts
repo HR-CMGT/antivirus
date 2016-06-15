@@ -1,5 +1,6 @@
 /// <reference path="gameobject.ts" />
-
+var glasses1Scale;
+var glasses2Scale;
 
 class Player extends GameObject {
 
@@ -79,14 +80,16 @@ class Player extends GameObject {
                 this.leftSpeed = new Vector(-10, 0);
                 switch(this.playerNumber){
                     case 1:
+                        glasses1Scale = "scaleX(-1)";
                         document.getElementById("character1Body").style.transform = "scaleX(-1)";
                         document.getElementById("character1Mouth").style.transform = "scaleX(-1)";
-                        document.getElementById("character1Glasses").style.transform = "scaleX(-1)";
+                        document.getElementById("character1Glasses").style.transform = glasses1Scale;
                         break;
                     case 2:
+                        glasses2Scale = "scaleX(-1)";
                         document.getElementById("character2Body").style.transform = "scaleX(-1)";
                         document.getElementById("character2Mouth").style.transform = "scaleX(-1)";
-                        document.getElementById("character2Glasses").style.transform = "scaleX(-1)";
+                        document.getElementById("character2Glasses").style.transform = glasses2Scale;
                         break;   
                 }
                 
@@ -95,14 +98,16 @@ class Player extends GameObject {
                 this.rightSpeed = new Vector(10, 0);
                 switch(this.playerNumber){
                     case 1:
+                        glasses1Scale = "scaleX(1)";
                         document.getElementById("character1Body").style.transform = "scaleX(1)";
                         document.getElementById("character1Mouth").style.transform = "scaleX(1)";
-                        document.getElementById("character1Glasses").style.transform = "scaleX(1)";
+                        document.getElementById("character1Glasses").style.transform = glasses1Scale;
                         break;
                     case 2:
+                        glasses2Scale = "scaleX(1)";
                         document.getElementById("character2Body").style.transform = "scaleX(1)";
                         document.getElementById("character2Mouth").style.transform = "scaleX(1)";
-                        document.getElementById("character2Glasses").style.transform = "scaleX(1)";
+                        document.getElementById("character2Glasses").style.transform = glasses2Scale;
                         break;   
                 }
                 break;

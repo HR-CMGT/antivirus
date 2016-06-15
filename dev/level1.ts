@@ -28,6 +28,7 @@ class Level1 {
         this.score.style.marginLeft = "50%";
         this.score.style.width = "100px";
         this.score.style.height = "50px";
+        // this.score.style.font = "foo.tff";
         this.score.style.fontSize = "70px";
         this.score.style.color = "white";
         document.body.appendChild(this.score);
@@ -84,7 +85,8 @@ class Level1 {
 
     private gameLoop() {
 
-
+        let inRange1 = false;
+        let inRange2 = false;
 
         if (this.playerCount == 1) {
             this.char1.move();
@@ -118,19 +120,19 @@ class Level1 {
                 }
             }
 
-            if (this.viruses[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
-                console.log("hitbox detected");
-                this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
-            } else {
-                this.viruses[i].changeImage("url(\"../images/characters/virus1.png\")");
-            }
+
 
             if (this.playerCount == 1) {
+
+                var character1Mouth = document.getElementById("character1Mouth");
+                var character1Glasses = document.getElementById("character1Glasses");
 
                 if (this.viruses[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
                     console.log("hitbox detected");
                     this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
-                } else {
+                    inRange1 = true;
+                }
+                else {
                     this.viruses[i].changeImage("url(\"../images/characters/virus1.png\")");
                 }
 
@@ -140,12 +142,29 @@ class Level1 {
                     this.scoreCount++;
                     this.score.innerHTML = "" + this.scoreCount;
                 }
-            } else {
-                
-                if (this.viruses[i].hitbox.hitsOtherRectangle(this.char1.rectangle) || this.viruses[i].hitbox.hitsOtherRectangle(this.char2.rectangle)) {
+            }
+            else {
+
+                var character1Mouth = document.getElementById("character1Mouth");
+                var character1Glasses = document.getElementById("character1Glasses");
+
+                var character2Mouth = document.getElementById("character2Mouth");
+                var character2Glasses = document.getElementById("character2Glasses");
+
+                if (this.viruses[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
                     console.log("hitbox detected");
                     this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
-                } else {
+                    inRange1 = true;
+                }
+
+                if (this.viruses[i].hitbox.hitsOtherRectangle(this.char2.rectangle)) {
+                    console.log("hitbox detected");
+                    this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
+                    inRange2 = true;
+                }
+
+
+                else {
                     this.viruses[i].changeImage("url(\"../images/characters/virus1.png\")");
                 }
 
@@ -155,6 +174,55 @@ class Level1 {
                     this.viruses.splice(i, 1);
                     this.scoreCount++;
                     this.score.innerHTML = "" + this.scoreCount;
+                }
+
+            }
+
+            if (this.playerCount == 1) {
+                if (inRange1) {
+                    character1Mouth.style.backgroundImage = "url(\"../images/player/mouth2.png\")";
+                    if(glasses1Scale != "scaleX(-1)"){
+                        character1Glasses.style.transform = "rotate(-45deg) " + glasses1Scale;
+                    }
+                    else{
+                        character1Glasses.style.transform = "rotate(45deg) " + glasses1Scale;
+                    }
+
+                }
+                else {
+                    character1Mouth.style.backgroundImage = "url(\"../images/player/mouth1.png\")";
+                    character1Glasses.style.transform = "rotate(0deg) " + glasses1Scale;
+                    //character1Glasses.style
+                }
+            }
+            else {
+                if (inRange1) {
+                    character1Mouth.style.backgroundImage = "url(\"../images/player/mouth2.png\")";
+                    if(glasses1Scale != "scaleX(-1)"){
+                        character1Glasses.style.transform = "rotate(-45deg) " + glasses1Scale;
+                    }
+                    else{
+                        character1Glasses.style.transform = "rotate(45deg) " + glasses1Scale;
+                    }
+                }
+                else {
+                    character1Mouth.style.backgroundImage = "url(\"../images/player/mouth1.png\")";
+                    character1Glasses.style.transform = "rotate(0deg)" + glasses1Scale;
+                    //character1Glasses.style
+                }
+                if (inRange2) {
+                    character2Mouth.style.backgroundImage = "url(\"../images/player/mouth2.png\")";
+                    if(glasses2Scale != "scaleX(-1)"){
+                        character2Glasses.style.transform = "rotate(-45deg) " + glasses2Scale;
+                    }
+                    else{
+                        character2Glasses.style.transform = "rotate(45deg) " + glasses2Scale;
+                    }
+                }
+                else {
+                    character2Mouth.style.backgroundImage = "url(\"../images/player/mouth1.png\")";
+                    character2Glasses.style.transform = "rotate(0deg) " + glasses2Scale;
+                    //character2Glasses.style
                 }
             }
 
