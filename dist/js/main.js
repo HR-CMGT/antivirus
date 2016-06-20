@@ -61,6 +61,65 @@ var GameObject = (function () {
     };
     return GameObject;
 }());
+var Enemy = (function (_super) {
+    __extends(Enemy, _super);
+    function Enemy(pos) {
+        _super.call(this, pos);
+    }
+    Enemy.prototype.randomPosition = function () {
+        var random = Math.floor(Math.random() * 3) + 1;
+        if (random == 1) {
+            var x = 0;
+            var y = Math.floor(Math.random() * window.innerHeight + 125);
+            return new Vector(x, y);
+        }
+        else if (random == 2) {
+            var x = window.innerWidth - 125;
+            var y = Math.floor(Math.random() * window.innerHeight + 125);
+            return new Vector(x, y);
+        }
+        else if (random == 3) {
+            var x = Math.floor(Math.random() * window.innerWidth - 125);
+            var y = 0;
+            return new Vector(x, y);
+        }
+    };
+    Enemy.prototype.move = function (life) {
+        var random = Math.floor((Math.random() * 3) + 1);
+        this.direction = life.position.difference(this.position);
+        this.direction = this.direction.normalize();
+        this.direction = this.direction.scale(random);
+        this.position = this.position.add(this.direction);
+        this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
+        this.rectangle = new Rectangle(this.position, 75, 75);
+        this.hitboxPosition = new Vector(this.position.x - 50, this.position.y - 50);
+        this.hitbox = new Rectangle(this.hitboxPosition, 300, 300);
+    };
+    Enemy.prototype.hitsLife = function (life) {
+        if (this.rectangle.hitsOtherRectangle(life.rectangle)) {
+            return true;
+        }
+    };
+    Enemy.prototype.remove = function () {
+        this.div.remove();
+    };
+    return Enemy;
+}(GameObject));
+var Bacteria = (function (_super) {
+    __extends(Bacteria, _super);
+    function Bacteria(id, pos) {
+        _super.call(this, pos);
+        this.id = id;
+        this.div = document.createElement("bacteria");
+        this.div.setAttribute("id", "bacteria" + this.id);
+        document.getElementById("background").appendChild(this.div);
+        this.position = this.randomPosition();
+        this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
+    }
+    return Bacteria;
+}(Enemy));
+var glasses1Scale;
+var glasses2Scale;
 var Player = (function (_super) {
     __extends(Player, _super);
     function Player(left, right, up, down, pos, playerNumber) {
@@ -102,14 +161,16 @@ var Player = (function (_super) {
                 this.leftSpeed = new Vector(-10, 0);
                 switch (this.playerNumber) {
                     case 1:
+                        glasses1Scale = "scaleX(-1)";
                         document.getElementById("character1Body").style.transform = "scaleX(-1)";
                         document.getElementById("character1Mouth").style.transform = "scaleX(-1)";
-                        document.getElementById("character1Glasses").style.transform = "scaleX(-1)";
+                        document.getElementById("character1Glasses").style.transform = glasses1Scale;
                         break;
                     case 2:
+                        glasses2Scale = "scaleX(-1)";
                         document.getElementById("character2Body").style.transform = "scaleX(-1)";
                         document.getElementById("character2Mouth").style.transform = "scaleX(-1)";
-                        document.getElementById("character2Glasses").style.transform = "scaleX(-1)";
+                        document.getElementById("character2Glasses").style.transform = glasses2Scale;
                         break;
                 }
                 break;
@@ -117,14 +178,16 @@ var Player = (function (_super) {
                 this.rightSpeed = new Vector(10, 0);
                 switch (this.playerNumber) {
                     case 1:
+                        glasses1Scale = "scaleX(1)";
                         document.getElementById("character1Body").style.transform = "scaleX(1)";
                         document.getElementById("character1Mouth").style.transform = "scaleX(1)";
-                        document.getElementById("character1Glasses").style.transform = "scaleX(1)";
+                        document.getElementById("character1Glasses").style.transform = glasses1Scale;
                         break;
                     case 2:
+                        glasses2Scale = "scaleX(1)";
                         document.getElementById("character2Body").style.transform = "scaleX(1)";
                         document.getElementById("character2Mouth").style.transform = "scaleX(1)";
-                        document.getElementById("character2Glasses").style.transform = "scaleX(1)";
+                        document.getElementById("character2Glasses").style.transform = glasses2Scale;
                         break;
                 }
                 break;
@@ -288,38 +351,43 @@ var CharacterSelect = (function () {
             controllers.style.backgroundImage = "url('../images/interface/icons/controllers.png')";
             controllers.style.width = "300px";
             controllers.style.height = "123px";
+            controllers.style.marginLeft = "-150px";
             document.getElementById("background").appendChild(controllers);
             controllers.style.top = "45%";
-            controllers.style.left = "46%";
+            controllers.style.left = "50%";
             var arrowUpButton = document.createElement('arrowUpButton');
             arrowUpButton.style.height = "115px";
             arrowUpButton.style.width = "115px";
+            arrowUpButton.style.marginLeft = "-57.5px";
             arrowUpButton.style.top = "54.3%";
-            arrowUpButton.style.left = "48.6%";
+            arrowUpButton.style.left = "50%";
             arrowUpButton.style.backgroundImage = "url('../images/interface/icons/up-arrow.png')";
             document.getElementById('background').appendChild(arrowUpButton);
             arrowUpButton.setAttribute("id", "arrowUpButton");
             var arrowRightButton = document.createElement('arrowRightButton');
             arrowRightButton.style.height = "115px";
             arrowRightButton.style.width = "115px";
-            arrowRightButton.style.top = "60.1%";
-            arrowRightButton.style.left = "51.5%";
+            arrowRightButton.style.marginLeft = "-57.5px";
+            arrowRightButton.style.top = "64%";
+            arrowRightButton.style.left = "55.2%";
             arrowRightButton.style.backgroundImage = "url('../images/interface/icons/right-arrow.png')";
             document.getElementById('background').appendChild(arrowRightButton);
             arrowRightButton.setAttribute("id", "arrowUpButton");
             var arrowDownButton = document.createElement('arrowDownButton');
             arrowDownButton.style.height = "115px";
             arrowDownButton.style.width = "115px";
-            arrowDownButton.style.top = "60.1%";
-            arrowDownButton.style.left = "48.5%";
+            arrowDownButton.style.marginLeft = "-57.5px";
+            arrowDownButton.style.top = "64%";
+            arrowDownButton.style.left = "50%";
             arrowDownButton.style.backgroundImage = "url('../images/interface/icons/down-arrow.png')";
             document.getElementById('background').appendChild(arrowDownButton);
             arrowDownButton.setAttribute("id", "arrowDownButton");
             var arrowLeftButton = document.createElement('arrowLeftButton');
             arrowLeftButton.style.height = "115px";
             arrowLeftButton.style.width = "115px";
-            arrowLeftButton.style.top = "60%";
-            arrowLeftButton.style.left = "45.6%";
+            arrowLeftButton.style.marginLeft = "-57.5px";
+            arrowLeftButton.style.top = "64%";
+            arrowLeftButton.style.left = "45%";
             arrowLeftButton.style.backgroundImage = "url('../images/interface/icons/left-arrow.png')";
             document.getElementById('background').appendChild(arrowLeftButton);
             arrowUpButton.setAttribute("id", "arrowUpButton");
@@ -364,8 +432,8 @@ var CharacterSelect = (function () {
             startButton.style.width = "285px";
             startButton.style.height = "123px";
             startButton.style.top = "80%";
-            startButton.style.left = "47.5%";
-            startButton.style.marginLeft = "-41px";
+            startButton.style.left = "50%";
+            startButton.style.marginLeft = "-142.5px";
             document.getElementById("background").appendChild(startButton);
             startButton.setAttribute("id", "startButton");
             document.getElementById("startButton").addEventListener("click", this.singleplayer);
@@ -464,43 +532,43 @@ var CharacterSelect = (function () {
             controllers.style.height = "123px";
             document.getElementById("background").appendChild(controllers);
             controllers.style.top = "45%";
-            controllers.style.left = "71%";
+            controllers.style.left = "68%";
             var controllers2 = document.createElement('controllers2');
             controllers2.style.backgroundImage = "url('../images/interface/icons/controllers.png')";
             controllers2.style.width = "300px";
             controllers2.style.height = "123px";
             document.getElementById("background").appendChild(controllers2);
             controllers2.style.top = "45%";
-            controllers2.style.left = "21%";
+            controllers2.style.left = "18%";
             var arrowUpButton = document.createElement('arrowUpButton');
             arrowUpButton.style.height = "115px";
             arrowUpButton.style.width = "115px";
             arrowUpButton.style.top = "54.3%";
-            arrowUpButton.style.left = "73.6%";
+            arrowUpButton.style.left = "72.6%";
             arrowUpButton.style.backgroundImage = "url('../images/interface/icons/up-arrow.png')";
             document.getElementById('background').appendChild(arrowUpButton);
             arrowUpButton.setAttribute("id", "arrowUpButton");
             var arrowRightButton = document.createElement('arrowRightButton');
             arrowRightButton.style.height = "115px";
             arrowRightButton.style.width = "115px";
-            arrowRightButton.style.top = "60.1%";
-            arrowRightButton.style.left = "76.5%";
+            arrowRightButton.style.top = "64.1%";
+            arrowRightButton.style.left = "77.5%";
             arrowRightButton.style.backgroundImage = "url('../images/interface/icons/right-arrow.png')";
             document.getElementById('background').appendChild(arrowRightButton);
             arrowRightButton.setAttribute("id", "arrowUpButton");
             var arrowDownButton = document.createElement('arrowDownButton');
             arrowDownButton.style.height = "115px";
             arrowDownButton.style.width = "115px";
-            arrowDownButton.style.top = "60.1%";
-            arrowDownButton.style.left = "73.5%";
+            arrowDownButton.style.top = "64.1%";
+            arrowDownButton.style.left = "72.5%";
             arrowDownButton.style.backgroundImage = "url('../images/interface/icons/down-arrow.png')";
             document.getElementById('background').appendChild(arrowDownButton);
             arrowDownButton.setAttribute("id", "arrowDownButton");
             var arrowLeftButton = document.createElement('arrowLeftButton');
             arrowLeftButton.style.height = "115px";
             arrowLeftButton.style.width = "115px";
-            arrowLeftButton.style.top = "60%";
-            arrowLeftButton.style.left = "70.6%";
+            arrowLeftButton.style.top = "64.1%";
+            arrowLeftButton.style.left = "67.7%";
             arrowLeftButton.style.backgroundImage = "url('../images/interface/icons/left-arrow.png')";
             document.getElementById('background').appendChild(arrowLeftButton);
             arrowUpButton.setAttribute("id", "arrowUpButton");
@@ -508,31 +576,31 @@ var CharacterSelect = (function () {
             wButton.style.height = "115px";
             wButton.style.width = "115px";
             wButton.style.top = "54.3%";
-            wButton.style.left = "23.6%";
+            wButton.style.left = "22.1%";
             wButton.style.backgroundImage = "url('../images/interface/icons/w-button.png')";
             document.getElementById('background').appendChild(wButton);
             wButton.setAttribute("id", "wButton");
             var dButton = document.createElement('dButton');
             dButton.style.height = "115px";
             dButton.style.width = "115px";
-            dButton.style.top = "60.1%";
-            dButton.style.left = "26.5%";
+            dButton.style.top = "64.1%";
+            dButton.style.left = "27%";
             dButton.style.backgroundImage = "url('../images/interface/icons/d-button.png')";
             document.getElementById('background').appendChild(dButton);
             dButton.setAttribute("id", "dButton");
             var sButton = document.createElement('sButton');
             sButton.style.height = "115px";
             sButton.style.width = "115px";
-            sButton.style.top = "60.1%";
-            sButton.style.left = "23.5%";
+            sButton.style.top = "64.1%";
+            sButton.style.left = "22.1%";
             sButton.style.backgroundImage = "url('../images/interface/icons/s-button.png')";
             document.getElementById('background').appendChild(sButton);
             sButton.setAttribute("id", "sButton");
             var aButton = document.createElement('aButton');
             aButton.style.height = "115px";
             aButton.style.width = "115px";
-            aButton.style.top = "60%";
-            aButton.style.left = "20.6%";
+            aButton.style.top = "64.1%";
+            aButton.style.left = "17.2%";
             aButton.style.backgroundImage = "url('../images/interface/icons/a-button.png')";
             document.getElementById('background').appendChild(aButton);
             aButton.setAttribute("id", "aButton");
@@ -592,36 +660,6 @@ var CharacterSelect = (function () {
     };
     return CharacterSelect;
 }());
-var Enemy = (function (_super) {
-    __extends(Enemy, _super);
-    function Enemy(pos) {
-        _super.call(this, pos);
-    }
-    Enemy.prototype.randomPosition = function () {
-        var random = Math.floor(Math.random() * 3) + 1;
-        if (random == 1) {
-            var x = 0;
-            var y = Math.floor(Math.random() * window.innerHeight + 125);
-            return new Vector(x, y);
-        }
-        else if (random == 2) {
-            var x = window.innerWidth - 125;
-            var y = Math.floor(Math.random() * window.innerHeight + 125);
-            return new Vector(x, y);
-        }
-        else if (random == 3) {
-            var x = Math.floor(Math.random() * window.innerWidth - 125);
-            var y = 0;
-            return new Vector(x, y);
-        }
-    };
-    Enemy.prototype.hitsLife = function (life) {
-        if (this.rectangle.hitsOtherRectangle(life.rectangle)) {
-            return true;
-        }
-    };
-    return Enemy;
-}(GameObject));
 var Game = (function () {
     function Game() {
         new Titlescreen();
@@ -638,29 +676,48 @@ var GameOver = (function () {
     GameOver.prototype.levelload1 = function () {
         new Level1(1);
     };
-    GameOver.prototype.titleScreeen = function () {
+    GameOver.prototype.goBack = function () {
+        this.utils = new Utils();
+        this.utils.removePreviousBackground();
         new Titlescreen();
     };
     GameOver.prototype.createFinalScore = function () {
-        this.popUp = document.createElement("popUp");
-        this.popUp.setAttribute("id", "popUp");
-        document.getElementById("background").appendChild(this.popUp);
-        this.scoreDiv = document.createElement("h1");
-        this.scoreDiv.innerHTML = "Score: " + this.finalScore;
-        document.getElementById("popUp").appendChild(this.scoreDiv);
-        this.tryAgainDiv = document.createElement("p");
-        document.getElementById("popUp").appendChild(this.tryAgainDiv);
-        this.tryAgainDiv.innerHTML = "Opnieuw proberen?";
-        this.buttonYes = document.createElement("h2");
+        this.feedbackDiv = document.createElement("span");
+        this.feedbackDiv.setAttribute("id", "feedback");
+        document.getElementById("background").appendChild(this.feedbackDiv);
+        this.scoreContainerDiv = document.createElement("span");
+        this.scoreContainerDiv.setAttribute("id", "score-container");
+        document.getElementById("background").appendChild(this.scoreContainerDiv);
+        this.scoreDiv = document.createElement("span");
+        this.scoreDiv.setAttribute("id", "score");
+        document.getElementById("score-container").appendChild(this.scoreDiv);
+        this.totalContainerDiv = document.createElement("span");
+        this.totalContainerDiv.setAttribute("id", "total-container");
+        document.getElementById("score-container").appendChild(this.totalContainerDiv);
+        this.totalDiv = document.createElement("span");
+        this.totalDiv.setAttribute("id", "total");
+        this.totalDiv.innerHTML = "" + this.finalScore;
+        document.getElementById("total-container").appendChild(this.totalDiv);
+        this.tryAgainDiv = document.createElement("span");
+        this.tryAgainDiv.setAttribute("id", "tryAgain");
+        document.getElementById("background").appendChild(this.tryAgainDiv);
+        this.buttonYes = document.createElement("span");
         this.buttonYes.setAttribute("id", "resetGame");
-        this.buttonYes.innerHTML = "Ja";
-        document.getElementById("popUp").appendChild(this.buttonYes);
+        document.getElementById("background").appendChild(this.buttonYes);
         this.buttonYes.addEventListener("click", this.levelload1);
-        this.buttonNo = document.createElement("h2");
+        this.buttonNo = document.createElement("span");
         this.buttonNo.setAttribute("id", "stopGame");
-        this.buttonNo.innerHTML = "Nee";
-        document.getElementById("popUp").appendChild(this.buttonNo);
-        this.buttonNo.addEventListener("click", this.titleScreeen);
+        document.getElementById("background").appendChild(this.buttonNo);
+        this.buttonNo.addEventListener("click", this.goBack);
+        var widthScore = document.getElementById("score").clientWidth;
+        var widthTotal = document.getElementById("total").clientWidth;
+        var scoreContainerWidth = widthScore + widthTotal;
+        var windowWidth = window.innerWidth;
+        var offsetLeft = (windowWidth - scoreContainerWidth) / 2;
+        var marginLeft = scoreContainerWidth / 2;
+        marginLeft = offsetLeft;
+        this.scoreContainerDiv.style.width = "" + scoreContainerWidth + "px";
+        this.scoreContainerDiv.style.marginLeft = "" + marginLeft + "px";
     };
     return GameOver;
 }());
@@ -668,7 +725,9 @@ var Level1 = (function () {
     function Level1(playerCount) {
         this.lifes = new Array();
         this.viruses = new Array();
+        this.bacteria = new Array();
         this.virusCount = 0;
+        this.bacteriaCount = 0;
         this.scoreCount = 0;
         this.enemy = new Enemy(new Vector(0, 0));
         this.playerCount = playerCount;
@@ -686,7 +745,7 @@ var Level1 = (function () {
         document.body.appendChild(this.score);
         this.spawnTime = 2000;
         if (playerCount == 1) {
-            for (var i = 0; i < 1; i++) {
+            for (var i = 0; i < 10; i++) {
                 this.lifes.push(new Life(i));
             }
             this.spawnTimer(this.spawnVirus, this.spawnTime);
@@ -703,13 +762,20 @@ var Level1 = (function () {
         requestAnimationFrame(this.gameLoop.bind(this));
     }
     Level1.prototype.spawnVirus = function () {
-        this.viruses.push(new Virus(this.virusCount, this.enemy.randomPosition()));
-        this.virusCount++;
+        var random = Math.floor(Math.random() * 10);
+        if (random <= 5) {
+            this.viruses.push(new Virus(this.virusCount, this.enemy.randomPosition()));
+            this.virusCount++;
+            console.log("virus");
+        }
+        else {
+            this.bacteria.push(new Bacteria(this.bacteriaCount, this.enemy.randomPosition()));
+            this.bacteriaCount++;
+            console.log("bacteria");
+        }
         if (this.spawnTime > 200) {
             this.spawnTime = this.spawnTime - 10;
         }
-        console.log("dit is de spawntime " + this.spawnTime);
-        console.log(this.virusCount);
         clearInterval(this.timer);
         this.spawnTimer(this.spawnVirus, this.spawnTime);
     };
@@ -717,6 +783,12 @@ var Level1 = (function () {
         this.timer = setInterval(this.spawnVirus.bind(this), this.spawnTime);
     };
     Level1.prototype.gameLoop = function () {
+        var character1Mouth = document.getElementById("character1Mouth");
+        var character1Glasses = document.getElementById("character1Glasses");
+        var character2Mouth = document.getElementById("character2Mouth");
+        var character2Glasses = document.getElementById("character2Glasses");
+        var inRange1 = false;
+        var inRange2 = false;
         if (this.playerCount == 1) {
             this.char1.move();
         }
@@ -724,10 +796,8 @@ var Level1 = (function () {
             this.char1.move();
             this.char2.move();
         }
-        for (var _i = 0, _a = this.lifes; _i < _a.length; _i++) {
-            var life_1 = _a[_i];
-            life_1.draw();
-            life_1.move();
+        for (var i = 0; i < this.lifes.length; i++) {
+            this.lifes[i].move();
         }
         for (var i = 0; i < this.viruses.length; i++) {
             var random = Math.floor(Math.random() * this.lifes.length);
@@ -745,28 +815,162 @@ var Level1 = (function () {
                     this.lifes.splice(random, 1);
                 }
             }
-            if (this.viruses[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
-                console.log("hitbox detected");
-                this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
-            }
-            else {
-                this.viruses[i].changeImage("url(\"../images/characters/virus1.png\")");
-            }
             if (this.playerCount == 1) {
+                if (this.viruses[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
+                    console.log("hitbox detected");
+                    this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
+                    inRange1 = true;
+                }
+                else {
+                    this.viruses[i].changeImage("url(\"../images/characters/virus1.png\")");
+                }
                 if (this.viruses[i].rectangle.hitsOtherRectangle(this.char1.rectangle)) {
                     this.viruses[i].remove();
                     this.viruses.splice(i, 1);
                     this.scoreCount++;
                     this.score.innerHTML = "" + this.scoreCount;
+                    this.randomNomNumber = Math.floor(Math.random() * 5 + 1);
+                    var nomSound = new NomSound(this.randomNomNumber);
                 }
             }
             else {
-                if (this.viruses[i].rectangle.hitsOtherRectangle(this.char1.rectangle) || this.viruses[i].rectangle.hitsOtherRectangle(this.char2.rectangle)) {
+                if (this.viruses[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
+                    console.log("hitbox detected");
+                    this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
+                    inRange1 = true;
+                }
+                if (this.viruses[i].hitbox.hitsOtherRectangle(this.char2.rectangle)) {
+                    console.log("hitbox detected");
+                    this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
+                    inRange2 = true;
+                }
+                else {
+                    this.viruses[i].changeImage("url(\"../images/characters/virus1.png\")");
+                }
+                if (this.viruses[i].rectangle.hitsOtherRectangle(this.char1.rectangle)) {
                     this.viruses[i].remove();
                     this.viruses.splice(i, 1);
                     this.scoreCount++;
                     this.score.innerHTML = "" + this.scoreCount;
+                    this.randomNomNumber = Math.floor(Math.random() * 5 + 6);
+                    var nomSound = new NomSound(this.randomNomNumber);
                 }
+                else if (this.viruses[i].rectangle.hitsOtherRectangle(this.char2.rectangle)) {
+                    this.viruses[i].remove();
+                    this.viruses.splice(i, 1);
+                    this.scoreCount++;
+                    this.score.innerHTML = "" + this.scoreCount;
+                    this.randomNomNumber = Math.floor(Math.random() * 5 + 11);
+                    var nomSound = new NomSound(this.randomNomNumber);
+                }
+            }
+        }
+        for (var i = 0; i < this.bacteria.length; i++) {
+            var random = Math.floor(Math.random() * this.lifes.length);
+            if (this.lifes.length == 0) {
+                this.bacteria.splice(0, this.bacteria.length);
+                clearInterval(this.timer);
+                this.utils.removePreviousBackground();
+                new GameOver(this.scoreCount);
+            }
+            else {
+                this.bacteria[i].move(this.lifes[0]);
+                var angle = Math.atan2(this.lifes[0].position.y - this.bacteria[i].position.y, this.lifes[0].position.x - this.bacteria[i].position.x);
+                angle = angle * (180 / Math.PI);
+                if (angle < 0) {
+                    angle = 360 - (-angle);
+                }
+                if (this.bacteria[i].direction.x >= 0) {
+                    this.bacteria[i].div.style.transform = "translate(" + this.bacteria[i].position.x + "px, " + this.bacteria[i].position.y + "px) rotate(" + angle + "deg) scale(-1, 1)";
+                }
+                else {
+                    this.bacteria[i].div.style.transform = "translate(" + this.bacteria[i].position.x + "px, " + this.bacteria[i].position.y + "px) rotate(" + angle + "deg) scale(-1, -1)";
+                }
+                if (this.bacteria[i].hitsLife(this.lifes[random]) == true) {
+                    var life = document.getElementById("" + this.lifes[random].id);
+                    life.remove();
+                    this.lifes.splice(random, 1);
+                }
+            }
+            if (this.playerCount == 1) {
+                if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
+                    console.log("hitbox detected");
+                    this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
+                    inRange1 = true;
+                }
+                else {
+                    this.bacteria[i].changeImage("url(\"../images/characters/bacteria1.png\")");
+                }
+                if (this.bacteria[i].rectangle.hitsOtherRectangle(this.char1.rectangle)) {
+                    this.bacteria[i].remove();
+                    this.bacteria.splice(i, 1);
+                    this.scoreCount++;
+                    this.score.innerHTML = "" + this.scoreCount;
+                }
+            }
+            else {
+                if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
+                    console.log("hitbox detected");
+                    this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
+                    inRange1 = true;
+                }
+                if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char2.rectangle)) {
+                    console.log("hitbox detected");
+                    this.bacteria[i].changeImage("url(\"../images/characters/bacteria1.png\")");
+                    inRange2 = true;
+                }
+                else {
+                    this.bacteria[i].changeImage("url(\"../images/characters/bacteria1.png\")");
+                }
+                if (this.bacteria[i].rectangle.hitsOtherRectangle(this.char1.rectangle) || this.bacteria[i].rectangle.hitsOtherRectangle(this.char2.rectangle)) {
+                    this.bacteria[i].remove();
+                    this.bacteria.splice(i, 1);
+                    this.scoreCount++;
+                    this.score.innerHTML = "" + this.scoreCount;
+                }
+            }
+        }
+        if (this.playerCount == 1) {
+            if (inRange1) {
+                character1Mouth.style.backgroundImage = "url(\"../images/player/mouth2.png\")";
+                if (glasses1Scale != "scaleX(-1)") {
+                    character1Glasses.style.transform = "rotate(-45deg) " + glasses1Scale;
+                }
+                else {
+                    character1Glasses.style.transform = "rotate(45deg) " + glasses1Scale;
+                }
+            }
+            else {
+                character1Mouth.style.backgroundImage = "url(\"../images/player/mouth1.png\")";
+                character1Glasses.style.transform = "rotate(0deg) " + glasses1Scale;
+            }
+        }
+        else {
+            if (inRange1) {
+                character1Mouth.style.backgroundImage = "url(\"../images/player/mouth2.png\")";
+                if (glasses1Scale != "scaleX(-1)") {
+                    character1Glasses.style.transform = "rotate(-45deg) " + glasses1Scale;
+                }
+                else {
+                    character1Glasses.style.transform = "rotate(45deg) " + glasses1Scale;
+                }
+            }
+            else {
+                character1Mouth.style.backgroundImage = "url(\"../images/player/mouth1.png\")";
+                character1Glasses.style.transform = "rotate(0deg)" + glasses1Scale;
+            }
+            if (inRange2) {
+                character2Mouth.style.backgroundImage = "url(\"../images/player/mouth2.png\")";
+                if (glasses2Scale != "scaleX(-1)") {
+                    character2Glasses.style.transform = "rotate(-45deg) " + glasses2Scale;
+                }
+                else {
+                    character2Glasses.style.transform = "rotate(45deg) " + glasses2Scale;
+                }
+            }
+            else {
+                character2Mouth.style.backgroundImage = "url(\"../images/player/mouth1.png\")";
+                character2Glasses.style.transform = "rotate(0deg) " + glasses2Scale;
             }
         }
         requestAnimationFrame(this.gameLoop.bind(this));
@@ -780,16 +984,34 @@ var Life = (function () {
         this.div.setAttribute("id", "" + this.id);
         document.getElementById("background").appendChild(this.div);
         this.position = this.randomPosition();
+        this.newPosition = this.randomPosition();
         this.width = 75;
         this.height = 75;
     }
     Life.prototype.randomPosition = function () {
-        var x = Math.floor(Math.random() * 1280) + 640;
-        var y = Math.floor(Math.random() * 897) + 449;
+        var x = Math.floor(Math.random() * window.innerWidth / 3) + window.innerWidth / 3;
+        var y = Math.floor(Math.random() * window.innerHeight / 3) + window.innerHeight / 3;
         return new Vector(x, y);
     };
     Life.prototype.move = function () {
-        this.rectangle = new Rectangle(this.position, 75, 75);
+        this.newRectangle = new Rectangle(this.newPosition, 10, 10);
+        this.rectangle = new Rectangle(this.position, 50, 50);
+        if (this.rectangle.hitsOtherRectangle(this.newRectangle)) {
+            this.newPosition = this.randomPosition();
+        }
+        else {
+            this.direction = this.newPosition.difference(this.position);
+            this.direction = this.direction.normalize();
+            var randomSpeed = Math.floor((Math.random() * 3) + 1);
+            this.direction = this.direction.scale(randomSpeed);
+            this.position = this.position.add(this.direction);
+            if (this.direction.x >= 0) {
+                this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px) scaleX(1)";
+            }
+            else {
+                this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px) scaleX(-1)";
+            }
+        }
     };
     Life.prototype.draw = function () {
         this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
@@ -811,6 +1033,19 @@ var Music = (function () {
         document.getElementById("background").appendChild(audio);
     };
     return Music;
+}());
+var NomSound = (function () {
+    function NomSound(nomNumber) {
+        this.nomSound(nomNumber);
+    }
+    NomSound.prototype.nomSound = function (nomNumber) {
+        var audio = document.createElement("audio");
+        audio.src = "../audio/nom" + nomNumber + ".mp3";
+        audio.loop = false;
+        audio.play();
+        document.getElementById("background").appendChild(audio);
+    };
+    return NomSound;
 }());
 var Rectangle = (function () {
     function Rectangle(pos, w, h) {
@@ -1007,20 +1242,6 @@ var Virus = (function (_super) {
         this.position = this.randomPosition();
         this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
     }
-    Virus.prototype.move = function (life) {
-        var random = Math.floor((Math.random() * 3) + 1);
-        var direction = life.position.difference(this.position);
-        direction = direction.normalize();
-        direction = direction.scale(random);
-        this.position = this.position.add(direction);
-        this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
-        this.rectangle = new Rectangle(this.position, 75, 75);
-        this.hitboxPosition = new Vector(this.position.x - 50, this.position.y - 50);
-        this.hitbox = new Rectangle(this.hitboxPosition, 300, 300);
-    };
-    Virus.prototype.remove = function () {
-        this.div.remove();
-    };
     return Virus;
 }(Enemy));
 //# sourceMappingURL=main.js.map
