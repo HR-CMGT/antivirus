@@ -26,7 +26,7 @@ class Level1 {
         this.utils = new Utils();
         this.utils.removePreviousBackground();
 
-        var background = new Background(1, 1);
+        var background = new Background(1, 1, true);
         document.getElementById("background").style.cursor = "none";
         this.score = document.createElement("score");
         this.score.innerHTML = "" + this.scoreCount;

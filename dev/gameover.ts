@@ -15,7 +15,7 @@ class GameOver {
     public utils:Utils;
 
     constructor(score, playerCount) {
-        var background = new Background(1,1);
+        var background = new Background(1,1,false);
         this.playerCount = playerCount;
         this.finalScore = score;
         document.getElementById("background").style.cursor = "auto";

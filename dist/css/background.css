@@ -38,3 +38,12 @@ backgroundCellSmall {
     }
 }
 
+@keyframes frontLayerFade{
+    0% {
+    }
+    
+    100% {
+        background-image: url("../../images/backgrounds/frontLayer2.png");
+    }
+}
+
