@@ -41,7 +41,7 @@ class Level1 {
 
         if (playerCount == 1) {
 
-            for (var i = 0; i < 1; i++) {
+            for (var i = 0; i < 10; i++) {
                 this.lifes.push(new Life(i));
             }
 
