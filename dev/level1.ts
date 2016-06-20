@@ -129,7 +129,7 @@ class Level1 {
                 this.viruses.splice(0, this.viruses.length);
                 clearInterval(this.timer);
                 this.utils.removePreviousBackground();
-                new GameOver(this.scoreCount);
+                new GameOver(this.scoreCount, this.playerCount);
             } else {
                 this.viruses[i].move(this.lifes[random]);
                 if (this.viruses[i].hitsLife(this.lifes[random]) == true) {
@@ -213,7 +213,7 @@ class Level1 {
                 this.bacteria.splice(0, this.bacteria.length);
                 clearInterval(this.timer);
                 this.utils.removePreviousBackground();
-                new GameOver(this.scoreCount);
+                new GameOver(this.scoreCount, this.playerCount);
             } else {
                 this.bacteria[i].move(this.lifes[0]);
                 

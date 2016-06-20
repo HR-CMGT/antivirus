@@ -11,17 +11,24 @@ class GameOver {
     private feedbackDiv:HTMLElement;
     private buttonYes:HTMLElement;
     private buttonNo:HTMLElement;
+    public playerCount: number;
     public utils:Utils;
 
-    constructor(score) {
+    constructor(score, playerCount) {
         var background = new Background(1,1);
+        this.playerCount = playerCount;
         this.finalScore = score;
         document.getElementById("background").style.cursor = "auto";
         this.createFinalScore();
     }
 
     public levelload1(){
-        new Level1(1);
+        if (this.playerCount == 1) {
+             new Level1(1);
+        } else {
+            new Level1(2);
+        }
+
     }
 
     public goBack(){
