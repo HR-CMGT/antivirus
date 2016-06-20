@@ -49,7 +49,7 @@ class GameOver {
 
         this.totalDiv = document.createElement("span");
         this.totalDiv.setAttribute("id", "total");
-        this.totalDiv.innerHTML = ""+ this.finalScore;
+        this.totalDiv.innerHTML = ""+this.finalScore;
         document.getElementById("total-container").appendChild(this.totalDiv);
 
         this.tryAgainDiv = document.createElement("span");
@@ -65,6 +65,20 @@ class GameOver {
         this.buttonNo.setAttribute("id","stopGame");
         document.getElementById("background").appendChild(this.buttonNo);
         this.buttonNo.addEventListener("click", this.goBack);
+
+        let widthScore = document.getElementById("score").clientWidth;
+        let widthTotal = document.getElementById("total").clientWidth;
+
+        let scoreContainerWidth = widthScore + widthTotal;
+        let windowWidth = window.innerWidth;
+
+        let offsetLeft = (windowWidth - scoreContainerWidth) /2;
+
+        let marginLeft = scoreContainerWidth / 2;
+        marginLeft = offsetLeft;
+        // this.score.style.width = "100px";
+        this.scoreContainerDiv.style.width = ""+scoreContainerWidth+"px";
+        this.scoreContainerDiv.style.marginLeft = ""+marginLeft+"px";
     }
 
 }
