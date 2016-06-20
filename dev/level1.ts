@@ -1,3 +1,5 @@
+var bacteriaCount = 0;
+
 class Level1 {
 
 
@@ -10,7 +12,7 @@ class Level1 {
     public bacteria: Array<Bacteria> = new Array<Bacteria>();
     public timer: number;
     public virusCount: number = 0;
-    public bacteriaCount: number = 0;
+    //public bacteriaCount: number = 0;
     public scoreCount: number = 0;
     private score: HTMLElement;
     public spawnTime: number;
@@ -79,8 +81,9 @@ class Level1 {
             this.virusCount++;
             console.log("virus");
         } else {
-            this.bacteria.push(new Bacteria(this.bacteriaCount, this.enemy.randomPosition()));
-            this.bacteriaCount++;
+            this.bacteria.push(new Bacteria(bacteriaCount, this.enemy.randomPosition()));
+            bacteriaCount++;
+
             console.log("bacteria");
         }
         
@@ -95,12 +98,14 @@ class Level1 {
     private spawnTimer(spawnVirus, time: number) {
         this.timer = setInterval(this.spawnVirus.bind(this), this.spawnTime);
     }
+    
 
     private gameLoop() {
          var character1Mouth = document.getElementById("character1Mouth");
          var character1Glasses = document.getElementById("character1Glasses");
          var character2Mouth = document.getElementById("character2Mouth");
          var character2Glasses = document.getElementById("character2Glasses");
+         
 
         let inRange1 = false;
         let inRange2 = false;
@@ -170,18 +175,15 @@ class Level1 {
                     console.log("hitbox detected");
                     this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
                     inRange1 = true;
-                }
-
-                if (this.viruses[i].hitbox.hitsOtherRectangle(this.char2.rectangle)) {
+                } else if (this.viruses[i].hitbox.hitsOtherRectangle(this.char2.rectangle)) {
                     console.log("hitbox detected");
                     this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
                     inRange2 = true;
-                }
-
-
-                else {
+                } else {
                     this.viruses[i].changeImage("url(\"../images/characters/virus1.png\")");
                 }
+
+
 
                 if (this.viruses[i].rectangle.hitsOtherRectangle(this.char1.rectangle)) {
                     this.viruses[i].remove();
@@ -209,6 +211,21 @@ class Level1 {
         //bacteria movement
         for (let i = 0; i < this.bacteria.length; i++) {
             let random = Math.floor(Math.random() * this.lifes.length);
+            
+            //setInterval(this.splitBacteria(), 1000);
+            this.bacteria[i].counter--;
+            if(this.bacteria[i].counter == 0){
+                let newPosition = new Vector(this.bacteria[i].position.x,this.bacteria[i].position.y - 40);
+                this.bacteria.push(new Bacteria(bacteriaCount, newPosition));
+                this.bacteria[i].position.y += 40;
+                this.bacteria[i].div.style.transform = "translate(" + this.bacteria[i].position.x+ "px, " + this.bacteria[i].position.y + "px)";
+                bacteriaCount++;
+                this.bacteria[i].counter = 300;
+            }
+            
+           
+            
+            
             if (this.lifes.length == 0) {
                 this.bacteria.splice(0, this.bacteria.length);
                 clearInterval(this.timer);
@@ -244,13 +261,15 @@ class Level1 {
             if (this.playerCount == 1) {
 
 
-                if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
+                if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle) && this.bacteria[i].counter > 60) {
                     console.log("hitbox detected");
                     this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
                     inRange1 = true;
                 }
-                else {
+                else if(this.bacteria[i].counter > 60){
                     this.bacteria[i].changeImage("url(\"../images/characters/bacteria1.png\")");
+                } else{
+                    this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
                 }
 
                 if (this.bacteria[i].rectangle.hitsOtherRectangle(this.char1.rectangle)) {
@@ -265,23 +284,20 @@ class Level1 {
             else {
 
 
-                if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
+                if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle) && this.bacteria[i].counter > 60) {
                     console.log("hitbox detected");
                     this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
                     inRange1 = true;
-                }
-
-                if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char2.rectangle)) {
+                } else if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char2.rectangle) && this.bacteria[i].counter > 60) {
                     console.log("hitbox detected");
                     this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
                     inRange2 = true;
-    
-                }
-
-
-                else {
+                } else if(this.bacteria[i].counter < 60){
+                    this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
+                } else {
                     this.bacteria[i].changeImage("url(\"../images/characters/bacteria1.png\")");
                 }
+                
 
                 if (this.bacteria[i].rectangle.hitsOtherRectangle(this.char1.rectangle)){
                     // var enemy  = document.getElementById("virus"+virus.id);
