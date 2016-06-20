@@ -26,6 +26,9 @@ class Bacteria extends Enemy{
         this.div.style.transform = "translate(" + this.position.x + "px, " + this.position.y + "px)";
         this.random = Math.floor((Math.random() * 5) + 3);
         
+        let random = Math.floor(Math.random() * 60);
+        this.counter = this.counter - random;
+        
     }
     
     public move(life: Life) {

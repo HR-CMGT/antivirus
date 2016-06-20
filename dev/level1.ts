@@ -76,7 +76,7 @@ class Level1 {
         
         let random = Math.floor(Math.random() * 10);
         
-        if(random <= 5){
+        if(random <= 7){
             this.viruses.push(new Virus(this.virusCount, this.enemy.randomPosition()));
             this.virusCount++;
             console.log("virus");
