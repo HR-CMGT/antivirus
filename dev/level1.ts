@@ -141,6 +141,8 @@ class Level1 {
                     var life = document.getElementById("" + this.lifes[random].id);
                     life.remove();
                     this.lifes.splice(random, 1);
+                    this.viruses[i].remove();
+                    this.viruses.splice(i, 1);
                 }
             }
 
@@ -253,6 +255,8 @@ class Level1 {
                     var life = document.getElementById("" + this.lifes[random].id);
                     life.remove();
                     this.lifes.splice(random, 1);
+                    this.bacteria[i].remove();
+                    this.bacteria.splice(i, 1);
                 }
             }
 
