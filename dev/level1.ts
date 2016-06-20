@@ -258,6 +258,8 @@ class Level1 {
                     this.bacteria.splice(i, 1);
                     this.scoreCount++;
                     this.score.innerHTML = "" + this.scoreCount;
+                    this.randomNomNumber = Math.floor(Math.random()*5 + 1);
+                    var nomSound = new NomSound(this.randomNomNumber);
                 }
             }
             else {
@@ -271,7 +273,7 @@ class Level1 {
 
                 if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char2.rectangle)) {
                     console.log("hitbox detected");
-                    this.bacteria[i].changeImage("url(\"../images/characters/bacteria1.png\")");
+                    this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
                     inRange2 = true;
     
                 }
@@ -281,12 +283,22 @@ class Level1 {
                     this.bacteria[i].changeImage("url(\"../images/characters/bacteria1.png\")");
                 }
 
-                if (this.bacteria[i].rectangle.hitsOtherRectangle(this.char1.rectangle) || this.bacteria[i].rectangle.hitsOtherRectangle(this.char2.rectangle)) {
+                if (this.bacteria[i].rectangle.hitsOtherRectangle(this.char1.rectangle)){
                     // var enemy  = document.getElementById("virus"+virus.id);
                     this.bacteria[i].remove();
                     this.bacteria.splice(i, 1);
                     this.scoreCount++;
                     this.score.innerHTML = "" + this.scoreCount;
+                    this.randomNomNumber = Math.floor(Math.random()*5 + 6);
+                    var nomSound = new NomSound(this.randomNomNumber);
+                }
+                else if(this.bacteria[i].rectangle.hitsOtherRectangle(this.char2.rectangle)){
+                    this.bacteria[i].remove();
+                    this.bacteria.splice(i, 1);
+                    this.scoreCount++;
+                    this.score.innerHTML = "" + this.scoreCount;
+                    this.randomNomNumber = Math.floor(Math.random()*5 + 11);
+                    var nomSound = new NomSound(this.randomNomNumber);
                 }
 
             }
