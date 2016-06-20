@@ -2,7 +2,7 @@
 class Titlescreen {
     
     constructor(){
-        var background = new Background(1,1);
+        var background = new Background(1,1,false);
         this.titleAnimation();
         this.createMenu();
         var music = new Music(1); 

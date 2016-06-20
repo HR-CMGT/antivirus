@@ -2,13 +2,17 @@
 class Background {
     
     private backgroundCells:backgroundCells;
+    public animation: boolean;
     
     //Use the parameters to choose background images (back & front layer)
-    constructor(backLayerImage:number, frontLayerImage:number){
+    constructor(backLayerImage:number, frontLayerImage:number, animation:boolean){
         this.createBackground();
         this.backLayer(backLayerImage);
         this.midLayer();
-        this.frontLayer(frontLayerImage);
+        this.animation = animation;
+        this.frontLayer(frontLayerImage, this.animation);
+
+
     }    
    
     createBackground(){
@@ -37,9 +41,14 @@ class Background {
     }
         
     //Create front layer image (transparent second background image)
-    frontLayer(frontLayerImage){
+    private frontLayer(frontLayerImage, animation:boolean){
         var frontLayer = document.createElement("frontLayer");
-        frontLayer.style.backgroundImage = "url(\"../images/backgrounds/frontLayer" + frontLayerImage + ".png\")";
-        document.getElementById("background").appendChild(frontLayer);   
+        frontLayer.style.backgroundImage = "url(\"../images/backgrounds/frontLayer" + frontLayerImage + ".png\")";  
+        document.getElementById("background").appendChild(frontLayer);
+        console.log(animation);
+        if(animation == true){
+            frontLayer.style.animation = "frontLayerFade 180000ms linear";
+            frontLayer.style.animationFillMode = "forwards";
+        }    
     }
 }

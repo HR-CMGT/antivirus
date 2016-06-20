@@ -22,7 +22,7 @@ class CharacterSelect {
         if(playerCount == 1){
             this.utils = new Utils();
             this.utils.removePreviousBackground();
-            let background = new Background(1,1);
+            let background = new Background(1,1,false);
             var music = new Music(2);
             
             
@@ -164,7 +164,7 @@ class CharacterSelect {
         else{
             this.utils = new Utils();
             this.utils.removePreviousBackground();
-            var background = new Background(1,1);
+            var background = new Background(1,1,false);
             var music = new Music(2);
             
             // Create image for player 1
