@@ -39,40 +39,12 @@ backgroundCellSmall {
 }
 
 @keyframes changeFrontLayer{
-    from{
+    0%{
         
     }
     
-    to{
-        background-image: url(../../images/backgrounds/frontLayer2.png);
-    }
-}
-
-@keyframes frontOpacityIncrease{
-    0%{
-        opacity: 0;
-    }
-    
-    80%{
-        opacity: 0;
-    }
-    
     100%{
-        opacity: 1;
-    }
-}
-
-@keyframes frontOpacityDecrease{
-    0%{
-        opacity: 1;
-    }
-    
-    80%{
-        opacity: 1;
-    }
-    
-    100%{
-        opacity: 0;
+        -webkit-filter: hue-rotate(120deg);
     }
 }
 

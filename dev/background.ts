@@ -47,15 +47,8 @@ class Background {
         document.getElementById("background").appendChild(frontLayer);
         console.log(animation);
         if(animation == true){
-            var frontLayer2 = document.createElement("frontLayer2");
-            frontLayer2.style.backgroundImage = "url(../images/backgrounds/frontLayer2.png)";
-            document.getElementById("background").appendChild(frontLayer2);
-            
-            frontLayer.style.animation = "frontOpacityDecrease 210000ms linear";
+            frontLayer.style.animation = "changeFrontLayer 210000ms linear";
             frontLayer.style.animationFillMode = "forwards";
-            
-            frontLayer2.style.animation = "frontOpacityIncrease 210000ms linear";
-            frontLayer2.style.animationFillMode = "forwards";
         }    
     }
 }
