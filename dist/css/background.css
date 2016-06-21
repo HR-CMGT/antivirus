@@ -38,12 +38,13 @@ backgroundCellSmall {
     }
 }
 
-@keyframes frontLayerFade{
-    from {
+@keyframes changeFrontLayer{
+    from{
+        
     }
     
-    to {
-        background-image: url("../../images/backgrounds/frontLayer4.png");
+    to{
+        background-image: url(../../images/backgrounds/frontLayer2.png);
     }
 }
 

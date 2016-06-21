@@ -14,6 +14,7 @@ class Virus extends Enemy {
         this.id = id;
         this.div = document.createElement("virus");
         this.div.setAttribute("id", "virus" + this.id);
+        this.div.style.transform = "translatez(0)";
         document.getElementById("background").appendChild(this.div);
 
         this.position = this.randomPosition();

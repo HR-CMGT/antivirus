@@ -20,6 +20,7 @@ class Bacteria extends Enemy{
         this.id = id;
         this.div = document.createElement("bacteria");
         this.div.setAttribute("id", "bacteria" + this.id);
+        this.div.style.transform = "translatez(0)";
         document.getElementById("background").appendChild(this.div);
 
         // this.position = this.randomPosition();

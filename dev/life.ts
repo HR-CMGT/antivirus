@@ -20,6 +20,7 @@ class Life {
         this.id = id;
         this.div = document.createElement("redBloodCell");
         this.div.setAttribute("id", ""+this.id);
+        this.div.style.transform = "translatez(0)";
         document.getElementById("background").appendChild(this.div);
         this.position = this.randomPosition();
         this.newPosition = this.randomPosition();

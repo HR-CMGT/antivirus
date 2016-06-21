@@ -24,7 +24,7 @@ class Background {
     //Create the back layer image (first background image)
     backLayer(backLayerImage){
         var backLayer = document.createElement("backLayer");
-        backLayer.style.backgroundImage = "url(\"../images/backgrounds/backLayer" + backLayerImage + ".png\")";
+        backLayer.style.backgroundImage = "url(\"../images/backgrounds/backLayer" + backLayerImage + ".jpg\")";
         document.getElementById("background").appendChild(backLayer);
     }
         
@@ -43,7 +43,7 @@ class Background {
     //Create front layer image (transparent second background image)
     private frontLayer(frontLayerImage, animation:boolean){
         var frontLayer = document.createElement("frontLayer");
-        frontLayer.style.backgroundImage = "url(\"../images/backgrounds/frontLayer" + frontLayerImage + ".png\")";  
+        frontLayer.style.backgroundImage = "url(\"../images/backgrounds/frontLayer" + frontLayerImage + ".png\")";
         document.getElementById("background").appendChild(frontLayer);
         console.log(animation);
         if(animation == true){
@@ -51,14 +51,11 @@ class Background {
             frontLayer2.style.backgroundImage = "url(../images/backgrounds/frontLayer2.png)";
             document.getElementById("background").appendChild(frontLayer2);
             
-            frontLayer.style.animation = "frontOpacityDecrease 180000ms linear";
+            frontLayer.style.animation = "frontOpacityDecrease 210000ms linear";
             frontLayer.style.animationFillMode = "forwards";
             
-            frontLayer2.style.animation = "frontOpacityIncrease 180000ms linear";
+            frontLayer2.style.animation = "frontOpacityIncrease 210000ms linear";
             frontLayer2.style.animationFillMode = "forwards";
-            
-            //frontLayer.style.animation = "frontLayerFade 180000ms linear";
-            //frontLayer.style.animationFillMode = "forwards";
         }    
     }
 }

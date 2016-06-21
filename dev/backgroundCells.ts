@@ -21,6 +21,7 @@ class backgroundCells {
             let randomAnimationSpeed = i;
             
             backgroundCell.style.backgroundImage = "url(\"../images/backgrounds/cell" + randomImage + this.size +".png\")";
+            backgroundCell.style.transform = "translatez(0)";
             backgroundCell.style.left = positionX + "px";
             backgroundCell.style.top = randomPositionY + "px";
             backgroundCell.style.animation = "backgroundCellMove " + randomAnimationSpeed + "s linear infinite";
