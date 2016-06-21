@@ -25,8 +25,9 @@ class Level1 {
         this.playerCount = playerCount;
         this.utils = new Utils();
         this.utils.removePreviousBackground();
-
         var background = new Background(1, 1, true);
+        var music = new Music(3, 0.3);
+        
         document.getElementById("background").style.cursor = "none";
         this.score = document.createElement("score");
         this.score.innerHTML = "" + this.scoreCount;
@@ -192,7 +193,7 @@ class Level1 {
                     this.viruses.splice(i, 1);
                     this.scoreCount++;
                     this.score.innerHTML = "" + this.scoreCount;
-                    this.randomNomNumber = Math.floor(Math.random() * 5 + 6);
+                    this.randomNomNumber = Math.floor(Math.random() * 5 + 1);
                     var nomSound = new NomSound(this.randomNomNumber);
                 }
                 else if (this.viruses[i].rectangle.hitsOtherRectangle(this.char2.rectangle)) {
@@ -200,7 +201,7 @@ class Level1 {
                     this.viruses.splice(i, 1);
                     this.scoreCount++;
                     this.score.innerHTML = "" + this.scoreCount;
-                    this.randomNomNumber = Math.floor(Math.random() * 5 + 11);
+                    this.randomNomNumber = Math.floor(Math.random() * 5 + 1);
                     var nomSound = new NomSound(this.randomNomNumber);
                 }
 
@@ -310,7 +311,7 @@ class Level1 {
                     this.bacteria.splice(i, 1);
                     this.scoreCount++;
                     this.score.innerHTML = "" + this.scoreCount;
-                    this.randomNomNumber = Math.floor(Math.random() * 5 + 6);
+                    this.randomNomNumber = Math.floor(Math.random() * 5 + 1);
                     var nomSound = new NomSound(this.randomNomNumber);
                     break;
                 }
@@ -319,7 +320,7 @@ class Level1 {
                     this.bacteria.splice(i, 1);
                     this.scoreCount++;
                     this.score.innerHTML = "" + this.scoreCount;
-                    this.randomNomNumber = Math.floor(Math.random() * 5 + 11);
+                    this.randomNomNumber = Math.floor(Math.random() * 5 + 1);
                     var nomSound = new NomSound(this.randomNomNumber);
                     break;
                 }
