@@ -5,7 +5,7 @@ class Titlescreen {
         var background = new Background(1,1,false);
         this.titleAnimation();
         this.createMenu();
-        var music = new Music(1,1); 
+        var music = new Music(1); 
         // document.getElementsByTagName("player1").addEventListener("click", this.levelload);
         
     }
