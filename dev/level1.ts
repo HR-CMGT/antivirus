@@ -35,7 +35,7 @@ class Level1 {
         this.score.style.width = "100px";
         this.score.style.height = "50px";
         // this.score.style.font = "foo.tff";
-        this.score.style.fontSize = "70px";
+        this.score.style.fontSize = "70px"; 
         document.body.appendChild(this.score);
 
         this.spawnTime = 2000;

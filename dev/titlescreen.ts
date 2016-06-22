@@ -82,7 +82,7 @@ class Titlescreen {
         achievements.style.top = "70%";
         achievements.style.marginLeft = "-259px";
         achievements.style.position = "absolute";
-        document.getElementById("background").appendChild(achievements);
+        // document.getElementById("background").appendChild(achievements);
         achievements.style.display = "inline-block";
         achievements.onmouseover=function(){
             achievements.style.backgroundImage = "url(\"../images/interface/icons/prestaties_hover.png\")"
