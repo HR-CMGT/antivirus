@@ -13,7 +13,7 @@ class Background {
     }
     backLayer(backLayerImage) {
         var backLayer = document.createElement("backLayer");
-        backLayer.style.backgroundImage = "url(\"../images/backgrounds/backLayer" + backLayerImage + ".jpg\")";
+        backLayer.style.backgroundImage = "url(\"images/backgrounds/backLayer" + backLayerImage + ".jpg\")";
         document.getElementById("background").appendChild(backLayer);
     }
     midLayer() {
@@ -23,7 +23,7 @@ class Background {
     }
     frontLayer(frontLayerImage, animation) {
         var frontLayer = document.createElement("frontLayer");
-        frontLayer.style.backgroundImage = "url(\"../images/backgrounds/frontLayer" + frontLayerImage + ".png\")";
+        frontLayer.style.backgroundImage = "url(\"images/backgrounds/frontLayer" + frontLayerImage + ".png\")";
         document.getElementById("background").appendChild(frontLayer);
         if (animation == true) {
             frontLayer.style.animation = "changeFrontLayer 210000ms linear";
@@ -42,7 +42,7 @@ class backgroundCells {
             let positionX = window.innerWidth;
             let randomPositionY = Math.floor(Math.random() * window.innerHeight);
             let randomAnimationSpeed = i;
-            backgroundCell.style.backgroundImage = "url(\"../images/backgrounds/cell" + randomImage + this.size + ".png\")";
+            backgroundCell.style.backgroundImage = "url(\"images/backgrounds/cell" + randomImage + this.size + ".png\")";
             backgroundCell.style.transform = "translatez(0)";
             backgroundCell.style.left = positionX + "px";
             backgroundCell.style.top = randomPositionY + "px";
@@ -321,7 +321,7 @@ class CharacterSelect {
         };
         this.changeGlasses1 = () => {
             var glasses = document.getElementById("player1Glasses");
-            glasses.style.backgroundImage = "url(\"../images/player/glasses" + glassesNumber1 + ".png\")";
+            glasses.style.backgroundImage = "url(\"images/player/glasses" + glassesNumber1 + ".png\")";
         };
         this.chooseGlasses2 = () => {
             if (glassesNumber2 == 16) {
@@ -345,7 +345,7 @@ class CharacterSelect {
         };
         this.changeGlasses2 = () => {
             var glasses = document.getElementById("player2Glasses");
-            glasses.style.backgroundImage = "url(\"../images/player/glasses" + glassesNumber2 + ".png\")";
+            glasses.style.backgroundImage = "url(\"images/player/glasses" + glassesNumber2 + ".png\")";
         };
         this.game = game;
         this.playerCount = playerCount;
@@ -376,9 +376,9 @@ class CharacterSelect {
         if (player1) {
             if (player1.Left) {
                 if (this.playerCount == 1)
-                    this.buttonLeft.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                    this.buttonLeft.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
                 else {
-                    this.buttonLeft1.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                    this.buttonLeft1.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
                 }
                 if (this.delay >= 30) {
                     this.chooseGlasses1Prev();
@@ -387,9 +387,9 @@ class CharacterSelect {
             }
             else if (player1.Right) {
                 if (this.playerCount == 1)
-                    this.buttonRight.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                    this.buttonRight.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
                 else {
-                    this.buttonRight1.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                    this.buttonRight1.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
                 }
                 if (this.delay >= 30) {
                     this.chooseGlasses1();
@@ -398,33 +398,33 @@ class CharacterSelect {
             }
             else {
                 if (this.playerCount == 1) {
-                    this.buttonLeft.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
-                    this.buttonRight.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+                    this.buttonLeft.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
+                    this.buttonRight.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
                 }
                 else {
-                    this.buttonLeft1.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
-                    this.buttonRight1.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+                    this.buttonLeft1.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
+                    this.buttonRight1.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
                 }
             }
         }
         if (player2 && this.playerCount == 2) {
             if (player2.Left) {
-                this.buttonLeft2.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                this.buttonLeft2.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
                 if (this.delay >= 30) {
                     this.chooseGlasses2Prev();
                     this.delay = 0;
                 }
             }
             else if (player2.Right) {
-                this.buttonRight2.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                this.buttonRight2.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
                 if (this.delay >= 30) {
                     this.chooseGlasses2();
                     this.delay = 0;
                 }
             }
             else {
-                this.buttonLeft2.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
-                this.buttonRight2.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+                this.buttonLeft2.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
+                this.buttonRight2.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
             }
         }
         this.delay++;
@@ -535,10 +535,10 @@ class CharacterSelect {
             startButton.setAttribute("id", "startButton");
             document.getElementById("startButton").addEventListener("click", this.singleplayer);
             startButton.onmouseover = function () {
-                startButton.style.backgroundImage = "url(\"../images/interface/icons/startButton-hover.png\")";
+                startButton.style.backgroundImage = "url(\"images/interface/icons/startButton-hover.png\")";
             };
             startButton.onmouseleave = function () {
-                startButton.style.backgroundImage = "url(\"../images/interface/icons/startButton.png\")";
+                startButton.style.backgroundImage = "url(\"images/interface/icons/startButton.png\")";
             };
         }
         else {
@@ -724,10 +724,10 @@ class CharacterSelect {
             startButton.setAttribute("id", "startButton");
             document.getElementById("startButton").addEventListener("click", this.multiplayer);
             startButton.onmouseover = function () {
-                startButton.style.backgroundImage = "url(\"../images/interface/icons/startButton-hover.png\")";
+                startButton.style.backgroundImage = "url(\"images/interface/icons/startButton-hover.png\")";
             };
             startButton.onmouseleave = function () {
-                startButton.style.backgroundImage = "url(\"../images/interface/icons/startButton.png\")";
+                startButton.style.backgroundImage = "url(\"images/interface/icons/startButton.png\")";
             };
         }
     }
@@ -908,11 +908,11 @@ class Level1 {
             if (this.playerCount == 1) {
                 if (this.viruses[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
                     console.log("hitbox detected");
-                    this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
+                    this.viruses[i].changeImage("url(\"images/characters/virus2.png\")");
                     inRange1 = true;
                 }
                 else {
-                    this.viruses[i].changeImage("url(\"../images/characters/virus1.png\")");
+                    this.viruses[i].changeImage("url(\"images/characters/virus1.png\")");
                 }
                 if (this.viruses[i].rectangle.hitsOtherRectangle(this.char1.rectangle)) {
                     this.viruses[i].remove();
@@ -926,16 +926,16 @@ class Level1 {
             else {
                 if (this.viruses[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
                     console.log("hitbox detected");
-                    this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
+                    this.viruses[i].changeImage("url(\"images/characters/virus2.png\")");
                     inRange1 = true;
                 }
                 else if (this.viruses[i].hitbox.hitsOtherRectangle(this.char2.rectangle)) {
                     console.log("hitbox detected");
-                    this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
+                    this.viruses[i].changeImage("url(\"images/characters/virus2.png\")");
                     inRange2 = true;
                 }
                 else {
-                    this.viruses[i].changeImage("url(\"../images/characters/virus1.png\")");
+                    this.viruses[i].changeImage("url(\"images/characters/virus1.png\")");
                 }
                 if (this.viruses[i].rectangle.hitsOtherRectangle(this.char1.rectangle)) {
                     this.viruses[i].remove();
@@ -990,14 +990,14 @@ class Level1 {
                 if (this.playerCount == 1) {
                     if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle) && this.bacteria[i].counter > 60) {
                         console.log("hitbox detected");
-                        this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
+                        this.bacteria[i].changeImage("url(\"images/characters/bacteria2.png\")");
                         inRange1 = true;
                     }
                     else if (this.bacteria[i].counter > 60) {
-                        this.bacteria[i].changeImage("url(\"../images/characters/bacteria1.png\")");
+                        this.bacteria[i].changeImage("url(\"images/characters/bacteria1.png\")");
                     }
                     else {
-                        this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
+                        this.bacteria[i].changeImage("url(\"images/enemy/bacteria3.png\")");
                     }
                     if (this.bacteria[i].rectangle.hitsOtherRectangle(this.char1.rectangle)) {
                         this.bacteria[i].remove();
@@ -1012,27 +1012,27 @@ class Level1 {
                 else {
                     if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle) && this.bacteria[i].counter > 60) {
                         console.log("hitbox detected");
-                        this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
+                        this.bacteria[i].changeImage("url(\"images/characters/bacteria2.png\")");
                         inRange1 = true;
                     }
                     else if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char2.rectangle) && this.bacteria[i].counter > 60) {
                         console.log("hitbox detected");
-                        this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
+                        this.bacteria[i].changeImage("url(\"images/characters/bacteria2.png\")");
                         inRange2 = true;
                     }
                     else if (this.bacteria[i].counter < 60 && this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
-                        this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
+                        this.bacteria[i].changeImage("url(\"images/enemy/bacteria3.png\")");
                         inRange1 = true;
                     }
                     else if (this.bacteria[i].counter < 60 && this.bacteria[i].hitbox.hitsOtherRectangle(this.char2.rectangle)) {
-                        this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
+                        this.bacteria[i].changeImage("url(\"images/enemy/bacteria3.png\")");
                         inRange2 = true;
                     }
                     else if (this.bacteria[i].counter < 60) {
-                        this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
+                        this.bacteria[i].changeImage("url(\"images/enemy/bacteria3.png\")");
                     }
                     else {
-                        this.bacteria[i].changeImage("url(\"../images/characters/bacteria1.png\")");
+                        this.bacteria[i].changeImage("url(\"images/characters/bacteria1.png\")");
                     }
                     if (this.bacteria[i].rectangle.hitsOtherRectangle(this.char1.rectangle)) {
                         this.bacteria[i].remove();
@@ -1064,7 +1064,7 @@ class Level1 {
         }
         if (this.playerCount == 1) {
             if (inRange1) {
-                character1Mouth.style.backgroundImage = "url(\"../images/player/mouth2.png\")";
+                character1Mouth.style.backgroundImage = "url(\"images/player/mouth2.png\")";
                 if (glasses1Scale != "scaleX(-1)") {
                     character1Glasses.style.transform = "rotate(-45deg) " + glasses1Scale;
                 }
@@ -1073,13 +1073,13 @@ class Level1 {
                 }
             }
             else {
-                character1Mouth.style.backgroundImage = "url(\"../images/player/mouth1.png\")";
+                character1Mouth.style.backgroundImage = "url(\"images/player/mouth1.png\")";
                 character1Glasses.style.transform = "rotate(0deg) " + glasses1Scale;
             }
         }
         else {
             if (inRange1) {
-                character1Mouth.style.backgroundImage = "url(\"../images/player/mouth2.png\")";
+                character1Mouth.style.backgroundImage = "url(\"images/player/mouth2.png\")";
                 if (glasses1Scale != "scaleX(-1)") {
                     character1Glasses.style.transform = "rotate(-45deg) " + glasses1Scale;
                 }
@@ -1088,11 +1088,11 @@ class Level1 {
                 }
             }
             else {
-                character1Mouth.style.backgroundImage = "url(\"../images/player/mouth1.png\")";
+                character1Mouth.style.backgroundImage = "url(\"images/player/mouth1.png\")";
                 character1Glasses.style.transform = "rotate(0deg)" + glasses1Scale;
             }
             if (inRange2) {
-                character2Mouth.style.backgroundImage = "url(\"../images/player/mouth2.png\")";
+                character2Mouth.style.backgroundImage = "url(\"images/player/mouth2.png\")";
                 if (glasses2Scale != "scaleX(-1)") {
                     character2Glasses.style.transform = "rotate(-45deg) " + glasses2Scale;
                 }
@@ -1101,7 +1101,7 @@ class Level1 {
                 }
             }
             else {
-                character2Mouth.style.backgroundImage = "url(\"../images/player/mouth1.png\")";
+                character2Mouth.style.backgroundImage = "url(\"images/player/mouth1.png\")";
                 character2Glasses.style.transform = "rotate(0deg) " + glasses2Scale;
             }
         }
@@ -1158,7 +1158,7 @@ class Music {
     }
     musicLoop(musicNumber) {
         var audio = document.createElement("audio");
-        audio.src = "../audio/music" + musicNumber + ".mp3";
+        audio.src = "audio/music" + musicNumber + ".mp3";
         audio.loop = true;
         audio.play();
         document.getElementById("background").appendChild(audio);
@@ -1209,7 +1209,7 @@ class Titlescreen {
         this.titleAnimation();
         this.createMenu();
         var music = new Music(1);
-        this.player1.style.backgroundImage = "url(\"../images/interface/icons/1player_hover.png\")";
+        this.player1.style.backgroundImage = "url(\"images/interface/icons/1player_hover.png\")";
         this.buttonListener = (e) => this.CharacterSelect(e);
         this.player1.addEventListener("click", this.buttonListener);
         this.player2.addEventListener("click", this.buttonListener);
@@ -1220,13 +1220,13 @@ class Titlescreen {
         this.game.Arcade.Joysticks.forEach(j => {
             j.update();
             if (j.Up) {
-                this.player1.style.backgroundImage = "url(\"../images/interface/icons/1player_hover.png\")";
-                this.player2.style.backgroundImage = "url(\"../images/interface/icons/2players.png\")";
+                this.player1.style.backgroundImage = "url(\"images/interface/icons/1player_hover.png\")";
+                this.player2.style.backgroundImage = "url(\"images/interface/icons/2players.png\")";
                 this.mode = 1;
             }
             if (j.Down) {
-                this.player2.style.backgroundImage = "url(\"../images/interface/icons/2players_hover.png\")";
-                this.player1.style.backgroundImage = "url(\"../images/interface/icons/1player.png\")";
+                this.player2.style.backgroundImage = "url(\"images/interface/icons/2players_hover.png\")";
+                this.player1.style.backgroundImage = "url(\"images/interface/icons/1player.png\")";
                 this.mode = 2;
             }
         });
@@ -1246,7 +1246,7 @@ class Titlescreen {
     }
     createMenu() {
         this.player1 = document.createElement("player1");
-        this.player1.style.backgroundImage = "url(\"../images/interface/icons/1player.png\")";
+        this.player1.style.backgroundImage = "url(\"images/interface/icons/1player.png\")";
         this.player1.style.cursor = "pointer";
         this.player1.style.width = "472px";
         this.player1.style.height = "82px";
@@ -1259,7 +1259,7 @@ class Titlescreen {
         this.player1.style.display = "inline-block";
         this.player1.style.animation = "menuMove1 20s infinite";
         this.player2 = document.createElement("player2");
-        this.player2.style.backgroundImage = "url(\"../images/interface/icons/2players.png\")";
+        this.player2.style.backgroundImage = "url(\"images/interface/icons/2players.png\")";
         this.player2.style.cursor = "pointer";
         this.player2.style.width = "519px";
         this.player2.style.height = "78px";
@@ -1272,7 +1272,7 @@ class Titlescreen {
         this.player2.style.display = "inline-block";
         this.player2.style.animation = "menuMove2 20s infinite";
         var achievements = document.createElement("achievement");
-        achievements.style.backgroundImage = "url(\"../images/interface/icons/prestaties.png\")";
+        achievements.style.backgroundImage = "url(\"images/interface/icons/prestaties.png\")";
         achievements.style.cursor = "pointer";
         achievements.style.width = "594px";
         achievements.style.height = "78px";
@@ -1282,17 +1282,17 @@ class Titlescreen {
         achievements.style.position = "absolute";
         achievements.style.display = "inline-block";
         achievements.onmouseover = function () {
-            achievements.style.backgroundImage = "url(\"../images/interface/icons/prestaties_hover.png\")";
+            achievements.style.backgroundImage = "url(\"images/interface/icons/prestaties_hover.png\")";
         };
         achievements.onmouseleave = function () {
-            achievements.style.backgroundImage = "url(\"../images/interface/icons/prestaties.png\")";
+            achievements.style.backgroundImage = "url(\"images/interface/icons/prestaties.png\")";
         };
         achievements.style.animation = "menuMove3 20s infinite";
     }
     titleAnimation() {
         var titleChaseFar = document.createElement('titleChaseFar');
         titleChaseFar.setAttribute("id", "titleChaseFar");
-        titleChaseFar.style.backgroundImage = "url(\"../images/titlescreen/titleChaseFar.png\")";
+        titleChaseFar.style.backgroundImage = "url(\"images/titlescreen/titleChaseFar.png\")";
         titleChaseFar.style.height = "100px";
         titleChaseFar.style.width = "200px";
         titleChaseFar.style.left = "-200px";
@@ -1302,7 +1302,7 @@ class Titlescreen {
         titleChaseFar.style.animationTimingFunction = "linear";
         document.getElementById("background").appendChild(titleChaseFar);
         var title1 = document.createElement("title1");
-        title1.style.backgroundImage = "url(\"../images/titlescreen/title3.png\")";
+        title1.style.backgroundImage = "url(\"images/titlescreen/title3.png\")";
         title1.style.width = "1066px";
         title1.style.height = "434px";
         title1.style.left = "50%";
@@ -1312,7 +1312,7 @@ class Titlescreen {
         document.getElementById("background").appendChild(title1);
         var titleChaseClose = document.createElement('titleChaseClose');
         var positionX = window.innerWidth;
-        titleChaseClose.style.backgroundImage = "url(\"../images/titlescreen/titleChaseClose.png\")";
+        titleChaseClose.style.backgroundImage = "url(\"images/titlescreen/titleChaseClose.png\")";
         titleChaseClose.style.height = "200px";
         titleChaseClose.style.width = "400px";
         titleChaseClose.style.left = positionX + "px";

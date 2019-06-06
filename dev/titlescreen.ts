@@ -16,7 +16,7 @@ class Titlescreen {
         this.createMenu();
         var music = new Music(1); 
         // document.getElementsByTagName("player1").addEventListener("click", this.levelload);
-        this.player1.style.backgroundImage = "url(\"../images/interface/icons/1player_hover.png\")"
+        this.player1.style.backgroundImage = "url(\"images/interface/icons/1player_hover.png\")"
 
         this.buttonListener = (e:Event) => this.CharacterSelect(e as CustomEvent)
         
@@ -31,13 +31,13 @@ class Titlescreen {
             j.update()
 
             if(j.Up) {
-                this.player1.style.backgroundImage = "url(\"../images/interface/icons/1player_hover.png\")"
-                this.player2.style.backgroundImage = "url(\"../images/interface/icons/2players.png\")";
+                this.player1.style.backgroundImage = "url(\"images/interface/icons/1player_hover.png\")"
+                this.player2.style.backgroundImage = "url(\"images/interface/icons/2players.png\")";
                 this.mode = 1
             }
             if(j.Down) {
-                this.player2.style.backgroundImage = "url(\"../images/interface/icons/2players_hover.png\")"
-                this.player1.style.backgroundImage = "url(\"../images/interface/icons/1player.png\")";
+                this.player2.style.backgroundImage = "url(\"images/interface/icons/2players_hover.png\")"
+                this.player1.style.backgroundImage = "url(\"images/interface/icons/1player.png\")";
                 this.mode = 2
             }
         });
@@ -63,7 +63,7 @@ class Titlescreen {
         
         //Create 1 player button
         this.player1 = document.createElement("player1");
-        this.player1.style.backgroundImage = "url(\"../images/interface/icons/1player.png\")";
+        this.player1.style.backgroundImage = "url(\"images/interface/icons/1player.png\")";
         this.player1.style.cursor = "pointer";
         this.player1.style.width = "472px";
         this.player1.style.height = "82px";
@@ -80,7 +80,7 @@ class Titlescreen {
         
         //Create 2 player button
         this.player2 = document.createElement("player2");
-        this.player2.style.backgroundImage = "url(\"../images/interface/icons/2players.png\")";
+        this.player2.style.backgroundImage = "url(\"images/interface/icons/2players.png\")";
         this.player2.style.cursor = "pointer";
         this.player2.style.width = "519px";
         this.player2.style.height = "78px";
@@ -97,7 +97,7 @@ class Titlescreen {
         
         //Create achievements button
         var achievements = document.createElement("achievement");
-        achievements.style.backgroundImage = "url(\"../images/interface/icons/prestaties.png\")";
+        achievements.style.backgroundImage = "url(\"images/interface/icons/prestaties.png\")";
         achievements.style.cursor = "pointer";
         achievements.style.width = "594px";
         achievements.style.height = "78px";
@@ -108,10 +108,10 @@ class Titlescreen {
         // document.getElementById("background").appendChild(achievements);
         achievements.style.display = "inline-block";
         achievements.onmouseover=function(){
-            achievements.style.backgroundImage = "url(\"../images/interface/icons/prestaties_hover.png\")"
+            achievements.style.backgroundImage = "url(\"images/interface/icons/prestaties_hover.png\")"
         }
         achievements.onmouseleave=function(){
-            achievements.style.backgroundImage = "url(\"../images/interface/icons/prestaties.png\")";
+            achievements.style.backgroundImage = "url(\"images/interface/icons/prestaties.png\")";
         }
         achievements.style.animation = "menuMove3 20s infinite";
     }
@@ -121,7 +121,7 @@ class Titlescreen {
         //Create far range image with animation (white cell chase)
         var titleChaseFar = document.createElement('titleChaseFar');
         titleChaseFar.setAttribute("id", "titleChaseFar");
-        titleChaseFar.style.backgroundImage = "url(\"../images/titlescreen/titleChaseFar.png\")";
+        titleChaseFar.style.backgroundImage = "url(\"images/titlescreen/titleChaseFar.png\")";
         titleChaseFar.style.height = "100px";
         titleChaseFar.style.width = "200px";
         titleChaseFar.style.left = "-200px";
@@ -133,7 +133,7 @@ class Titlescreen {
             
         //Create mid range title image with animation
         var title1 = document.createElement("title1");
-        title1.style.backgroundImage = "url(\"../images/titlescreen/title3.png\")";
+        title1.style.backgroundImage = "url(\"images/titlescreen/title3.png\")";
         title1.style.width = "1066px";
         title1.style.height = "434px";
         title1.style.left = "50%";
@@ -145,7 +145,7 @@ class Titlescreen {
         //Create close range image with animation (white cell chase)
         var titleChaseClose = document.createElement('titleChaseClose');
         var positionX = window.innerWidth;
-        titleChaseClose.style.backgroundImage = "url(\"../images/titlescreen/titleChaseClose.png\")";
+        titleChaseClose.style.backgroundImage = "url(\"images/titlescreen/titleChaseClose.png\")";
         titleChaseClose.style.height = "200px";
         titleChaseClose.style.width = "400px";
         titleChaseClose.style.left = positionX + "px";

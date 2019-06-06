@@ -157,11 +157,11 @@ class Level1 {
 
                 if (this.viruses[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
                     console.log("hitbox detected");
-                    this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
+                    this.viruses[i].changeImage("url(\"images/characters/virus2.png\")");
                     inRange1 = true;
                 }
                 else {
-                    this.viruses[i].changeImage("url(\"../images/characters/virus1.png\")");
+                    this.viruses[i].changeImage("url(\"images/characters/virus1.png\")");
                 }
 
                 if (this.viruses[i].rectangle.hitsOtherRectangle(this.char1.rectangle)) {
@@ -179,14 +179,14 @@ class Level1 {
 
                 if (this.viruses[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
                     console.log("hitbox detected");
-                    this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
+                    this.viruses[i].changeImage("url(\"images/characters/virus2.png\")");
                     inRange1 = true;
                 } else if (this.viruses[i].hitbox.hitsOtherRectangle(this.char2.rectangle)) {
                     console.log("hitbox detected");
-                    this.viruses[i].changeImage("url(\"../images/characters/virus2.png\")");
+                    this.viruses[i].changeImage("url(\"images/characters/virus2.png\")");
                     inRange2 = true;
                 } else {
-                    this.viruses[i].changeImage("url(\"../images/characters/virus1.png\")");
+                    this.viruses[i].changeImage("url(\"images/characters/virus1.png\")");
                 }
 
 
@@ -266,13 +266,13 @@ class Level1 {
 
                     if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle) && this.bacteria[i].counter > 60) {
                         console.log("hitbox detected");
-                        this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
+                        this.bacteria[i].changeImage("url(\"images/characters/bacteria2.png\")");
                         inRange1 = true;
                     }
                     else if (this.bacteria[i].counter > 60) {
-                        this.bacteria[i].changeImage("url(\"../images/characters/bacteria1.png\")");
+                        this.bacteria[i].changeImage("url(\"images/characters/bacteria1.png\")");
                     } else {
-                        this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
+                        this.bacteria[i].changeImage("url(\"images/enemy/bacteria3.png\")");
                     }
 
                     if (this.bacteria[i].rectangle.hitsOtherRectangle(this.char1.rectangle)) {
@@ -290,22 +290,22 @@ class Level1 {
 
                     if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle) && this.bacteria[i].counter > 60) {
                         console.log("hitbox detected");
-                        this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
+                        this.bacteria[i].changeImage("url(\"images/characters/bacteria2.png\")");
                         inRange1 = true;
                     } else if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char2.rectangle) && this.bacteria[i].counter > 60) {
                         console.log("hitbox detected");
-                        this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
+                        this.bacteria[i].changeImage("url(\"images/characters/bacteria2.png\")");
                         inRange2 = true;
                     } else if (this.bacteria[i].counter < 60 && this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
-                        this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
+                        this.bacteria[i].changeImage("url(\"images/enemy/bacteria3.png\")");
                         inRange1 = true;
                     } else if (this.bacteria[i].counter < 60 && this.bacteria[i].hitbox.hitsOtherRectangle(this.char2.rectangle)) {
-                        this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
+                        this.bacteria[i].changeImage("url(\"images/enemy/bacteria3.png\")");
                         inRange2 = true;
                     } else if (this.bacteria[i].counter < 60){
-                        this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
+                        this.bacteria[i].changeImage("url(\"images/enemy/bacteria3.png\")");
                     } else {
-                        this.bacteria[i].changeImage("url(\"../images/characters/bacteria1.png\")");
+                        this.bacteria[i].changeImage("url(\"images/characters/bacteria1.png\")");
                     }
 
 
@@ -343,7 +343,7 @@ class Level1 {
 
         if (this.playerCount == 1) {
             if (inRange1) {
-                character1Mouth.style.backgroundImage = "url(\"../images/player/mouth2.png\")";
+                character1Mouth.style.backgroundImage = "url(\"images/player/mouth2.png\")";
                 if (glasses1Scale != "scaleX(-1)") {
                     character1Glasses.style.transform = "rotate(-45deg) " + glasses1Scale;
                 }
@@ -353,14 +353,14 @@ class Level1 {
 
             }
             else {
-                character1Mouth.style.backgroundImage = "url(\"../images/player/mouth1.png\")";
+                character1Mouth.style.backgroundImage = "url(\"images/player/mouth1.png\")";
                 character1Glasses.style.transform = "rotate(0deg) " + glasses1Scale;
                 //character1Glasses.style
             }
         }
         else {
             if (inRange1) {
-                character1Mouth.style.backgroundImage = "url(\"../images/player/mouth2.png\")";
+                character1Mouth.style.backgroundImage = "url(\"images/player/mouth2.png\")";
                 if (glasses1Scale != "scaleX(-1)") {
                     character1Glasses.style.transform = "rotate(-45deg) " + glasses1Scale;
                 }
@@ -369,12 +369,12 @@ class Level1 {
                 }
             }
             else {
-                character1Mouth.style.backgroundImage = "url(\"../images/player/mouth1.png\")";
+                character1Mouth.style.backgroundImage = "url(\"images/player/mouth1.png\")";
                 character1Glasses.style.transform = "rotate(0deg)" + glasses1Scale;
                 //character1Glasses.style
             }
             if (inRange2) {
-                character2Mouth.style.backgroundImage = "url(\"../images/player/mouth2.png\")";
+                character2Mouth.style.backgroundImage = "url(\"images/player/mouth2.png\")";
                 if (glasses2Scale != "scaleX(-1)") {
                     character2Glasses.style.transform = "rotate(-45deg) " + glasses2Scale;
                 }
@@ -383,7 +383,7 @@ class Level1 {
                 }
             }
             else {
-                character2Mouth.style.backgroundImage = "url(\"../images/player/mouth1.png\")";
+                character2Mouth.style.backgroundImage = "url(\"images/player/mouth1.png\")";
                 character2Glasses.style.transform = "rotate(0deg) " + glasses2Scale;
                 //character2Glasses.style
             }

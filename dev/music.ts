@@ -10,7 +10,7 @@ class Music {
     musicLoop(musicNumber){
         var audio = document.createElement("audio");
         
-        audio.src = "../audio/music" + musicNumber + ".mp3";
+        audio.src = "audio/music" + musicNumber + ".mp3";
         audio.loop = true;
         audio.play();
         document.getElementById("background").appendChild(audio);

@@ -20,7 +20,7 @@ class backgroundCells {
             let randomPositionY = Math.floor(Math.random()*window.innerHeight);
             let randomAnimationSpeed = i;
             
-            backgroundCell.style.backgroundImage = "url(\"../images/backgrounds/cell" + randomImage + this.size +".png\")";
+            backgroundCell.style.backgroundImage = "url(\"images/backgrounds/cell" + randomImage + this.size +".png\")";
             backgroundCell.style.transform = "translatez(0)";
             backgroundCell.style.left = positionX + "px";
             backgroundCell.style.top = randomPositionY + "px";

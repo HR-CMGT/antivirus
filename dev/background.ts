@@ -24,7 +24,7 @@ class Background {
     //Create the back layer image (first background image)
     backLayer(backLayerImage){
         var backLayer = document.createElement("backLayer");
-        backLayer.style.backgroundImage = "url(\"../images/backgrounds/backLayer" + backLayerImage + ".jpg\")";
+        backLayer.style.backgroundImage = "url(\"images/backgrounds/backLayer" + backLayerImage + ".jpg\")";
         document.getElementById("background").appendChild(backLayer);
     }
         
@@ -43,7 +43,7 @@ class Background {
     //Create front layer image (transparent second background image)
     private frontLayer(frontLayerImage, animation:boolean){
         var frontLayer = document.createElement("frontLayer");
-        frontLayer.style.backgroundImage = "url(\"../images/backgrounds/frontLayer" + frontLayerImage + ".png\")";
+        frontLayer.style.backgroundImage = "url(\"images/backgrounds/frontLayer" + frontLayerImage + ".png\")";
         document.getElementById("background").appendChild(frontLayer);
         
         if(animation == true){

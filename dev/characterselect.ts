@@ -50,9 +50,9 @@ class CharacterSelect {
         if(player1) {
             if(player1.Left)    { 
                 if(this.playerCount == 1)
-                    this.buttonLeft.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                    this.buttonLeft.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
                 else {
-                    this.buttonLeft1.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                    this.buttonLeft1.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
                 }
                 if(this.delay >= 30) {
                     this.chooseGlasses1Prev() 
@@ -61,9 +61,9 @@ class CharacterSelect {
             }
             else if(player1.Right)   {
                 if(this.playerCount == 1)
-                    this.buttonRight.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                    this.buttonRight.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
                 else {
-                    this.buttonRight1.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                    this.buttonRight1.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
                 }
                 if(this.delay >= 30) { 
                     this.chooseGlasses1() 
@@ -71,32 +71,32 @@ class CharacterSelect {
                 }
             } else {
                 if(this.playerCount == 1) {
-                    this.buttonLeft.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
-                    this.buttonRight.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+                    this.buttonLeft.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
+                    this.buttonRight.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
                 } else {
-                    this.buttonLeft1.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
-                    this.buttonRight1.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+                    this.buttonLeft1.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
+                    this.buttonRight1.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
                 }
             }
         }
 
         if(player2 && this.playerCount ==  2) {
             if(player2.Left)    { 
-                this.buttonLeft2.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                this.buttonLeft2.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
                 if(this.delay >= 30) {
                     this.chooseGlasses2Prev() 
                     this.delay = 0
                 }
             }
             else if(player2.Right)   {
-                this.buttonRight2.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                this.buttonRight2.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
                 if(this.delay >= 30) { 
                     this.chooseGlasses2() 
                     this.delay = 0
                 }
             } else {
-                this.buttonLeft2.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
-                this.buttonRight2.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+                this.buttonLeft2.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
+                this.buttonRight2.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
             }
         }
         this.delay++
@@ -201,10 +201,10 @@ class CharacterSelect {
             this.buttonRight.setAttribute("id", "buttonRight");
             document.getElementById("buttonRight").addEventListener("click", this.chooseGlasses1);
             // this.buttonRight.onmouseover=function(){
-            //     this.buttonRight.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+            //     this.buttonRight.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
             // }
             // this.buttonRight.onmouseleave=function(){
-            //     this.buttonRight.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+            //     this.buttonRight.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
             // }
             
             this.buttonLeft = document.createElement("chooseButtonLeft");
@@ -219,10 +219,10 @@ class CharacterSelect {
             this.buttonLeft.setAttribute("id", "buttonLeft");
             document.getElementById("buttonLeft").addEventListener("click", this.chooseGlasses1Prev);
             // this.buttonLeft.onmouseover=function(){
-            //     this.buttonLeft.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+            //     this.buttonLeft.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
             // }
             // this.buttonLeft.onmouseleave=function(){
-            //     this.buttonLeft.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+            //     this.buttonLeft.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
             // }
 
             var startButton = document.createElement("startButton");
@@ -237,10 +237,10 @@ class CharacterSelect {
             startButton.setAttribute("id", "startButton");
             document.getElementById("startButton").addEventListener("click", this.singleplayer);
             startButton.onmouseover=function(){
-                startButton.style.backgroundImage = "url(\"../images/interface/icons/startButton-hover.png\")";
+                startButton.style.backgroundImage = "url(\"images/interface/icons/startButton-hover.png\")";
             }
             startButton.onmouseleave=function(){
-                startButton.style.backgroundImage = "url(\"../images/interface/icons/startButton.png\")";
+                startButton.style.backgroundImage = "url(\"images/interface/icons/startButton.png\")";
             }
         }
         
@@ -290,10 +290,10 @@ class CharacterSelect {
             this.buttonRight1.setAttribute("id", "buttonRight1");
             document.getElementById("buttonRight1").addEventListener("click", this.chooseGlasses1);
             // this.buttonRight1.onmouseover=function(){
-            //     this.buttonRight1.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+            //     this.buttonRight1.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
             // }
             // this.buttonRight1.onmouseleave=function(){
-            //     this.buttonRight1.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+            //     this.buttonRight1.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
             // }
             
             this.buttonLeft1 = document.createElement("chooseButtonLeft1");
@@ -308,10 +308,10 @@ class CharacterSelect {
             this.buttonLeft1.setAttribute("id", "buttonLeft1");
             document.getElementById("buttonLeft1").addEventListener("click", this.chooseGlasses1Prev);
             // this.buttonLeft1.onmouseover=function(){
-            //     this.buttonLeft1.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+            //     this.buttonLeft1.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
             // }
             // this.buttonLeft1.onmouseleave=function(){
-            //     this.buttonLeft1.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+            //     this.buttonLeft1.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
             // }
 
             // Create image for player 2
@@ -444,10 +444,10 @@ class CharacterSelect {
             this.buttonRight2.setAttribute("id", "buttonRight2");
             document.getElementById("buttonRight2").addEventListener("click", this.chooseGlasses2);
             // this.buttonRight2.onmouseover=function(){
-            //     this.buttonRight2.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+            //     this.buttonRight2.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
             // }
             // this.buttonRight2.onmouseleave=function(){
-            //     this.buttonRight2.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+            //     this.buttonRight2.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
             // }
             
             this.buttonLeft2 = document.createElement("chooseButtonLeft1");
@@ -462,10 +462,10 @@ class CharacterSelect {
             this.buttonLeft2.setAttribute("id", "buttonLeft2");
             document.getElementById("buttonLeft2").addEventListener("click", this.chooseGlasses2Prev);
             // this.buttonLeft2.onmouseover=function(){
-            //     this.buttonLeft2.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+            //     this.buttonLeft2.style.backgroundImage = "url(\"images/interface/icons/arrow-hover.png\")";
             // }
             // this.buttonLeft2.onmouseleave=function(){
-            //     this.buttonLeft2.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+            //     this.buttonLeft2.style.backgroundImage = "url(\"images/interface/icons/arrow.png\")";
             // }
 
             var startButton = document.createElement("startButton");
@@ -480,10 +480,10 @@ class CharacterSelect {
             startButton.setAttribute("id", "startButton");
             document.getElementById("startButton").addEventListener("click", this.multiplayer);
             startButton.onmouseover=function(){
-                startButton.style.backgroundImage = "url(\"../images/interface/icons/startButton-hover.png\")";
+                startButton.style.backgroundImage = "url(\"images/interface/icons/startButton-hover.png\")";
             }
             startButton.onmouseleave=function(){
-                startButton.style.backgroundImage = "url(\"../images/interface/icons/startButton.png\")";
+                startButton.style.backgroundImage = "url(\"images/interface/icons/startButton.png\")";
             }
         }
         
@@ -515,7 +515,7 @@ class CharacterSelect {
     changeGlasses1 = () => { 
         
         var glasses = document.getElementById("player1Glasses");
-        glasses.style.backgroundImage = "url(\"../images/player/glasses"+glassesNumber1+".png\")";
+        glasses.style.backgroundImage = "url(\"images/player/glasses"+glassesNumber1+".png\")";
     }
     
     chooseGlasses2 = () => {
@@ -542,7 +542,7 @@ class CharacterSelect {
     changeGlasses2 = () => { 
         
         var glasses = document.getElementById("player2Glasses");
-        glasses.style.backgroundImage = "url(\"../images/player/glasses"+glassesNumber2+".png\")";
+        glasses.style.backgroundImage = "url(\"images/player/glasses"+glassesNumber2+".png\")";
     }
             
 }
