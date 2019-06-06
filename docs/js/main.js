@@ -832,7 +832,7 @@ class Level1 {
         document.body.appendChild(this.score);
         this.spawnTime = 2000;
         if (playerCount == 1) {
-            for (var i = 0; i < 1; i++) {
+            for (var i = 0; i < 10; i++) {
                 this.lifes.push(new Life(i));
             }
             this.spawnTimer(this.spawnVirus, this.spawnTime);
@@ -1159,9 +1159,9 @@ class Music {
     musicLoop(musicNumber) {
         var audio = document.createElement("audio");
         audio.src = "audio/music" + musicNumber + ".mp3";
+        document.getElementById("background").appendChild(audio);
         audio.loop = true;
         audio.play();
-        document.getElementById("background").appendChild(audio);
     }
 }
 class NomSound {
