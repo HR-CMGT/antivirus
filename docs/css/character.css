@@ -3,14 +3,14 @@
 }
 
 #character1Body {
-    background-image: url('../../images/player/player.png');
+    background-image: url('../images/player/player.png');
     background-repeat: no-repeat;
     width: 200px;
     height:200px;
 }
 
 #character1Mouth {
-    background-image: url('../../images/player/mouth1.png');
+    background-image: url('../images/player/mouth1.png');
     background-repeat: no-repeat;
     width: 200px;
     height:200px;
@@ -27,14 +27,14 @@
 }
 
 #character2Body {
-    background-image: url('../../images/player/player.png');
+    background-image: url('../images/player/player.png');
     background-repeat: no-repeat;
     width: 200px;
     height:200px;
 }
 
 #character2Mouth {
-    background-image: url('../../images/player/mouth1.png');
+    background-image: url('../images/player/mouth1.png');
     background-repeat: no-repeat;
     width: 200px;
     height:200px;
