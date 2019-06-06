@@ -9,7 +9,7 @@ class NomSound {
     nomSound(nomNumber){
         var audio = document.createElement("audio");
         
-        audio.src = "../audio/nom" + nomNumber + ".mp3";
+        audio.src = "audio/nom" + nomNumber + ".mp3";
         audio.loop = false;
         audio.play();
         document.getElementById("background").appendChild(audio);
