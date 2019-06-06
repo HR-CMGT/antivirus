@@ -18,9 +18,10 @@ class Level1 {
     public spawnTime: number;
     public enemy: Enemy;
     public randomNomNumber: number;
+    private game: Game;
 
-    constructor(playerCount: number) {
-
+    constructor(game : Game, playerCount: number) {
+        this.game = game
         this.enemy = new Enemy(new Vector(0, 0));
         this.playerCount = playerCount;
         this.utils = new Utils();
@@ -42,10 +43,9 @@ class Level1 {
 
         if (playerCount == 1) {
 
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 1; i++) {
                 this.lifes.push(new Life(i));
             }
-
 
             this.spawnTimer(this.spawnVirus, this.spawnTime);
 
@@ -54,7 +54,7 @@ class Level1 {
             //     this.viruses.push(new Virus());
             // }
 
-            this.char1 = new Character(37, 39, 38, 40, new Vector(500, 500), 1);
+            this.char1 = new Character(37, 39, 38, 40, new Vector(500, 500), 1, this.game.Arcade.Joysticks[0]);
 
 
         } else {
@@ -65,8 +65,8 @@ class Level1 {
 
             this.timer = setInterval(this.spawnVirus.bind(this), 750);
 
-            this.char1 = new Character(37, 39, 38, 40, new Vector(1500, 1500), 1);
-            this.char2 = new Character(65, 68, 87, 83, new Vector(1500, 1500), 2);
+            this.char1 = new Character(37, 39, 38, 40, new Vector(1500, 1500), 1, this.game.Arcade.Joysticks[0]);
+            this.char2 = new Character(65, 68, 87, 83, new Vector(1500, 1500), 2, this.game.Arcade.Joysticks[1]);
         }
         requestAnimationFrame(this.gameLoop.bind(this));
     }
@@ -100,6 +100,8 @@ class Level1 {
 
 
     private gameLoop() {
+        this.game.Arcade.Joysticks.forEach(j => j.update())
+
         var character1Mouth = document.getElementById("character1Mouth");
         var character1Glasses = document.getElementById("character1Glasses");
         var character2Mouth = document.getElementById("character2Mouth");
@@ -133,7 +135,10 @@ class Level1 {
                 this.viruses.splice(0, this.viruses.length);
                 clearInterval(this.timer);
                 this.utils.removePreviousBackground();
-                new GameOver(this.scoreCount, this.playerCount);
+
+                // game over
+
+                new GameOver(this.game, this.scoreCount, this.playerCount);
             } else {
                 this.viruses[i].move(this.lifes[random]);
                 if (this.viruses[i].hitsLife(this.lifes[random]) == true) {
@@ -210,128 +215,130 @@ class Level1 {
         }
 
         //bacteria movement
-        for (let i = 0; i < this.bacteria.length; i++) {
-            let random = Math.floor(Math.random() * this.lifes.length);
+        if(this.bacteria.length > 0) {
+            for (let i = 0; i < this.bacteria.length; i++) {
+                let random = Math.floor(Math.random() * this.lifes.length);
 
-            //setInterval(this.splitBacteria(), 1000);
-            this.bacteria[i].counter--;
-            if (this.bacteria[i].counter == 0) {
-                let newPosition = new Vector(this.bacteria[i].position.x, this.bacteria[i].position.y - 40);
-                this.bacteria.push(new Bacteria(bacteriaCount, newPosition));
-                this.bacteria[i].position.y += 40;
-                this.bacteria[i].div.style.transform = "translate(" + this.bacteria[i].position.x + "px, " + this.bacteria[i].position.y + "px)";
-                bacteriaCount++;
-                this.bacteria[i].counter = 300;
-            }
-
-
-
-
-            if (this.lifes.length == 0) {
-                this.bacteria.splice(0, this.bacteria.length);
-                clearInterval(this.timer);
-                this.utils.removePreviousBackground();
-                new GameOver(this.scoreCount, this.playerCount);
-            } else {
-                this.bacteria[i].move(this.lifes[0]);
-
-                let angle = Math.atan2(this.lifes[0].position.y - this.bacteria[i].position.y, this.lifes[0].position.x - this.bacteria[i].position.x);
-                angle = angle * (180 / Math.PI);
-
-                if (angle < 0) {
-                    angle = 360 - (-angle);
+                //setInterval(this.splitBacteria(), 1000);
+                this.bacteria[i].counter--;
+                if (this.bacteria[i].counter == 0) {
+                    let newPosition = new Vector(this.bacteria[i].position.x, this.bacteria[i].position.y - 40);
+                    this.bacteria.push(new Bacteria(bacteriaCount, newPosition));
+                    this.bacteria[i].position.y += 40;
+                    this.bacteria[i].div.style.transform = "translate(" + this.bacteria[i].position.x + "px, " + this.bacteria[i].position.y + "px)";
+                    bacteriaCount++;
+                    this.bacteria[i].counter = 300;
                 }
 
-                // this.bacteria[i].div.style.transform = "rotate("+angle+"deg)";
-                if (this.bacteria[i].direction.x >= 0) {
-                    this.bacteria[i].div.style.transform = "translate(" + this.bacteria[i].position.x + "px, " + this.bacteria[i].position.y + "px) rotate(" + angle + "deg) scale(-1, 1)";
+
+
+
+                if (this.lifes.length == 0) {
+                    this.bacteria.splice(0, this.bacteria.length);
+                    clearInterval(this.timer);
+                    this.utils.removePreviousBackground();
+                    new GameOver(this.scoreCount, this.playerCount, this.game);
                 } else {
-                    this.bacteria[i].div.style.transform = "translate(" + this.bacteria[i].position.x + "px, " + this.bacteria[i].position.y + "px) rotate(" + angle + "deg) scale(-1, -1)";
+                    this.bacteria[i].move(this.lifes[0]);
+
+                    let angle = Math.atan2(this.lifes[0].position.y - this.bacteria[i].position.y, this.lifes[0].position.x - this.bacteria[i].position.x);
+                    angle = angle * (180 / Math.PI);
+
+                    if (angle < 0) {
+                        angle = 360 - (-angle);
+                    }
+
+                    // this.bacteria[i].div.style.transform = "rotate("+angle+"deg)";
+                    if (this.bacteria[i].direction.x >= 0) {
+                        this.bacteria[i].div.style.transform = "translate(" + this.bacteria[i].position.x + "px, " + this.bacteria[i].position.y + "px) rotate(" + angle + "deg) scale(-1, 1)";
+                    } else {
+                        this.bacteria[i].div.style.transform = "translate(" + this.bacteria[i].position.x + "px, " + this.bacteria[i].position.y + "px) rotate(" + angle + "deg) scale(-1, -1)";
+                    }
+
+
+
                 }
 
 
 
-            }
+                if (this.playerCount == 1) {
 
 
+                    if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle) && this.bacteria[i].counter > 60) {
+                        console.log("hitbox detected");
+                        this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
+                        inRange1 = true;
+                    }
+                    else if (this.bacteria[i].counter > 60) {
+                        this.bacteria[i].changeImage("url(\"../images/characters/bacteria1.png\")");
+                    } else {
+                        this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
+                    }
 
-            if (this.playerCount == 1) {
-
-
-                if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle) && this.bacteria[i].counter > 60) {
-                    console.log("hitbox detected");
-                    this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
-                    inRange1 = true;
+                    if (this.bacteria[i].rectangle.hitsOtherRectangle(this.char1.rectangle)) {
+                        this.bacteria[i].remove();
+                        this.bacteria.splice(i, 1);
+                        this.scoreCount++;
+                        this.score.innerHTML = "" + this.scoreCount;
+                        this.randomNomNumber = Math.floor(Math.random() * 5 + 1);
+                        var nomSound = new NomSound(this.randomNomNumber);
+                        break;
+                    }
                 }
-                else if (this.bacteria[i].counter > 60) {
-                    this.bacteria[i].changeImage("url(\"../images/characters/bacteria1.png\")");
-                } else {
-                    this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
-                }
+                else {
 
-                if (this.bacteria[i].rectangle.hitsOtherRectangle(this.char1.rectangle)) {
+
+                    if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle) && this.bacteria[i].counter > 60) {
+                        console.log("hitbox detected");
+                        this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
+                        inRange1 = true;
+                    } else if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char2.rectangle) && this.bacteria[i].counter > 60) {
+                        console.log("hitbox detected");
+                        this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
+                        inRange2 = true;
+                    } else if (this.bacteria[i].counter < 60 && this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
+                        this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
+                        inRange1 = true;
+                    } else if (this.bacteria[i].counter < 60 && this.bacteria[i].hitbox.hitsOtherRectangle(this.char2.rectangle)) {
+                        this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
+                        inRange2 = true;
+                    } else if (this.bacteria[i].counter < 60){
+                        this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
+                    } else {
+                        this.bacteria[i].changeImage("url(\"../images/characters/bacteria1.png\")");
+                    }
+
+
+                    if (this.bacteria[i].rectangle.hitsOtherRectangle(this.char1.rectangle)) {
+                        // var enemy  = document.getElementById("virus"+virus.id);
+                        this.bacteria[i].remove();
+                        this.bacteria.splice(i, 1);
+                        this.scoreCount++;
+                        this.score.innerHTML = "" + this.scoreCount;
+                        this.randomNomNumber = Math.floor(Math.random() * 5 + 6);
+                        var nomSound = new NomSound(this.randomNomNumber);
+                        break;
+                    }
+                    else if (this.bacteria[i].rectangle.hitsOtherRectangle(this.char2.rectangle)) {
+                        this.bacteria[i].remove();
+                        this.bacteria.splice(i, 1);
+                        this.scoreCount++;
+                        this.score.innerHTML = "" + this.scoreCount;
+                        this.randomNomNumber = Math.floor(Math.random() * 5 + 11);
+                        var nomSound = new NomSound(this.randomNomNumber);
+                        break;
+                    }
+
+                }
+                if (this.bacteria[i].hitsLife(this.lifes[random]) == true) {
+                    var life = document.getElementById("" + this.lifes[random].id);
+                    life.remove();
+                    this.lifes.splice(random, 1);
                     this.bacteria[i].remove();
                     this.bacteria.splice(i, 1);
-                    this.scoreCount++;
-                    this.score.innerHTML = "" + this.scoreCount;
-                    this.randomNomNumber = Math.floor(Math.random() * 5 + 1);
-                    var nomSound = new NomSound(this.randomNomNumber);
-                    break;
-                }
-            }
-            else {
-
-
-                if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle) && this.bacteria[i].counter > 60) {
-                    console.log("hitbox detected");
-                    this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
-                    inRange1 = true;
-                } else if (this.bacteria[i].hitbox.hitsOtherRectangle(this.char2.rectangle) && this.bacteria[i].counter > 60) {
-                    console.log("hitbox detected");
-                    this.bacteria[i].changeImage("url(\"../images/characters/bacteria2.png\")");
-                    inRange2 = true;
-                } else if (this.bacteria[i].counter < 60 && this.bacteria[i].hitbox.hitsOtherRectangle(this.char1.rectangle)) {
-                    this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
-                    inRange1 = true;
-                } else if (this.bacteria[i].counter < 60 && this.bacteria[i].hitbox.hitsOtherRectangle(this.char2.rectangle)) {
-                    this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
-                    inRange2 = true;
-                } else if (this.bacteria[i].counter < 60){
-                    this.bacteria[i].changeImage("url(\"../images/enemy/bacteria3.png\")");
-                } else {
-                    this.bacteria[i].changeImage("url(\"../images/characters/bacteria1.png\")");
-                }
-
-
-                if (this.bacteria[i].rectangle.hitsOtherRectangle(this.char1.rectangle)) {
-                    // var enemy  = document.getElementById("virus"+virus.id);
-                    this.bacteria[i].remove();
-                    this.bacteria.splice(i, 1);
-                    this.scoreCount++;
-                    this.score.innerHTML = "" + this.scoreCount;
-                    this.randomNomNumber = Math.floor(Math.random() * 5 + 6);
-                    var nomSound = new NomSound(this.randomNomNumber);
-                    break;
-                }
-                else if (this.bacteria[i].rectangle.hitsOtherRectangle(this.char2.rectangle)) {
-                    this.bacteria[i].remove();
-                    this.bacteria.splice(i, 1);
-                    this.scoreCount++;
-                    this.score.innerHTML = "" + this.scoreCount;
-                    this.randomNomNumber = Math.floor(Math.random() * 5 + 11);
-                    var nomSound = new NomSound(this.randomNomNumber);
-                    break;
                 }
 
             }
-            if (this.bacteria[i].hitsLife(this.lifes[random]) == true) {
-                var life = document.getElementById("" + this.lifes[random].id);
-                life.remove();
-                this.lifes.splice(random, 1);
-                this.bacteria[i].remove();
-                this.bacteria.splice(i, 1);
-            }
-
         }
 
         if (this.playerCount == 1) {

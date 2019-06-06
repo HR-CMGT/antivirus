@@ -1,30 +1,113 @@
 class CharacterSelect {
     
     public utils:Utils;
+    private game: Game;
     //public glassesNumber1:number;
-    
-    constructor(playerCount:number){
+    private buttonListener : EventListener
+    private delay : number = 30
+    private playerCount : number = 0
+    buttonRight: HTMLElement;
+    buttonLeft: HTMLElement;
+    buttonLeft1: HTMLElement;
+    buttonLeft2: HTMLElement;
+    buttonRight1: HTMLElement;
+    buttonRight2: HTMLElement;
+
+
+    constructor(game: Game, playerCount:number){
+        this.game = game
+        this.playerCount = playerCount
         this.gameMode(playerCount);
 
+        if (playerCount == 1) {
+            this.buttonListener = () => this.singleplayer()    
+        } else {
+            this.buttonListener = () => this.multiplayer()    
+        }
+
+        document.addEventListener("joystick0button0", this.buttonListener)
+        document.addEventListener("joystick1button0", this.buttonListener)
     }
     
     public singleplayer(){
-        new Level1(1);
+        document.removeEventListener("joystick0button0", this.buttonListener)
+        document.removeEventListener("joystick1button0", this.buttonListener)
+        new Level1(this.game, 1);
     }
     
     public multiplayer(){
-        new Level1(2);
+        document.removeEventListener("joystick0button0", this.buttonListener)
+        document.removeEventListener("joystick1button0", this.buttonListener)
+        new Level1(this.game, 2);
     }
     
-    gameMode(playerCount){
-
+    update() {
+        this.game.Arcade.Joysticks.forEach(j => j.update())
         
+        let player1 = this.game.Arcade.Joysticks[0]
+        let player2 = this.game.Arcade.Joysticks[1]
+
+        if(player1) {
+            if(player1.Left)    { 
+                if(this.playerCount == 1)
+                    this.buttonLeft.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                else {
+                    this.buttonLeft1.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                }
+                if(this.delay >= 30) {
+                    this.chooseGlasses1Prev() 
+                    this.delay = 0
+                }
+            }
+            else if(player1.Right)   {
+                if(this.playerCount == 1)
+                    this.buttonRight.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                else {
+                    this.buttonRight1.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                }
+                if(this.delay >= 30) { 
+                    this.chooseGlasses1() 
+                    this.delay = 0
+                }
+            } else {
+                if(this.playerCount == 1) {
+                    this.buttonLeft.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+                    this.buttonRight.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+                } else {
+                    this.buttonLeft1.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+                    this.buttonRight1.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+                }
+            }
+        }
+
+        if(player2 && this.playerCount ==  2) {
+            if(player2.Left)    { 
+                this.buttonLeft2.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                if(this.delay >= 30) {
+                    this.chooseGlasses2Prev() 
+                    this.delay = 0
+                }
+            }
+            else if(player2.Right)   {
+                this.buttonRight2.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+                if(this.delay >= 30) { 
+                    this.chooseGlasses2() 
+                    this.delay = 0
+                }
+            } else {
+                this.buttonLeft2.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+                this.buttonRight2.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+            }
+        }
+        this.delay++
+    }
+
+    gameMode(playerCount){
         if(playerCount == 1){
             this.utils = new Utils();
             this.utils.removePreviousBackground();
             let background = new Background(1,1,false);
             var music = new Music(2);
-            
             
             // Create image for player 1
             let player1 = document.createElement("choosePlayer1");
@@ -105,42 +188,42 @@ class CharacterSelect {
             arrowUpButton.setAttribute("id","arrowUpButton");
 
             // Choose glasses
-            let buttonRight = document.createElement("chooseButtonRight");
-            buttonRight.style.backgroundImage = "url('../images/interface/icons/arrow.png')";
-            buttonRight.style.cursor = "pointer";
-            buttonRight.style.width = "82px";
-            buttonRight.style.height = "110px";
-            buttonRight.style.transform = "scale("+ -1 +")";
-            buttonRight.style.top = "30%";
-            buttonRight.style.left = "60%";
-            buttonRight.style.marginLeft = "-41px";
-            document.getElementById("background").appendChild(buttonRight);
-            buttonRight.setAttribute("id", "buttonRight");
+            this.buttonRight = document.createElement("chooseButtonRight");
+            this.buttonRight.style.backgroundImage = "url('../images/interface/icons/arrow.png')";
+            this.buttonRight.style.cursor = "pointer";
+            this.buttonRight.style.width = "82px";
+            this.buttonRight.style.height = "110px";
+            this.buttonRight.style.transform = "scale("+ -1 +")";
+            this.buttonRight.style.top = "30%";
+            this.buttonRight.style.left = "60%";
+            this.buttonRight.style.marginLeft = "-41px";
+            document.getElementById("background").appendChild(this.buttonRight);
+            this.buttonRight.setAttribute("id", "buttonRight");
             document.getElementById("buttonRight").addEventListener("click", this.chooseGlasses1);
-            buttonRight.onmouseover=function(){
-                buttonRight.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
-            }
-            buttonRight.onmouseleave=function(){
-                buttonRight.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
-            }
+            // this.buttonRight.onmouseover=function(){
+            //     this.buttonRight.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+            // }
+            // this.buttonRight.onmouseleave=function(){
+            //     this.buttonRight.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+            // }
             
-            let buttonLeft = document.createElement("chooseButtonLeft");
-            buttonLeft.style.backgroundImage = "url('../images/interface/icons/arrow.png')";
-            buttonLeft.style.cursor = "pointer";
-            buttonLeft.style.width = "80px";
-            buttonLeft.style.height = "110px";
-            buttonLeft.style.top = "30%";
-            buttonLeft.style.left = "40%";
-            buttonLeft.style.marginLeft = "-41px";
-            document.getElementById("background").appendChild(buttonLeft);
-            buttonLeft.setAttribute("id", "buttonLeft");
+            this.buttonLeft = document.createElement("chooseButtonLeft");
+            this.buttonLeft.style.backgroundImage = "url('../images/interface/icons/arrow.png')";
+            this.buttonLeft.style.cursor = "pointer";
+            this.buttonLeft.style.width = "80px";
+            this.buttonLeft.style.height = "110px";
+            this.buttonLeft.style.top = "30%";
+            this.buttonLeft.style.left = "40%";
+            this.buttonLeft.style.marginLeft = "-41px";
+            document.getElementById("background").appendChild(this.buttonLeft);
+            this.buttonLeft.setAttribute("id", "buttonLeft");
             document.getElementById("buttonLeft").addEventListener("click", this.chooseGlasses1Prev);
-            buttonLeft.onmouseover=function(){
-                buttonLeft.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
-            }
-            buttonLeft.onmouseleave=function(){
-                buttonLeft.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
-            }
+            // this.buttonLeft.onmouseover=function(){
+            //     this.buttonLeft.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+            // }
+            // this.buttonLeft.onmouseleave=function(){
+            //     this.buttonLeft.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+            // }
 
             var startButton = document.createElement("startButton");
             startButton.style.backgroundImage = "url('../images/interface/icons/startButton.png')";
@@ -194,42 +277,42 @@ class CharacterSelect {
             document.getElementById("choosePlayer1").appendChild(player1Glasses);
             player1Glasses.setAttribute("id", "player1Glasses");
                         
-            let buttonRight1 = document.createElement("chooseButtonRight1");
-            buttonRight1.style.backgroundImage = "url('../images/interface/icons/arrow.png')";
-            buttonRight1.style.cursor = "pointer";
-            buttonRight1.style.width = "82px";
-            buttonRight1.style.height = "110px";
-            buttonRight1.style.transform = "scale("+ -1 +")";
-            buttonRight1.style.top = "30%";
-            buttonRight1.style.left = "85%";
-            buttonRight1.style.marginLeft = "-41px";
-            document.getElementById("background").appendChild(buttonRight1);
-            buttonRight1.setAttribute("id", "buttonRight1");
+            this.buttonRight1 = document.createElement("chooseButtonRight1");
+            this.buttonRight1.style.backgroundImage = "url('../images/interface/icons/arrow.png')";
+            this.buttonRight1.style.cursor = "pointer";
+            this.buttonRight1.style.width = "82px";
+            this.buttonRight1.style.height = "110px";
+            this.buttonRight1.style.transform = "scale("+ -1 +")";
+            this.buttonRight1.style.top = "30%";
+            this.buttonRight1.style.left = "85%";
+            this.buttonRight1.style.marginLeft = "-41px";
+            document.getElementById("background").appendChild(this.buttonRight1);
+            this.buttonRight1.setAttribute("id", "buttonRight1");
             document.getElementById("buttonRight1").addEventListener("click", this.chooseGlasses1);
-            buttonRight1.onmouseover=function(){
-                buttonRight1.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
-            }
-            buttonRight1.onmouseleave=function(){
-                buttonRight1.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
-            }
+            // this.buttonRight1.onmouseover=function(){
+            //     this.buttonRight1.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+            // }
+            // this.buttonRight1.onmouseleave=function(){
+            //     this.buttonRight1.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+            // }
             
-            let buttonLeft1 = document.createElement("chooseButtonLeft1");
-            buttonLeft1.style.backgroundImage = "url('../images/interface/icons/arrow.png')";
-            buttonLeft1.style.cursor = "pointer";
-            buttonLeft1.style.width = "80px";
-            buttonLeft1.style.height = "110px";
-            buttonLeft1.style.top = "30%";
-            buttonLeft1.style.left = "65%";
-            buttonLeft1.style.marginLeft = "-41px";
-            document.getElementById("background").appendChild(buttonLeft1);
-            buttonLeft1.setAttribute("id", "buttonLeft1");
+            this.buttonLeft1 = document.createElement("chooseButtonLeft1");
+            this.buttonLeft1.style.backgroundImage = "url('../images/interface/icons/arrow.png')";
+            this.buttonLeft1.style.cursor = "pointer";
+            this.buttonLeft1.style.width = "80px";
+            this.buttonLeft1.style.height = "110px";
+            this.buttonLeft1.style.top = "30%";
+            this.buttonLeft1.style.left = "65%";
+            this.buttonLeft1.style.marginLeft = "-41px";
+            document.getElementById("background").appendChild(this.buttonLeft1);
+            this.buttonLeft1.setAttribute("id", "buttonLeft1");
             document.getElementById("buttonLeft1").addEventListener("click", this.chooseGlasses1Prev);
-            buttonLeft1.onmouseover=function(){
-                buttonLeft1.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
-            }
-            buttonLeft1.onmouseleave=function(){
-                buttonLeft1.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
-            }
+            // this.buttonLeft1.onmouseover=function(){
+            //     this.buttonLeft1.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+            // }
+            // this.buttonLeft1.onmouseleave=function(){
+            //     this.buttonLeft1.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+            // }
 
             // Create image for player 2
             let player2 = document.createElement("choosePlayer2");
@@ -348,42 +431,42 @@ class CharacterSelect {
             document.getElementById('background').appendChild(aButton);
             aButton.setAttribute("id","aButton");
            
-            let buttonRight2 = document.createElement("chooseButtonRight1");
-            buttonRight2.style.backgroundImage = "url('../images/interface/icons/arrow.png')";
-            buttonRight2.style.cursor = "pointer";
-            buttonRight2.style.width = "82px";
-            buttonRight2.style.height = "110px";
-            buttonRight2.style.transform = "scale("+ -1 +")";
-            buttonRight2.style.top = "30%";
-            buttonRight2.style.left = "35%";
-            buttonRight2.style.marginLeft = "-41px";
-            document.getElementById("background").appendChild(buttonRight2);
-            buttonRight2.setAttribute("id", "buttonRight2");
+            this.buttonRight2 = document.createElement("chooseButtonRight1");
+            this.buttonRight2.style.backgroundImage = "url('../images/interface/icons/arrow.png')";
+            this.buttonRight2.style.cursor = "pointer";
+            this.buttonRight2.style.width = "82px";
+            this.buttonRight2.style.height = "110px";
+            this.buttonRight2.style.transform = "scale("+ -1 +")";
+            this.buttonRight2.style.top = "30%";
+            this.buttonRight2.style.left = "35%";
+            this.buttonRight2.style.marginLeft = "-41px";
+            document.getElementById("background").appendChild(this.buttonRight2);
+            this.buttonRight2.setAttribute("id", "buttonRight2");
             document.getElementById("buttonRight2").addEventListener("click", this.chooseGlasses2);
-            buttonRight2.onmouseover=function(){
-                buttonRight2.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
-            }
-            buttonRight2.onmouseleave=function(){
-                buttonRight2.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
-            }
+            // this.buttonRight2.onmouseover=function(){
+            //     this.buttonRight2.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+            // }
+            // this.buttonRight2.onmouseleave=function(){
+            //     this.buttonRight2.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+            // }
             
-            let buttonLeft2 = document.createElement("chooseButtonLeft1");
-            buttonLeft2.style.backgroundImage = "url('../images/interface/icons/arrow.png')";
-            buttonLeft2.style.cursor = "pointer";
-            buttonLeft2.style.width = "80px";
-            buttonLeft2.style.height = "110px";
-            buttonLeft2.style.top = "30%";
-            buttonLeft2.style.left = "15%";
-            buttonLeft2.style.marginLeft = "-41px";
-            document.getElementById("background").appendChild(buttonLeft2);
-            buttonLeft2.setAttribute("id", "buttonLeft2");
+            this.buttonLeft2 = document.createElement("chooseButtonLeft1");
+            this.buttonLeft2.style.backgroundImage = "url('../images/interface/icons/arrow.png')";
+            this.buttonLeft2.style.cursor = "pointer";
+            this.buttonLeft2.style.width = "80px";
+            this.buttonLeft2.style.height = "110px";
+            this.buttonLeft2.style.top = "30%";
+            this.buttonLeft2.style.left = "15%";
+            this.buttonLeft2.style.marginLeft = "-41px";
+            document.getElementById("background").appendChild(this.buttonLeft2);
+            this.buttonLeft2.setAttribute("id", "buttonLeft2");
             document.getElementById("buttonLeft2").addEventListener("click", this.chooseGlasses2Prev);
-            buttonLeft2.onmouseover=function(){
-                buttonLeft2.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
-            }
-            buttonLeft2.onmouseleave=function(){
-                buttonLeft2.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
-            }
+            // this.buttonLeft2.onmouseover=function(){
+            //     this.buttonLeft2.style.backgroundImage = "url(\"../images/interface/icons/arrow-hover.png\")";
+            // }
+            // this.buttonLeft2.onmouseleave=function(){
+            //     this.buttonLeft2.style.backgroundImage = "url(\"../images/interface/icons/arrow.png\")";
+            // }
 
             var startButton = document.createElement("startButton");
             startButton.style.backgroundImage = "url('../images/interface/icons/startButton.png')";

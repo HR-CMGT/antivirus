@@ -20,11 +20,13 @@
 }
 
 #tryAgain{
-    top: 50%;
-    background-image: url("../../images/interface/icons/try-again.png");
+    top: 60%;
+    /* background-image: url("../../images/interface/icons/try-again.png"); */
     margin-left: -301.64px!important;
     width: 603px;
     height: 84px;
+    color: #b6ff00;
+    font-size: 4em;
 }
 
 #feedback, #tryAgain{

@@ -11,8 +11,8 @@ class Character extends Player{
     public mouth;
     public glasses;
     
-    constructor(left:number, right:number, up:number, down:number, pos:Vector, playerNumber: number){
-        super(left, right, up, down, pos, playerNumber);
+    constructor(left:number, right:number, up:number, down:number, pos:Vector, playerNumber: number, joystick:Joystick){
+        super(left, right, up, down, pos, playerNumber, joystick);
         
         this.characterNumber = playerNumber;
         

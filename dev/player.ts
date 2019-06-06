@@ -24,11 +24,13 @@ class Player extends GameObject {
     public x: number;
     public y: number;
     public hitboxPosition: Vector;
+    private joystick: Joystick;
 
-    constructor(left: number, right: number, up: number, down: number, pos: Vector, playerNumber: number) {
+    constructor(left: number, right: number, up: number, down: number, pos: Vector, playerNumber: number, joystick:Joystick) {
         super(pos);
         
         this.playerNumber = playerNumber;
+        this.joystick = joystick
 
         this.upkey = up;
         this.downkey = down;
@@ -70,14 +72,25 @@ class Player extends GameObject {
 
         switch (event.keyCode) {
             case this.upkey:
-                this.upSpeed = new Vector(0, -10);
+                this.moveUp()
                 
                 break;
             case this.downkey:
-                this.downSpeed = new Vector(0, 10);
+                this.moveDown()
                 break;
             case this.leftkey:
-                this.leftSpeed = new Vector(-10, 0);
+                this.moveLeft()
+                
+                break;
+            case this.rightkey:
+                this.moveRight()
+                break;
+        }
+
+    }
+
+    private moveLeft() {
+        this.leftSpeed = new Vector(-10, 0);
                 switch(this.playerNumber){
                     case 1:
                         glasses1Scale = "scaleX(-1)";
@@ -92,10 +105,9 @@ class Player extends GameObject {
                         document.getElementById("character2Glasses").style.transform = glasses2Scale;
                         break;   
                 }
-                
-                break;
-            case this.rightkey:
-                this.rightSpeed = new Vector(10, 0);
+    }
+    private moveRight() {
+        this.rightSpeed = new Vector(10, 0);
                 switch(this.playerNumber){
                     case 1:
                         glasses1Scale = "scaleX(1)";
@@ -110,11 +122,14 @@ class Player extends GameObject {
                         document.getElementById("character2Glasses").style.transform = glasses2Scale;
                         break;   
                 }
-                break;
-        }
-
     }
 
+    private moveUp() {
+        this.upSpeed = new Vector(0, -10);
+    }
+    private moveDown() {
+        this.downSpeed = new Vector(0, 10);
+    }
     // speed op 0 alleen als de eigen keys zijn losgelaten
     private onKeyUp(event: KeyboardEvent): void {
         switch (event.keyCode) {
@@ -136,7 +151,20 @@ class Player extends GameObject {
 
     // bewegen - let op, de move functie wordt door game aangeroepen - animatie is niet smooth als de keydown listener een beweging triggered
     public move(): void {
-        
+        if(this.joystick) {
+            if(this.joystick.Left)  { this.moveLeft() }
+            else this.leftSpeed = new Vector(0,0);
+
+            if(this.joystick.Right) { this.moveRight() }
+            else this.rightSpeed = new Vector(0,0);
+
+            if(this.joystick.Up)    { this.moveUp() }
+            else this.upSpeed = new Vector(0,0);
+
+            if(this.joystick.Down)  { this.moveDown() }
+            else this.downSpeed = new Vector(0,0);
+        }
+
         this.hitboxPosition = new Vector(this.position.x + 25, this.position.y + 25);
         
         this.rectangle = new Rectangle(this.hitboxPosition,100,100);

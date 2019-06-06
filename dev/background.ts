@@ -45,7 +45,7 @@ class Background {
         var frontLayer = document.createElement("frontLayer");
         frontLayer.style.backgroundImage = "url(\"../images/backgrounds/frontLayer" + frontLayerImage + ".png\")";
         document.getElementById("background").appendChild(frontLayer);
-        console.log(animation);
+        
         if(animation == true){
             frontLayer.style.animation = "changeFrontLayer 210000ms linear";
             frontLayer.style.animationFillMode = "forwards";
