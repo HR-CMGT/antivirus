@@ -1389,7 +1389,7 @@ class Virus extends Enemy {
 }
 class Arcade {
     constructor(mp = false) {
-        this.DEBUG = true;
+        this.DEBUG = false;
         this.REDIRECT_URL = "http://hr-cmgt.github.io/arcade-server";
         this.multiplayer = false;
         this.multiplayer = mp;
