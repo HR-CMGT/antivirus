@@ -33,11 +33,11 @@ class Character extends Player{
         
         switch(this.characterNumber){
             case 1:
-                this.glasses.style.backgroundImage = "url('../images/player/glasses"+glassesNumber1+".png')"
+                this.glasses.style.backgroundImage = "url('images/player/glasses"+glassesNumber1+".png')"
                 document.getElementById("character" + this.characterNumber).appendChild(this.glasses);
                 break;
             case 2:
-                this.glasses.style.backgroundImage = "url('../images/player/glasses"+glassesNumber2+".png')"
+                this.glasses.style.backgroundImage = "url('images/player/glasses"+glassesNumber2+".png')"
                 document.getElementById("character" + this.characterNumber).appendChild(this.glasses);
                 break;
         } 
